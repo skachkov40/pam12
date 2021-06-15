@@ -1,0 +1,158 @@
+<div class = "msg">
+  <mat-drawer-container class="sidenav">
+    <mat-drawer class="navbuttons" mode="side" opened>
+      <button class="poluch" mat-button (click)="GetAll()">Получить</button>
+      <button class="write" mat-button (click)="Write()">Написать</button>
+      <button class="inbox" mat-button (click)="clickInBox()"
+      [ngClass]="{'inboxactive': color}">Входящие</button>
+      <button class="outbox" mat-button (click)="clickOutBox()"
+      [ngClass]="{'outboxactive': color2}">Исходящие</button>
+    </mat-drawer>
+    <mat-drawer-content >
+      <div *ngIf="showIn"> 
+      <div class="table-container">
+        <table mat-table [dataSource]="msg">
+          <!-- Номер п/п Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> Влож. </th>
+            <td mat-cell *matCellDef="let element"> {{element?.name2}} </td>
+          </ng-container>
+      
+          <!-- От Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> От </th>
+            <td mat-cell *matCellDef="let element"> {{element?.name4}} </td>
+          </ng-container>
+      
+          <!-- Тема Column -->
+          <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef> Тема </th>
+            <td mat-cell *matCellDef="let element"> {{element?.name5}} </td>
+          </ng-container>
+      
+          <!-- Отправлено Column -->
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef> Отправлено </th>
+            <td mat-cell *matCellDef="let element"> {{element?.name6}} </td>
+          </ng-container>
+      
+          <tr class="head-table" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr class="row-table" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="
+          clickRow(row)" [ngClass]="{'clickRowColor': selectedRowIndex == row.name1}"></tr>
+        </table>
+      </div>
+      <mat-card class="list-card" *ngIf = "showCard">
+        <mat-card-actions class="card-buttons">
+          <button class ="themebtn" mat-button>Тема:</button>
+          <a>{{srv[0]?.name2}}</a>
+          <button class ="answbtn" mat-button>Ответить</button>
+          <!--        <button class ="filebtn" mat-button>Файлы</button>      -->
+        </mat-card-actions>
+        <mat-card-content class="card-content">
+          
+                  
+          <ul>
+            <li *ngFor="let pos of read; let i=index">
+              <p class="msginfo">{{pos?.name3}}</p>
+              <p class="msgtext2">{{pos?.name2}}</p>
+              
+              
+              
+             </li>
+          </ul>
+          
+    
+          
+        </mat-card-content> 
+      </mat-card>
+      </div>
+      <div *ngIf="showOut">
+        <div class="table-container2">
+          <table mat-table [dataSource]="msg2">
+            
+            <!-- Номер п/п Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> Влож. </th>
+              <td mat-cell *matCellDef="let element"> {{element?.name2}} </td>
+            </ng-container>
+        
+            <!-- От Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> От </th>
+              <td mat-cell *matCellDef="let element"> {{element?.name4}} </td>
+            </ng-container>
+        
+            <!-- Тема Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef> Тема </th>
+              <td mat-cell *matCellDef="let element"> {{element?.name5}} </td>
+            </ng-container>
+        
+            <!-- Отправлено Column -->
+            <ng-container matColumnDef="symbol">
+              <th mat-header-cell *matHeaderCellDef> Отправлено </th>
+              <td mat-cell *matCellDef="let element"> {{element?.name6}} </td>
+            </ng-container>
+        
+            <tr class="head-table2" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr class="row-table2" mat-row *matRowDef="let row2; columns: displayedColumns;" (click)="
+            clickRow2(row2)" [ngClass]="{'clickRowColor2': selectedRowIndex2 == row2.name1}"></tr>
+          </table>
+        </div>
+        <mat-card class="list-card2" *ngIf = "showCard2">
+          <mat-card-actions class="card-buttons2">
+            <button class ="themebtn2" mat-button>Тема:</button>
+            <a>{{srv2[0]?.name2}}</a>
+            <button class ="answbtn2" mat-button>Ответить</button>
+            <!--        <button class ="filebtn" mat-button>Файлы</button>      -->
+          </mat-card-actions>
+          <mat-card-content class="card-content2">
+            
+                    
+            <ul>
+              <li *ngFor="let pos2 of read2; let i=index">
+                <p class="msginfo2">{{pos2?.name3}}</p>
+                <p class="msgtext2">{{pos2?.name2}}</p>
+                
+                
+                
+               </li>
+            </ul>
+            
+      
+            
+          </mat-card-content> 
+        </mat-card>
+      </div>
+    </mat-drawer-content>
+    </mat-drawer-container>
+
+
+<div *ngIf="writemsg" class="zaten">
+  <div class="okno">
+    <div class="logo">
+      <p>Подготовка и отправка {{letr}} сообщения</p>
+    </div>
+    <div class="sendltrbtn">
+      <button class="writeltr" mat-button (click)="Send()">Отправить</button>
+      <p>"Колличество сообщений - не более {{q}} раз в сутки"</p>
+    </div>
+    <div class="letter1btn">
+      <button class="adresat" mat-button>Адресат</button>
+      <p>"......................."</p>
+    </div>
+    <div class="letter2btn">
+      <button class="thema" mat-button>Тема</button>
+      <p>"......................."</p>
+    </div>
+    <div class="letter3btn">
+      <button class="komu" mat-button>Кому</button>
+      <p>"......................."</p>
+    </div>
+
+  </div>
+</div>
+
+     </div> 
+  
+    

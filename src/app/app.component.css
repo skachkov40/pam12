@@ -1,0 +1,42 @@
+.toolbar-container {
+    
+    position: relative;
+    position: fixed;
+    width: 100%;
+    z-index: 100;  
+    box-shadow: 15px 0px 0px 0px #000;
+}
+.toolbar {
+    background-color: rgb(0, 91, 143);
+    height: 50px;
+}
+
+.toolbar-container .lk {
+    text-align: right;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    
+}
+.lk h4 {
+    font-size: 15px;
+}
+.menu-buttons{
+    position: absolute;
+    
+}
+.menu-lk{
+    padding-top: 0px;
+    background-color: rgb(0, 91, 143);
+    width: 100%;
+    height: 50px;
+}
+.menu-lk button {
+    margin-left: 25px;
+}
+
+/* ---------------- Тело сайта ---------------- */
+
+.body{
+    padding-top: 95px;
+}
