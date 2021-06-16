@@ -2,13 +2,12 @@
   background-color: rgb(241, 247, 255);
   width: 100vw;
   height: 89vh;
-  margin-top: 3px;
+  margin-top: 1px;
   border-radius: 5px;  
 }
 .navbuttons {
   background-color: rgb(221, 234, 253);
-  max-width: 135px;
-  margin-top: 1px;
+  max-width: 105px;
   padding: 2px;
   display: flex;
   flex-direction: column;
@@ -16,20 +15,15 @@
 }
 .navbuttons button {
   padding-top: 2px;
-  width: 130px;
+  width: 100px;
   text-align: start;
 }
 
 .inboxactive {
   background-color: rgb(0, 200, 143);
 }
-
 .outboxactive {
   background-color: rgb(0, 200, 143);
-}
-
-.msg{
-  background-color: rgb(193, 218, 255);
 }
 .table-container {
     height: 34vh;
@@ -98,10 +92,6 @@ table {
   font-size: 15px;
   white-space: pre-wrap;  
 }
-
-.msg2{
-  background-color: rgb(193, 218, 255);
-}
 .table-container2 {
     height: 34vh;
     overflow:auto;
@@ -169,55 +159,70 @@ table {
   font-size: 15px;
   white-space: pre-wrap;
 }
-
-
-
-.zaten{
-  position: absolute;
-  z-index: 500;
-  background: rgba(53, 53, 53, 0.5);
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+.ltrcard {
+  padding: 0px;
   
+  height: 88vh;
+  padding-left: 2px;
+  padding-right: 2px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(221, 234, 253);
+  } 
+  
+.ltrcard a {
+  padding-left: 5px;
 }
-.okno {
-  position: absolute;
-  z-index: 1000;
-  width: 50vw;
-  min-width: 450px;
-  height: 70vh;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  background: #fff;
-  border: solid 1px #ccc;
-}
-
+  
 .logo{
-  height: 20px;
+  height: 27px;
   color: whitesmoke;
   background-color: rgb(0, 91, 143);
   text-align: center;
   
 }
-.sendltrbtn{
-  display: flex;
+.ltrbuttons{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  padding: 3px;
+  background-color: rgb(221, 234, 253);
+   
+}
+.letterbtn button {
+  height: 35px;
+  width: 80px;
+  background-color: whitesmoke;
+  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
+}
+.ltrcontent{
+  width: 99%;
+  height: 100%;
+  margin-bottom: 0;
+  padding: 0;
+  background-color: white;
+  border: inset thistle 2px;
+}
+.ltrcontent textarea{
+  width: 99%;
+  height: 99%;
+  outline: none;
+  resize: none;
+  overflow: auto;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: black;
+}
+
+  .sendltrbtn{
+  height: 35px;
   padding: 5px;
   background-color: rgb(193, 218, 255);
   
-  
-}
-.sendltrbtn p {
-  margin-bottom: 0px;
-  height: 20px;
 }
 .writeltr {
   height: 35px;
   background-color: whitesmoke;
-
-  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
 }

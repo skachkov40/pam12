@@ -11,13 +11,13 @@ import { MsgRead } from '../classes/msgRead';
 export class MsglistComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  showCard:boolean = true;
+  showCard:boolean = false;
   showCard2:boolean = true;
-  showIn:boolean = true;
+  showIn:boolean = false;
   showOut:boolean = false;
   color:boolean = true;
   color2:boolean = false;
-  writemsg:boolean=false;
+  writemsg:boolean=true;
   letr:string = "НОВОГО"
   proc:string = "EXEC MQL_M_MSG_LIST ?";
   param:string = "0004000000025400025400010002120210620 23:59:59.999";

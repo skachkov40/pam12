@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
     title = 'Виртуальная клиника';
-    showDiv:any = false;
+    showDiv:any = true;
 
     ngOnInit(){
 

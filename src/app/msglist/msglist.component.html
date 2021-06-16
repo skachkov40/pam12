@@ -1,4 +1,4 @@
-<div class = "msg">
+
   <mat-drawer-container class="sidenav">
     <mat-drawer class="navbuttons" mode="side" opened>
       <button class="poluch" mat-button (click)="GetAll()">Получить</button>
@@ -124,35 +124,50 @@
           </mat-card-content> 
         </mat-card>
       </div>
+<div  class="okno">
+  <mat-card *ngIf="writemsg" class="ltrcard">
+    <div class="logo">
+      <h3>Подготовка и отправка {{letr}} сообщения</h3>
+    </div>
+    <mat-card-actions class="ltrbuttons">
+      <div class="letterbtn">
+        <button class="adresat" mat-button>Адресат</button>
+        <a>The property is a comma-separated list of shadows</a>
+      </div>
+        <div class="letterbtn">
+        <button class="thema" mat-button>Тема</button>
+        <a>The div element has no special meaning at all</a>
+      </div>
+        <div class="letterbtn">
+        <button class="komu" mat-button>Кому</button>
+        <a>The button element represents a button labeled</a>
+      </div>
+    </mat-card-actions>
+    <mat-card-content class="ltrcontent">       
+     <textarea placeholder = "Введите текст сообщения"></textarea>
+    </mat-card-content> 
+    <div class="sendltrbtn">
+      <button class="writeltr" mat-button (click)="Send()">Отмена</button>
+      <button class="writeltr" mat-button (click)="Send()">Отправить</button>
+      <a>Колличество сообщений - не более {{q}} раз в сутки</a>
+    </div>
+  </mat-card>
+    
+    
+
+  </div>
+
+
+
+
     </mat-drawer-content>
     </mat-drawer-container>
 
 
-<div *ngIf="writemsg" class="zaten">
-  <div class="okno">
-    <div class="logo">
-      <p>Подготовка и отправка {{letr}} сообщения</p>
-    </div>
-    <div class="sendltrbtn">
-      <button class="writeltr" mat-button (click)="Send()">Отправить</button>
-      <p>"Колличество сообщений - не более {{q}} раз в сутки"</p>
-    </div>
-    <div class="letterbtn">
-      <button class="adresat" mat-button>Адресат</button>
-      <p>"......................."</p>
-    </div>
-    <div class="letterbtn">
-      <button class="adresat" mat-button>Тема</button>
-      <p>"......................."</p>
-    </div>
-    <div class="letterbtn">
-      <button class="adresat" mat-button>Кому</button>
-      <p>"......................."</p>
-    </div>
 
-  </div>
-</div>
+  
 
-     </div> 
+
+     
   
     
