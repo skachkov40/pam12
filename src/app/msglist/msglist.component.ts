@@ -3,6 +3,8 @@ import { MsggetService } from '../msgget.service';
 import { MsgList } from '../classes/msgList';
 import { MsgRead } from '../classes/msgRead';
 import { Adresat } from '../classes/adresat';
+import { Write } from '../classes/write';
+
 
 @Component({
   selector: 'app-msglist',
@@ -12,13 +14,14 @@ import { Adresat } from '../classes/adresat';
 export class MsglistComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  showCard:boolean = false;
-  showCard2:boolean = true;
-  showIn:boolean = false;
+  showCard:boolean = true;
+  showCard2:boolean = false;
+  showIn:boolean = true;
   showOut:boolean = false;
   color:boolean = true;
   color2:boolean = false;
-  writemsg:boolean=true;
+  writemsg:boolean=false;
+  writemsgId:string="0"
   letr:string = "НОВОГО"
   proc:string = "EXEC MQL_M_MSG_LIST ?";
   param:string = "0004000000025400025400010002120210620 23:59:59.999";
@@ -38,7 +41,9 @@ export class MsglistComponent implements OnInit {
   my1:string = "54";
   my2:string = "54";
   q:number = 0;
-  adritem:any;
+  adritem:string="Укажите Адресат";
+  dthema:boolean = true;
+  dkomu:boolean = true;
   
   
   
@@ -94,7 +99,7 @@ export class MsglistComponent implements OnInit {
       this.read2=data["MsgList"];     
       this.srv2=data["Service"];
     })
-    console.log(newparam);
+    
   }
 
   clickRow(row:any){
@@ -123,16 +128,50 @@ export class MsglistComponent implements OnInit {
 
   Write(){
     this.writemsg = true;
-    //запрос на получение данных окна
-    const formData : FormData = new FormData();
-      formData.append('param', "00025400025400010");
-      formData.append('proc', "EXEC MQP_M_MSG_GETPAR ?");
-      this.getmsg.getMessages(formData).subscribe((data:any) => this.write=data["SrvList"]);
-
-      formData.append('param', "000254000254");
+    this.showCard = false;
+    this.showCard2 = false;
+    this.showIn = false;
+    this.showOut = false;
+    //Получаем список Адресатов
+      const formData : FormData = new FormData();
+      var l1 = (this.my1.length.toString().padStart(4, "0"))+this.my1; 
+      var l2 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
+      var newparam = l1+l2;
+      formData.append('param', newparam);
       formData.append('proc', "EXEC MQL_M_PAR_LOAD ?");
       this.getmsg.getMessages(formData).subscribe((data:any) => this.adresat=data["MsgList"]);
+      
   }
+  AdresatClick(adr:any){
+    
+    this.writemsgId = "0";
+    this.adritem = adr.name2;
+    //запрос на получение служебных данных окна написания сообщения
+    var l1 = (adr.name1.length.toString().padStart(4, "0"))+adr.name1;
+    var l2 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
+    var l3 = (this.writemsgId.length.toString().padStart(4, "0"))+this.writemsgId;
+    var newparam = l1+l2+l3; 
+    const formData : FormData = new FormData();
+    formData.append('param', newparam);
+    formData.append('proc', "EXEC MQP_M_MSG_GETPAR ?");
+    this.getmsg.getMessages(formData).subscribe((data:any) => {
+      this.write=data["Service"];    
+    if (this.write[0].name4 == "11") {
+      this.dthema = false;  this.dkomu = false;
+    }
+    if (this.write[0].name4 == "10") {
+      this.dthema = false;  this.dkomu = true;
+    }
+    if (this.write[0].name4 == "01") {
+      this.dthema = true;  this.dkomu = false;
+    }
+    if (this.write[0].name4 == "00") {
+      this.dthema = true;  this.dkomu = true;
+    }
+    });
+
+}
+
 
   Send(){
 

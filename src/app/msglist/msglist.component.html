@@ -133,20 +133,20 @@
       <div class="letterbtn">
         <button mat-button [matMenuTriggerFor]="clickmenu">Адресат</button>
         <mat-menu #clickmenu="matMenu">
-          <button  mat-menu-item *ngFor="let adr of adresat">
-          <span (click)="adritem = adr.name2">{{adr.name2}}</span>
+          <button mat-menu-item *ngFor="let adr of adresat">
+          <span (click)="AdresatClick(adr)">{{adr.name2}}</span>
           </button>
         </mat-menu>
           <a>{{adritem}}</a>
         
       </div>
         <div class="letterbtn">
-        <button class="thema" mat-button>Тема</button>
-        <span>The div element has no special meaning at all</span>
+        <button [disabled] = "dthema" class="thema" mat-button>Тема</button>
+        <span>{{write[0]?.name6}}</span>
       </div>
         <div class="letterbtn">
-        <button class="komu" mat-button>Кому</button>
-        <a>The button element represents a button labeled</a>
+        <button [disabled] = "dkomu" class="komu" mat-button>Кому</button>
+        <a>{{write[0]?.name8}}</a>
       </div>
     </mat-card-actions>
     <mat-card-content class="ltrcontent">       

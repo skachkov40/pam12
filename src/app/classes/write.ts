@@ -12,7 +12,10 @@ export class Write {
         public name10:string,
         public name11:string,
         public name12:string,
-        public name13:string
+        public name13:string,
+        public name14:string,
+        public name15:string
+        
         ){}
 
 }
