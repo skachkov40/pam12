@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MsggetService } from '../msgget.service';
 import { MsgList } from '../classes/msgList';
 import { MsgRead } from '../classes/msgRead';
+import { Adresat } from '../classes/adresat';
 
 @Component({
   selector: 'app-msglist',
@@ -30,14 +31,20 @@ export class MsglistComponent implements OnInit {
   msg2: MsgList[] = [];
   read2: MsgRead[] = [];
   srv2: MsgRead[] = [];
+  adresat:Adresat[] = [];
+  write:Write[] = [];
   selectedRowIndex:any;
   selectedRowIndex2:any;
   my1:string = "54";
   my2:string = "54";
   q:number = 0;
+  adritem:any;
+  
+  
+  
   
 
-  constructor(private getmsg:MsggetService) { }
+  constructor(private getmsg:MsggetService) {}
 
   clickInBox(){
     if (this.showIn == false){
@@ -116,6 +123,15 @@ export class MsglistComponent implements OnInit {
 
   Write(){
     this.writemsg = true;
+    //запрос на получение данных окна
+    const formData : FormData = new FormData();
+      formData.append('param', "00025400025400010");
+      formData.append('proc', "EXEC MQP_M_MSG_GETPAR ?");
+      this.getmsg.getMessages(formData).subscribe((data:any) => this.write=data["SrvList"]);
+
+      formData.append('param', "000254000254");
+      formData.append('proc', "EXEC MQL_M_PAR_LOAD ?");
+      this.getmsg.getMessages(formData).subscribe((data:any) => this.adresat=data["MsgList"]);
   }
 
   Send(){

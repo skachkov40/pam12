@@ -205,9 +205,9 @@ table {
   border: inset thistle 2px;
 }
 .ltrcontent textarea{
-  width: 99%;
-  height: 99%;
-  outline: none;
+  width: 98%;
+  height: 96%;
+  border: 1px solid rgb(255, 255, 255);
   resize: none;
   overflow: auto;
   padding: 10px;

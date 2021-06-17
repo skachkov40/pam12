@@ -131,12 +131,18 @@
     </div>
     <mat-card-actions class="ltrbuttons">
       <div class="letterbtn">
-        <button class="adresat" mat-button>Адресат</button>
-        <a>The property is a comma-separated list of shadows</a>
+        <button mat-button [matMenuTriggerFor]="clickmenu">Адресат</button>
+        <mat-menu #clickmenu="matMenu">
+          <button  mat-menu-item *ngFor="let adr of adresat">
+          <span (click)="adritem = adr.name2">{{adr.name2}}</span>
+          </button>
+        </mat-menu>
+          <a>{{adritem}}</a>
+        
       </div>
         <div class="letterbtn">
         <button class="thema" mat-button>Тема</button>
-        <a>The div element has no special meaning at all</a>
+        <span>The div element has no special meaning at all</span>
       </div>
         <div class="letterbtn">
         <button class="komu" mat-button>Кому</button>
@@ -144,7 +150,7 @@
       </div>
     </mat-card-actions>
     <mat-card-content class="ltrcontent">       
-     <textarea placeholder = "Введите текст сообщения"></textarea>
+     <textarea>{{q}}</textarea>
     </mat-card-content> 
     <div class="sendltrbtn">
       <button class="writeltr" mat-button (click)="Send()">Отмена</button>

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -15,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MsglistComponent } from './msglist/msglist.component';
 import { MsggetService } from './msgget.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     MsglistComponent
   ],
   imports: [
+    FormsModule,
+    MatFormFieldModule,
     MatButtonToggleModule,
     MatInputModule,
     MatSidenavModule,

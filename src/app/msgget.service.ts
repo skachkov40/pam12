@@ -10,7 +10,7 @@ export class MsggetService {
 
 
 getMessages (formData: FormData){
-  return this.http.post('http://20.1.0.128/getmsg.php', formData)
+  return this.http.post('http://10.1.0.128/getmsg.php', formData)
 
   
   
