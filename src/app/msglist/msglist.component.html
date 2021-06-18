@@ -2,11 +2,12 @@
   <mat-drawer-container class="sidenav">
     <mat-drawer class="navbuttons" mode="side" opened>
       <button class="poluch" mat-button (click)="GetAll()">Получить</button>
-      <button class="write" mat-button (click)="Write()">Написать</button>
+      <button class="write" mat-button (click)="Write()"
+      [ngClass]="{'writeactive': color3}" title = "Отправить НОВОЕ сообщение">Написать</button>
       <button class="inbox" mat-button (click)="clickInBox()"
-      [ngClass]="{'inboxactive': color}">Входящие</button>
+      [ngClass]="{'inboxactive': color}" title = "Входяшие сообщения">Входящие</button>
       <button class="outbox" mat-button (click)="clickOutBox()"
-      [ngClass]="{'outboxactive': color2}">Исходящие</button>
+      [ngClass]="{'outboxactive': color2}" title = "Исходяшие сообщения">Исходящие</button>
     </mat-drawer>
     <mat-drawer-content >
       <div *ngIf="showIn"> 
@@ -141,7 +142,7 @@
         
       </div>
         <div class="letterbtn">
-        <button [disabled] = "dthema" class="thema" mat-button>Тема</button>
+        <button [disabled] = "dthema" class="thema" mat-button (click)="ThemeClick()">Тема</button>
         <span>{{write[0]?.name6}}</span>
       </div>
         <div class="letterbtn">
@@ -168,12 +169,3 @@
 
     </mat-drawer-content>
     </mat-drawer-container>
-
-
-
-  
-
-
-     
-  
-    

@@ -18,12 +18,17 @@
   width: 100px;
   text-align: start;
 }
-
-.inboxactive {
+.poluch:active{
   background-color: rgb(0, 200, 143);
 }
+.inboxactive {
+  background-color: rgb(238, 222, 0);
+}
 .outboxactive {
-  background-color: rgb(0, 200, 143);
+  background-color: rgb(238, 222, 0);
+}
+.writeactive {
+  background-color: rgb(238, 222, 0);
 }
 .table-container {
     height: 34vh;
