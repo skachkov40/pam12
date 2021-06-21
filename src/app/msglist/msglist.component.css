@@ -1,57 +1,79 @@
 .sidenav {
-  background-color: rgb(241, 247, 255);
+  background-color: white;
   width: 100vw;
   height: 89vh;
-  margin-top: 1px;
-    
+  margin-top: 1px; 
 }
 .navbuttons {
   background-color: rgb(221, 234, 253);
-  max-width: 105px;
-  padding: 2px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  max-width: 70px; 
+  text-align: center;
 }
-.navbuttons button {
-  padding-top: 2px;
-  width: 100px;
-  text-align: start;
+.inbox {
+  margin-top: 15px;
+  background-color: #3f51b5;
+}
+.outbox,  .poluch{
+  margin-top: 15px;
+  background-color: #3f51b5;
+}
+.write{
+  margin-top: 30px;
+  background-color: #3f51b5;
 }
 .poluch:active{
-  background-color: rgb(0, 200, 143);
+  background-color: #ff9e00;
 }
 .inboxactive, .outboxactive, .writeactive {
-  background-color: rgb(238, 222, 0);
+  background-color: #ff9e00;
 }
 .table-container {
-    position: absolute;
-    z-index: 100;
-    width: 99%;
-    height: 88vh;
-    overflow:auto;
-    margin-left: 2px;   
-    border-radius: 5px;
+  position: absolute;
+  z-index: 10;
+  width: 99%;
+  height: 88vh;
+  overflow:auto;
+  margin-left: 2px;   
+  border-radius: 5px;
+  font-size: 25px;
 }
 table {
   width: 100%;
 }
+table td{
+  font-size: 17px;
+}
+table th{
+  font-size: 15px;
+  font-weight: bold;
+}
+  
+.row-table:hover{
+  background-color: rgb(240, 240, 240);
+}
 .head-table {
-  height: 25px;
+  height: 35px;
   background-color: rgb(221, 234, 253);
+  
 }
 .row-table{
-  height: 25px;
+  height: 30px;
 }
 .clickRowColor {
-  background-color: rgb(238, 238, 238);
+  background-color: rgb(240, 240, 240);
+  font-weight: bold;
+  font-size: 20px;
 } 
+
+
 .list-card {
+  position: absolute;
+  z-index: 9;
   padding: 0px;
-  padding-bottom: 5px;
-  height: 87vh;
-  margin: 5px;
-  overflow: hidden;
+  width: 99%;
+  height: 88vh;
+  margin-left: 2px;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   background-color: rgb(221, 234, 253);
@@ -72,6 +94,10 @@ table {
   padding-left: 10px;
   font-size: 15px;
   font-weight: bold;
+}
+.backltr{
+  height: 35px;
+  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
 }
 .themebtn{
   height: 35px;
@@ -95,28 +121,17 @@ table {
   font-size: 15px;
   white-space: pre-wrap;  
 }
-.table-container2 {
-    height: 88vh;
-    overflow:auto;
-    margin: 5px;   
-    border-radius: 5px;
-}
-.head-table2 {
-  height: 25px;
-  background-color: rgb(221, 234, 253);
-}
-.row-table2 {
-  height: 25px;
-}
 .clickRowColor2 {
   background-color: rgb(238, 238, 238);
 } 
 .list-card2 {
+  position: absolute;
+  z-index: 9;
   padding: 0px;
-  padding-bottom: 5px;
-  height: 87vh;
-  margin: 5px;
-  overflow: hidden;
+  width: 99%;
+  height: 88vh;
+  margin-left: 2px;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   background-color: rgb(221, 234, 253);
@@ -138,14 +153,6 @@ table {
   font-size: 15px;
   font-weight: bold;
 }
-.themebtn2 {
-  height: 35px;
-  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
-}
-.answbtn2 {
-  height: 35px;
-  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
-}
 .filebtn2 {
   height: 35px;
   box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
@@ -162,9 +169,8 @@ table {
 }
 .ltrcard {
   position:absolute;
+  z-index: 9;
   width: 99%;
-  top: 0px;
-  z-index: 10;
   padding: 0px;
   height: 88vh;
   padding-left: 2px;
@@ -173,6 +179,7 @@ table {
   display: flex;
   flex-direction: column;
   background-color: rgb(221, 234, 253);
+  border-radius: 5px;
 }  
 .ltrcard a {
   padding-left: 5px;
@@ -183,6 +190,7 @@ table {
   color: whitesmoke;
   background-color: rgb(0, 91, 143);
   text-align: center;
+  border-radius: 5px;
   
 }
 .ltrbuttons{
@@ -228,10 +236,4 @@ table {
 .writeltr {
   height: 35px;
   background-color: whitesmoke;
-}
-.writeactive {
-  z-index: 101;
-}
-.inactive {
-  z-index: 100;
 }

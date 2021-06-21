@@ -7,6 +7,7 @@ import { Write } from '../classes/write';
 import { Theme } from '../classes/theme';
 import { Komu } from '../classes/komu';
 
+
 @Component({
   selector: 'app-msglist',
   templateUrl: './msglist.component.html',
@@ -15,20 +16,18 @@ import { Komu } from '../classes/komu';
 export class MsglistComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  showCard:boolean = false;
-  showCard2:boolean = false;
   showIn:boolean = true;
+  showCard:boolean = false;
   showOut:boolean = false;
+  showCard2:boolean = false;
+  writemsg:boolean = false;
   color:boolean = true;
   color2:boolean = false;
   color3:boolean = false;
-  writemsg:boolean = true;
-  mode:boolean = false;
-  mode2:boolean = false;
   writemsgId:string = "0"
   letr:string = "НОВОГО"
   proc:string = "EXEC MQL_M_MSG_LIST ?";
-  param:string = "0004000000025400025400010002120210620 23:59:59.999";
+  param:string =    "0004000000025400025400010002120210620 23:59:59.999";
   paramout:string = "0004000100025400025400010002120210620 23:59:59.999";
   proc2:string = "EXEC MQL_M_MSG_DATA ?";
   param2:string = "000400300002540002540003208";
@@ -48,10 +47,17 @@ export class MsglistComponent implements OnInit {
   my2:string = "54";
   q:number = 0;
   w:number = 0;
+  inactive:any;
+  card1active:any;
+  outactive:any;
+  card2active:any;
+  writeactive:any;
 
   adritem:string="Укажите Адресат";
   thmitem:string="";
   komitem:string="";
+  amsg_id:string="0";
+  other:string="";
   amsg_kod:string="";
   id_str_videl:string="0"
   id_str_jirfont:string="0"
@@ -62,29 +68,27 @@ export class MsglistComponent implements OnInit {
   constructor(private getmsg:MsggetService) {}
 
   clickInBox(){
-    this.showIn = true;
-    this.showCard = false;
+    this.card1active = {'z-index':'9'}
+    this.card2active = {'z-index':'9'}
+    this.writeactive = {'z-index':'9'}
+    this.showIn = true;  
     this.showOut = false;
-    this.showCard2 = false;
-    this.writemsg = false;
-    
+    this.selectedRowIndex = null;
     this.color = true;
     this.color2 = false;
     this.color3 = false;
-    
   }
   clickOutBox(){
-    this.showOut = true;
-    this.showCard2 = false;
-    this.showIn = false;
-    this.showCard = false;
-    this.writemsg = false;
-      
+    this.card1active = {'z-index':'9'}
+    this.card2active = {'z-index':'9'}
+    this.writeactive = {'z-index':'9'}
+    this.showOut = true
+    this.showIn = false; 
+    this.selectedRowIndex2 = null;
     this.color = false;
     this.color2 = true;
     this.color3 = false;
-
-    
+        
     if (this.q == 0) {
       const formData : FormData = new FormData();
       formData.append('param', this.paramout);
@@ -97,8 +101,10 @@ export class MsglistComponent implements OnInit {
   }
   clickRow2(row2:any){
     this.selectedRowIndex2=row2.name1;
-    this.showOut = false
-    this.showCard2 = true;  
+    this.card2active = {'z-index':'11'}
+    this.card1active = {'z-index':'9'}
+    this.writeactive = {'z-index':'9'}
+    this.showCard2 = true;
     var l1 = (row2.name7.length.toString().padStart(4, "0"))+row2.name7;
     var l2 = (this.my1.length.toString().padStart(4, "0"))+this.my1; 
     var l3 = (this.my2.length.toString().padStart(4, "0"))+this.my2; 
@@ -113,9 +119,15 @@ export class MsglistComponent implements OnInit {
     }) 
   }
   clickRow(row:any){
+    this.amsg_id = row.name1;
+    this.other = row.name2;
+    this.amsg_kod = row.name7;
+    console.log (row);
     this.selectedRowIndex=row.name1;
-    this.showIn = false
     this.showCard = true;
+    this.card1active = {'z-index':'11'}
+    this.card2active = {'z-index':'9'}
+    this.writeactive = {'z-index':'9'}
     var l1 = (row.name7.length.toString().padStart(4, "0"))+row.name7;
     var l2 = (this.my1.length.toString().padStart(4, "0"))+this.my1; 
     var l3 = (this.my2.length.toString().padStart(4, "0"))+this.my2; 
@@ -153,23 +165,29 @@ export class MsglistComponent implements OnInit {
   }
 
   Write(){
-    this.mode = true;
-    this.mode2 = true;
-    //this.writemsg = true;
-    //this.showCard = false;
-    //this.showCard2 = false;
-    //this.showIn = false;
-    //this.showOut = false;
+    this.writemsg = true;
+    this.writeactive = {'z-index':'11'}
+    this.card1active = {'z-index':'9'}
+    this.card2active = {'z-index':'9'}
+
     this.color = false;
     this.color2 = false;
     this.color3 = true;
-    const formData : FormData = new FormData();
-    var l1 = (this.my1.length.toString().padStart(4, "0"))+this.my1; 
-    var l2 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
-    var newparam = l1+l2;
-    formData.append('param', newparam);
-    formData.append('proc', "EXEC MQL_M_PAR_LOAD ?");
-    this.getmsg.getMessages(formData).subscribe((data:any) => this.adresat=data["MsgList"]);
+    var l1=(this.amsg_id.length.toString().padStart(4,"0"))+this.amsg_id;
+    var l2=(this.my2.length.toString().padStart(4,"0"))+this.my2;
+    var l3=(this.writemsgId.length.toString().padStart(4,"0"))+this.writemsgId;
+    var newparam = l1+l2+l3; 
+    const formData : FormData=new FormData();
+    formData.append('param',newparam);
+    formData.append('proc',"EXEC MQP_M_MSG_GETPAR ?");
+    this.getmsg.getMessages(formData).subscribe((data:any) => {
+    this.write=data["Service"]; 
+    if(this.write[0]?.name4=="11") {this.dthema = false;  this.dkomu = false;}
+    if(this.write[0]?.name4=="10") {this.dthema = false;  this.dkomu = true;}
+    if(this.write[0]?.name4=="01") {this.dthema = true;  this.dkomu = false;}
+    if(this.write[0]?.name4=="00") {this.dthema = true;  this.dkomu = true;}
+    this.thmitem=(this.write[0]?.name6);
+    this.komitem=(this.write[0]?.name8);});
   }
 
   AdresatClick(adr:any){
@@ -231,8 +249,13 @@ export class MsglistComponent implements OnInit {
   Cancel(){
     //this.writemsg = false;
     //this.showIn = true;
-    this.mode = false;
-    this.mode = false;
+    this.writeactive = {'z-index':'9'};
+    this.card1active = {'z-index':'9'};
+    this.card2active = {'z-index':'9'};
+    if (this.showIn == true) {
+      this.color = true;
+    }else{this.color2 = true;}
+    
   }
 
   Send(){
@@ -240,7 +263,13 @@ export class MsglistComponent implements OnInit {
   }
 
   ngOnInit():void {
-      const formData : FormData = new FormData();
+    const formData : FormData = new FormData();
+    var l1 = (this.my1.length.toString().padStart(4, "0"))+this.my1; 
+    var l2 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
+    var newparam = l1+l2;
+    formData.append('param', newparam);
+    formData.append('proc', "EXEC MQL_M_PAR_LOAD ?");
+    this.getmsg.getMessages(formData).subscribe((data:any) => this.adresat=data["MsgList"]);
       formData.append('param', this.param);
       formData.append('proc', this.proc);
       this.getmsg.getMessages(formData).subscribe((data:any) =>{
