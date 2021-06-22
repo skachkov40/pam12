@@ -6,6 +6,7 @@ import { Adresat } from '../classes/adresat';
 import { Write } from '../classes/write';
 import { Theme } from '../classes/theme';
 import { Komu } from '../classes/komu';
+import { Forsel } from '../classes/forsel';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class MsglistComponent implements OnInit {
   write:Write[] = [];
   theme:Theme[] = [];
   komu:Komu[] = [];
+  forsel1:Forsel[] = [];
   selectedRowIndex:any;
   selectedRowIndex2:any;
   my1:string = "54";
@@ -59,6 +61,9 @@ export class MsglistComponent implements OnInit {
   amsg_id:string="0";
   other:string="";
   amsg_kod:string="";
+  pidsel1:string="0";
+  id_theme:string="0";
+  id_komu:string="0";
   id_str_videl:string="0"
   id_str_jirfont:string="0"
   id_from_theme:string="0"
@@ -68,6 +73,7 @@ export class MsglistComponent implements OnInit {
   constructor(private getmsg:MsggetService) {}
 
   clickInBox(){
+    this.amsg_id="0";
     this.card1active = {'z-index':'9'}
     this.card2active = {'z-index':'9'}
     this.writeactive = {'z-index':'9'}
@@ -79,6 +85,7 @@ export class MsglistComponent implements OnInit {
     this.color3 = false;
   }
   clickOutBox(){
+    this.amsg_id="0";
     this.card1active = {'z-index':'9'}
     this.card2active = {'z-index':'9'}
     this.writeactive = {'z-index':'9'}
@@ -100,6 +107,7 @@ export class MsglistComponent implements OnInit {
     //console.log(newparam);
   }
   clickRow2(row2:any){
+    this.amsg_id="0";
     this.selectedRowIndex2=row2.name1;
     this.card2active = {'z-index':'11'}
     this.card1active = {'z-index':'9'}
@@ -116,6 +124,8 @@ export class MsglistComponent implements OnInit {
     this.getmsg.getMessages(formData).subscribe((data:any) => {
       this.read2=data["MsgList"];     
       this.srv2=data["Service"];
+      this.amsg_id = this.srv2[0]?.name4;
+      console.log(this.amsg_id);
     }) 
   }
   clickRow(row:any){
@@ -139,8 +149,9 @@ export class MsglistComponent implements OnInit {
     this.getmsg.getMessages(formData).subscribe((data:any) => {
       this.read=data["MsgList"];     
       this.srv=data["Service"];
+      this.amsg_id = this.srv[0]?.name4;
+      console.log(this.amsg_id);
     })
-    console.log(newparam);
   }
 
   GetAll(){
@@ -187,7 +198,14 @@ export class MsglistComponent implements OnInit {
     if(this.write[0]?.name4=="01") {this.dthema = true;  this.dkomu = false;}
     if(this.write[0]?.name4=="00") {this.dthema = true;  this.dkomu = true;}
     this.thmitem=(this.write[0]?.name6);
-    this.komitem=(this.write[0]?.name8);});
+    this.komitem=(this.write[0]?.name8);
+    this.id_theme=(this.write[0]?.name5);
+    this.id_komu=(this.write[0]?.name7);
+    console.log(this.write[0]?.name1);
+    if (this.write[0]?.name1 != "0"){
+      this.adritem="Укажите Адресат";
+    } else this.adritem=this.write[0]?.name2;
+  });
   }
 
   AdresatClick(adr:any){
@@ -225,8 +243,25 @@ export class MsglistComponent implements OnInit {
   }
 
   ThemeClick(thm:any){
-    this.thmitem=thm.name2;
-    this.id_from_theme=thm.name1
+    this.thmitem = thm.name2;
+    this.pidsel1 = thm.name1;
+    const formData : FormData = new FormData();
+    var l1=(this.amsg_kod.length.toString().padStart(4,"0"))+this.amsg_kod;
+    var l2=(this.pidsel1.length.toString().padStart(4,"0"))+this.pidsel1;
+    var newparam = l1+l2; 
+    formData.append('param',newparam);
+    formData.append('proc',"EXEC MQP_M_MSG_FORSEL_01_PAR ?");
+    this.getmsg.getMessages(formData).subscribe((data:any)=>{
+    this.forsel1=data["Service"]
+    this.id_theme=(this.forsel1[0]?.name3);
+    this.id_komu=(this.forsel1[0]?.name5);
+    this.thmitem=(this.forsel1[0]?.name4);
+    this.komitem=(this.forsel1[0]?.name6);
+    if(this.forsel1[0]?.name2=="11") {this.dthema = false;  this.dkomu = false;}
+    if(this.forsel1[0]?.name2=="10") {this.dthema = false;  this.dkomu = true;}
+    if(this.forsel1[0]?.name2=="01") {this.dthema = true;  this.dkomu = false;}
+    if(this.forsel1[0]?.name2=="00") {this.dthema = true;  this.dkomu = true;}
+    });
   }
 
   KomuSrvClick(){

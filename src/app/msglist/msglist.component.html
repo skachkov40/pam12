@@ -1,4 +1,5 @@
 
+<!-- Навигационная панель -->
 <mat-drawer-container class="sidenav">
   <mat-drawer class="navbuttons" mode="side" opened>
     <button class="inbox" mat-mini-fab (click)="clickInBox()"
@@ -126,7 +127,7 @@
             <span (click)="AdresatClick(adr)">{{adr?.name2}}</span>
           </button>
         </mat-menu>
-          <a>{{other}}</a>
+          <a>{{adritem}}</a>
       </div>
         <div class="letterbtn">
           <button [disabled] = "dthema" class="thema" mat-button [matMenuTriggerFor]="clickthema" (click)="ThemeSrvClick()">Тема</button>
