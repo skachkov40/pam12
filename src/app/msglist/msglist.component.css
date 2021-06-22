@@ -61,7 +61,6 @@ table th{
 }
 .clickRowColor {
   background-color: rgb(240, 240, 240);
-  font-weight: bold;
   font-size: 20px;
 } 
 
@@ -121,52 +120,7 @@ table th{
   font-size: 15px;
   white-space: pre-wrap;  
 }
-.clickRowColor2 {
-  background-color: rgb(238, 238, 238);
-} 
-.list-card2 {
-  position: absolute;
-  z-index: 9;
-  padding: 0px;
-  width: 99%;
-  height: 88vh;
-  margin-left: 2px;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(221, 234, 253);
-}  
-.card-buttons2 { 
-  padding: 5px;
-  margin: 0; 
-}
-.card-content2 {
-  height: 99%;
-  overflow-y: auto;
-  background-color: white;
-}  
-.list-card2 li {
-  list-style-type: none;
-}
-.list-card2 a {
-  padding-left: 10px;
-  font-size: 15px;
-  font-weight: bold;
-}
-.filebtn2 {
-  height: 35px;
-  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
-}
-.msginfo2 {
-  font-size: 12px;
-  color: gray;
-  text-decoration: underline;
-}
-.msgtext2 { 
-  width: 95%;
-  font-size: 15px;
-  white-space: pre-wrap;
-}
+
 .ltrcard {
   position:absolute;
   z-index: 9;
