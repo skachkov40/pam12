@@ -7,6 +7,7 @@ import { Write } from '../classes/write';
 import { Theme } from '../classes/theme';
 import { Komu } from '../classes/komu';
 import { Forsel } from '../classes/forsel';
+import { Send } from '../classes/send';
 
 
 @Component({
@@ -43,6 +44,8 @@ export class MsglistComponent implements OnInit {
   theme:Theme[] = [];
   komu:Komu[] = [];
   forsel1:Forsel[] = [];
+  forsel2:Forsel[] = [];
+  send:Send[] = [];
   selectedRowIndex:any;
   selectedRowIndex2:any;
   my1:string = "54";
@@ -59,14 +62,14 @@ export class MsglistComponent implements OnInit {
   thmitem:string="";
   komitem:string="";
   amsg_id:string="0";
-  other:string="";
-  amsg_kod:string="";
+  amsg_list:string="0000";
+  amsg_kod:string="000";
   pidsel1:string="0";
   id_theme:string="0";
   id_komu:string="0";
   id_str_videl:string="0"
   id_str_jirfont:string="0"
-  id_from_theme:string="0"
+  
   dthema:boolean = true;
   dkomu:boolean = true;
     
@@ -108,6 +111,7 @@ export class MsglistComponent implements OnInit {
   }
   clickRow2(row2:any){
     this.amsg_id="0";
+    this.amsg_list = row2.name7;
     this.selectedRowIndex2=row2.name1;
     this.card2active = {'z-index':'11'}
     this.card1active = {'z-index':'9'}
@@ -125,13 +129,11 @@ export class MsglistComponent implements OnInit {
       this.read2=data["MsgList"];     
       this.srv2=data["Service"];
       this.amsg_id = this.srv2[0]?.name4;
-      console.log(this.amsg_id);
     }) 
   }
   clickRow(row:any){
-    this.amsg_id = row.name1;
-    this.other = row.name2;
-    this.amsg_kod = row.name7;
+    this.amsg_id="0";
+    this.amsg_list = row.name7;
     console.log (row);
     this.selectedRowIndex=row.name1;
     this.showCard = true;
@@ -150,7 +152,6 @@ export class MsglistComponent implements OnInit {
       this.read=data["MsgList"];     
       this.srv=data["Service"];
       this.amsg_id = this.srv[0]?.name4;
-      console.log(this.amsg_id);
     })
   }
 
@@ -180,7 +181,6 @@ export class MsglistComponent implements OnInit {
     this.writeactive = {'z-index':'11'}
     this.card1active = {'z-index':'9'}
     this.card2active = {'z-index':'9'}
-
     this.color = false;
     this.color2 = false;
     this.color3 = true;
@@ -202,14 +202,18 @@ export class MsglistComponent implements OnInit {
     this.id_theme=(this.write[0]?.name5);
     this.id_komu=(this.write[0]?.name7);
     console.log(this.write[0]?.name1);
-    if (this.write[0]?.name1 != "0"){
-      this.adritem="Укажите Адресат";
-    } else this.adritem=this.write[0]?.name2;
+    if (this.write[0]?.name1 != "0")
+      {
+        this.adritem="Укажите Адресат";
+      } else {
+        this.adritem=this.write[0]?.name2;
+      }
   });
   }
 
   AdresatClick(adr:any){
     this.writemsgId="0";
+    this.amsg_id = adr.name1;
     this.adritem = adr.name2;
     this.amsg_kod = adr.name3;
     var l1=(adr.name1.length.toString().padStart(4,"0"))+adr.name1;
@@ -268,7 +272,7 @@ export class MsglistComponent implements OnInit {
     const formData:FormData=new FormData();
     var l1=(this.amsg_kod.length.toString().padStart(4,"0"))+this.amsg_kod;
     var l2=(this.my2.length.toString().padStart(4,"0"))+this.my2;
-    var l3=(this.id_from_theme.length.toString().padStart(4,"0"))+this.id_from_theme;
+    var l3=(this.id_theme.length.toString().padStart(4,"0"))+this.id_theme;
     var l4=(this.id_str_videl.length.toString().padStart(4,"0"))+this.id_str_videl;
     var l5=(this.id_str_jirfont.length.toString().padStart(4,"0"))+this.id_str_jirfont;
     var newparam=l1+l2+l3+l4+l5; 
@@ -278,7 +282,23 @@ export class MsglistComponent implements OnInit {
   }
 
   KomuClick(kom:any){
-    this.komitem = kom.name2;
+    const formData:FormData=new FormData();
+    var l1=(this.amsg_kod.length.toString().padStart(4,"0"))+this.amsg_kod;
+    var l2=(this.id_komu.length.toString().padStart(4,"0"))+this.id_komu;
+    var newparam=l1+l2;
+    formData.append('param',newparam);
+    formData.append('proc',"EXEC MQP_M_MSG_FORSEL_02_PAR ?");
+    this.getmsg.getMessages(formData).subscribe((data:any)=>{
+      this.forsel2=data["Service"];
+      if(this.forsel2[0]?.name2=="11") {this.dthema = false;  this.dkomu = false;}
+      if(this.forsel2[0]?.name2=="10") {this.dthema = false;  this.dkomu = true;}
+      if(this.forsel2[0]?.name2=="01") {this.dthema = true;  this.dkomu = false;}
+      if(this.forsel2[0]?.name2=="00") {this.dthema = true;  this.dkomu = true;}
+      this.id_theme=(this.forsel2[0]?.name3);
+      this.id_komu=(this.forsel2[0]?.name5);
+      this.thmitem=(this.forsel2[0]?.name4);
+      this.komitem=(this.forsel2[0]?.name6);
+    });
   }
 
   Cancel(){
@@ -287,15 +307,31 @@ export class MsglistComponent implements OnInit {
     this.writeactive = {'z-index':'9'};
     this.card1active = {'z-index':'9'};
     this.card2active = {'z-index':'9'};
-    if (this.showIn == true) {
+    if (this.showIn == true) 
+    {
       this.color = true;
-    }else{this.color2 = true;}
+      this.color3 = false;
+    }else{
+      this.color2 = true;
+      this.color3 = false;
+    }
     
   }
 
   Send(){
-
-  }
+    const formData : FormData = new FormData();
+    var l1 = (this.amsg_kod.length.toString().padStart(4, "0"))+this.amsg_kod; 
+    var l2 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
+    var l3 = (this.my2.length.toString().padStart(4, "0"))+this.my2; 
+    var l4 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
+    var newparam = l1+l2+l3+l4;
+    formData.append('param', newparam);
+    formData.append('proc', "EXEC MQS_M_MSG_SAVE ?");
+    this.getmsg.getMessages(formData).subscribe((data:any) =>{
+       this.adresat=data["Service"];
+      });
+        
+}
 
   ngOnInit():void {
     const formData : FormData = new FormData();
@@ -308,8 +344,9 @@ export class MsglistComponent implements OnInit {
       formData.append('param', this.param);
       formData.append('proc', this.proc);
       this.getmsg.getMessages(formData).subscribe((data:any) =>{
-        this.msg=data["MsgList"]
+        this.msg=data["MsgList"];
         this.w = 1;
+        this.amsg_kod = this.adresat[0]?.name3;
       });
   }
 
