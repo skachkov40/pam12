@@ -20,15 +20,13 @@ export class MsglistComponent implements OnInit {
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   showIn:boolean = true;
   showCard:boolean = false;
-  showOut:boolean = false;
-  showCard2:boolean = false;
-  writemsg:boolean = false;
+  writemsg:boolean = true;
   color:boolean = true;
   color2:boolean = false;
   color3:boolean = false;
   writemsgId:string = "0"
   letr:string = "НОВОГО";
-  paramout:string = "0004000100025400025400010002120210620 23:59:59.999";
+  paramout:string = "0004000100025400025400010002120211231 23:59:59.999";
   proc2:string = "EXEC MQL_M_MSG_DATA ?";
   param2:string = "000400300002540002540003208";
   msg: MsgList[] = [];
@@ -48,15 +46,15 @@ export class MsglistComponent implements OnInit {
   forsel2:Forsel[] = [];
   send:Send[] = [];
   selectedRowIndex:any;
-  selectedRowIndex2:any;
   my1:string = "54";
   my2:string = "54";
   q:number = 0;
   w:number = 0;
-  inactive:any;
+  maxl:number = 0;
+  maxq:number = 7;
+  maxs:string = "0";
+  thiss:string = "0";
   card1active:any;
-  outactive:any;
-  card2active:any;
   writeactive:any;
   adritem:string="Укажите Адресат";
   thmitem:string="";
@@ -70,7 +68,10 @@ export class MsglistComponent implements OnInit {
   id_komu:string="0";
   id_str_videl:string="0"
   id_str_jirfont:string="0"
+  message_id:string="0"
+  textarea:string="";
   
+   
   dthema:boolean = true;
   dkomu:boolean = true;
     
@@ -78,10 +79,10 @@ export class MsglistComponent implements OnInit {
 
   clickInBox(){
     this.amsg_id="0";
-    this.selectedRowIndex = null;
+    this.selectedRowIndex = "0";
+    this.message_id="0";
     this.msg_u = this.msg;
     this.card1active = {'z-index':'9'}
-    this.card2active = {'z-index':'9'}
     this.writeactive = {'z-index':'9'}
     this.color = true;
     this.color2 = false;
@@ -91,7 +92,6 @@ export class MsglistComponent implements OnInit {
   clickOutBox(){
     this.amsg_id="0";
     this.card1active = {'z-index':'9'}
-    this.card2active = {'z-index':'9'}
     this.writeactive = {'z-index':'9'}
     this.selectedRowIndex = null;
     this.color = false;
@@ -100,7 +100,7 @@ export class MsglistComponent implements OnInit {
         
     if (this.q == 0) {
       const formData : FormData = new FormData();
-      formData.append('param', "0004000100025400025400010002120210620 23:59:59.999");
+      formData.append('param', "0004000100025400025400010002120211231 23:59:59.999");
       formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
       this.getmsg.getMessages(formData).subscribe((data:any) => 
         {
@@ -117,8 +117,7 @@ export class MsglistComponent implements OnInit {
   clickRow(row:any){
     this.amsg_id="0";
     this.amsg_list = row.name7;
-    //this.writemsgId = row.name1
-    console.log (row);
+    this.message_id = row.name1;
     this.selectedRowIndex=row.name1;
     this.showCard = true;
     this.card1active = {'z-index':'11'}
@@ -150,7 +149,7 @@ export class MsglistComponent implements OnInit {
     }
     if (this.color2 == true) {
       const formData : FormData = new FormData();
-      formData.append('param', "0004000100025400025400010002120210620 23:59:59.999");
+      formData.append('param', "0004000100025400025400010002120211231 23:59:59.999");
       formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
       this.getmsg.getMessages(formData).subscribe((data:any) => {
         this.msg2=data["MsgList"];
@@ -160,10 +159,11 @@ export class MsglistComponent implements OnInit {
   }
 
   Write(){
+    this.textarea = "";
+
     this.writemsg = true;
     this.writeactive = {'z-index':'11'}
     this.card1active = {'z-index':'9'}
-    this.card2active = {'z-index':'9'}
     this.color = false;
     this.color2 = false;
     this.color3 = true;
@@ -186,6 +186,10 @@ export class MsglistComponent implements OnInit {
     this.id_theme=(this.write[0]?.name5);
     this.id_komu=(this.write[0]?.name7);
     this.amsg_kod=(this.write[0]?.name3);
+    var l1 = (this.write[0]?.name9);
+    this.maxl=parseInt(l1, 10);
+    this.maxs=(this.write[0]?.name10);
+    this.thiss=(this.write[0]?.name11);
     if (this.write[0]?.name1 != "0")
       {
         this.adritem="Укажите Адресат";
@@ -309,12 +313,16 @@ export class MsglistComponent implements OnInit {
   }
 
   Send(){
+    this.writeactive = {'z-index':'9'};
+    this.card1active = {'z-index':'9'}; 
     const formData : FormData = new FormData();
     var l1 = (this.amsg_kod.length.toString().padStart(4, "0"))+this.amsg_kod; 
     var l2 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
-    var l3 = (this.my2.length.toString().padStart(4, "0"))+this.my2; 
-    var l4 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
-    var newparam = l1+l2+l3+l4;
+    var l3 = (this.id_komu.length.toString().padStart(4, "0"))+this.id_komu; 
+    var l4 = (this.message_id.length.toString().padStart(4, "0"))+this.message_id;
+    var l5 = (this.id_theme.length.toString().padStart(4, "0"))+this.id_theme;
+    var l6 = (this.textarea.length.toString().padStart(4, "0"))+this.textarea;
+    var newparam = l1+l2+l3+l4+l5+l6;
     formData.append('param', newparam);
     formData.append('proc', "EXEC MQS_M_MSG_SAVE ?");
     this.getmsg.getMessages(formData).subscribe((data:any) =>{

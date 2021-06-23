@@ -56,7 +56,7 @@
           <ul>
             <li *ngFor="let pos of read; let i=index">
               <p class="msginfo">{{pos?.name3}}</p>
-              <p class="msgtext2">{{pos?.name2}}</p>
+              <p class="msgtext">{{pos?.name2}}</p>
              </li>
           </ul> 
         </mat-card-content> 
@@ -79,17 +79,17 @@
           </button>
         </mat-menu>
           <a>{{adritem}}</a>
-      </div>
-        <div class="letterbtn">
+          </div>
+          <div class="letterbtn">
           <button [disabled] = "dthema" class="thema" mat-button [matMenuTriggerFor]="clickthema" (click)="ThemeSrvClick()">Тема</button>
             <mat-menu #clickthema="matMenu">
               <button mat-menu-item *ngFor="let thm of theme">
-                <span (click)="ThemeClick(thm)">{{thm?.name2}}</span>
+                <button class="dnbtn" mat-button (click)="ThemeClick(thm)">{{thm?.name2}}</button>
               </button>
            </mat-menu>
-        <a>{{thmitem}}</a>
-      </div>
-        <div class="letterbtn">
+             <a>{{thmitem}}</a>
+          </div>
+          <div class="letterbtn">
           <button [disabled] = "dkomu" class="komu" mat-button [matMenuTriggerFor]="clickkomu" (click)="KomuSrvClick()">Кому</button>
           <mat-menu #clickkomu="matMenu">
             <button mat-menu-item *ngFor="let kom of komu">
@@ -97,21 +97,23 @@
             </button>
          </mat-menu>
           <a>{{komitem}}</a>
-        </div>
+          
+          </div>
+          <div class="info">
+            <p>Размер сообщения от 4 до {{maxq}} символов. Текущий - {{textarea.length}} символов</p>  
+          </div>
         </mat-card-actions>
-        <mat-card-content class="ltrcontent">       
-          <!--<textarea>-->
-            <p>{{amsg_id}}</p>
-            <p>{{amsg_kod}}</p>
-            <p>{{id_theme}}</p>
-            <p>{{id_komu}}</p>
-
-          <!--</textarea>-->
+        <mat-card-content class="ltrcontent">
+             
+          <textarea class = "txtcontent" [(ngModel)] = "textarea"
+            [ngClass]="{'maxon': textarea.length>=maxq }"
+            [disabled] = "(id_theme == '0') || (id_komu == '0')">        
+          </textarea>
         </mat-card-content> 
       <div class="sendltrbtn">
         <button class="writeltr" mat-button (click)="Cancel()">Отмена</button>
-        <button class="writeltr" mat-button (click)="Send()">Отправить</button>
-        <a>Колличество сообщений - не более {{q}} раз в сутки</a>
+        <button [disabled] = "!(maxq>textarea.length) || !(textarea.length>3)" class="writeltr" mat-button (click)="Send()">Отправить</button>
+        <a>Колличество сообщений - не более {{maxs}} раз в сутки. Текущий - {{thiss}}</a>
       </div>
     </mat-card>
   </mat-drawer-content>
