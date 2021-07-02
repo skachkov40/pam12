@@ -72,6 +72,7 @@ export class MsglistComponent implements OnInit {
   textarea:string="";
   formData:any = new FormData();
   totalsize:number = 0;
+  pos:number = 0;
   
    
   dthema:boolean = true;
@@ -334,17 +335,29 @@ export class MsglistComponent implements OnInit {
 }
   AddFiles(event:any){
     const file:File = event.target.files[0];
-    this.formData.append("data", file, file.name); 
-    this.formData.append("last", file.lastModified.toString()); 
-    let sizefiles = this.formData.getAll('data');
-    //console.log(sizefiles[0].size);
+    this.formData.append(this.pos, file, file.name); 
+    //this.formData.append("last", file.lastModified.toString()); 
+    let sizefiles = this.formData.get(this.pos);
+    //let mass = this.formData.getAll('');
+    //console.log(this.pos);
+    
+    //console.log(sizefiles.length);
     this.totalsize = 0;
-    for (let i=0; i<sizefiles.length; i++){
-      this.totalsize = this.totalsize + sizefiles[i].size;
-      console.log(i);
-      console.log(this.totalsize);
+    for (let ii=0; ii<this.pos; ii++){
+      let sizefile = this.formData.get(ii);
+      this.totalsize = this.totalsize + sizefile.size;
+      console.log(sizefiles);
+      console.log(sizefiles.size);
     }
+    this.pos++;
+  }
 
+  DelF(i:number){
+    console.log(i);
+    this.formData.delete(i);
+    //let sizefiles = this.formData.values();
+    //console.log(sizefiles);
+    
   }
 
   ngOnInit():void {

@@ -176,11 +176,11 @@ table th{
   
 }
 .txtcontent_textarea{
-  width: 97%;
+  width: 96%;
   height:60%; 
   border: 1px solid rgb(38, 201, 38);
   resize: none;
-  overflow: auto;
+  
   padding: 15px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -189,17 +189,23 @@ table th{
   background-color: white;
 }
 .txtcontent_ul{
-  width: 97%;
+  width: 96%;
   list-style-type: none;
   height: 20%; 
+  
   border: 1px solid rgb(211, 36, 36);
   margin-top: 0;
   padding: 15px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   color: black;
-  
   background-color: white;
+}
+.del{
+  background-color: #c72626;
+}
+.del:active{
+  background-color: #ff9e00;
 }
 .sendltrbtn{
   height: 45px;

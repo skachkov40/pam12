@@ -111,13 +111,15 @@
         <mat-card-content class="ltrcontent">
              
           <textarea class = "txtcontent_textarea" [(ngModel)] = "textarea"
-            [ngClass]="{'maxon': textarea.length>=maxq }"
-            [disabled] = "(id_theme == '0') || (id_komu == '0')">         
+            [ngClass]="{'maxon': textarea.length>=maxq }">         
           </textarea>
           <ul class="txtcontent_ul">
-            <p>Размер загружаемых файлов не более {{q}}. Текущий - {{totalsize}} Мб</p>
-            <li *ngFor="let pos of formData.getAll('data') let i=index">
-              <a>{{i+1}}){{pos.name}}-{{pos.size}} Kb</a>
+            <p>Размер загружаемых файлов не более {{(q/1000).toFixed(2)}} Кб. Текущий размер - {{(totalsize/1000).toFixed(2)}} Кб.</p>
+            <li *ngFor="let p of formData let i=index">
+              <a class="del" (click)="DelF(p)" title = "Удалить файл из списка">
+                <mat-icon>clear</mat-icon>
+              </a>
+              <a>{{i+1}}) {{formData.get(i).name}}-{{(formData.get(i).size/1000).toFixed(2)}} Кб.</a>
              </li>
           </ul> 
         </mat-card-content> 
