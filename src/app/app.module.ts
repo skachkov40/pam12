@@ -17,6 +17,7 @@ import { MsglistComponent } from './msglist/msglist.component';
 import { MsggetService } from './msgget.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FileUploadService } from './fileUpload.service';
 
 @NgModule({
   declarations: [
@@ -38,10 +39,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule   
   ],
   providers: [
-    MsggetService
+    MsggetService,
+    FileUploadService 
   ],
   bootstrap: [AppComponent]
 })

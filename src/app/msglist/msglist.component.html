@@ -17,6 +17,11 @@
     <button class="poluch" mat-mini-fab (click)="GetAll()" title = "Получить сообщения">
       <mat-icon>autorenew</mat-icon>
     </button>
+    <input class="file-input" type="file" 
+       (change)="AddFiles($event)" #fileUpload>
+    <button class="addfiles" mat-mini-fab (click)="fileUpload.click()" title = "Добавить файлы">
+      <mat-icon>attach_file</mat-icon>
+    </button>
   </mat-drawer>
   <mat-drawer-content >
     <div *ngIf="showIn"> 
@@ -105,16 +110,24 @@
         </mat-card-actions>
         <mat-card-content class="ltrcontent">
              
-          <textarea class = "txtcontent" [(ngModel)] = "textarea"
+          <textarea class = "txtcontent_textarea" [(ngModel)] = "textarea"
             [ngClass]="{'maxon': textarea.length>=maxq }"
-            [disabled] = "(id_theme == '0') || (id_komu == '0')">        
+            [disabled] = "(id_theme == '0') || (id_komu == '0')">         
           </textarea>
+          <ul class="txtcontent_ul">
+            <p>Размер загружаемых файлов не более {{q}}. Текущий - {{totalsize}} Мб</p>
+            <li *ngFor="let pos of formData.getAll('data') let i=index">
+              <a>{{i+1}}){{pos.name}}-{{pos.size}} Kb</a>
+             </li>
+          </ul> 
         </mat-card-content> 
-      <div class="sendltrbtn">
-        <button class="writeltr" mat-button (click)="Cancel()">Отмена</button>
-        <button [disabled] = "!(maxq>textarea.length) || !(textarea.length>3)" class="writeltr" mat-button (click)="Send()">Отправить</button>
-        <a>Колличество сообщений - не более {{maxs}} раз в сутки. Текущий - {{thiss}}</a>
-      </div>
+        <div class="sendltrbtn">
+        <div class="right">
+          <a class="altr">Колличество сообщений - не более {{maxs}} раз в сутки. Текущий - {{thiss}}</a>
+          <button class="writeltr" mat-button (click)="Cancel()">Отмена</button>
+          <button class="writeltr"[disabled] = "!(maxq>textarea.length) || !(textarea.length>3)"  mat-button (click)="Send()">Отправить</button>
+        </div>
+        </div>
     </mat-card>
   </mat-drawer-content>
 </mat-drawer-container>

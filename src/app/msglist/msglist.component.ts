@@ -70,6 +70,8 @@ export class MsglistComponent implements OnInit {
   id_str_jirfont:string="0"
   message_id:string="0"
   textarea:string="";
+  formData:any = new FormData();
+  totalsize:number = 0;
   
    
   dthema:boolean = true;
@@ -330,6 +332,20 @@ export class MsglistComponent implements OnInit {
       });
         
 }
+  AddFiles(event:any){
+    const file:File = event.target.files[0];
+    this.formData.append("data", file, file.name); 
+    this.formData.append("last", file.lastModified.toString()); 
+    let sizefiles = this.formData.getAll('data');
+    //console.log(sizefiles[0].size);
+    this.totalsize = 0;
+    for (let i=0; i<sizefiles.length; i++){
+      this.totalsize = this.totalsize + sizefiles[i].size;
+      console.log(i);
+      console.log(this.totalsize);
+    }
+
+  }
 
   ngOnInit():void {
     const formData : FormData = new FormData();
