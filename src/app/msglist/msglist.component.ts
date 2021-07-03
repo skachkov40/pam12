@@ -36,7 +36,7 @@ export class MsglistComponent implements OnInit {
   msg_u:MsgList[] = [];
   read_u:MsgRead[] = [];
   read2:MsgRead[] = [];
-  srv_u:MsgRead[] = []; 
+  srv_u:MsgRead[] = [];
   srv2: MsgRead[] = [];
   adresat:Adresat[] = [];
   write:Write[] = [];
@@ -71,13 +71,14 @@ export class MsglistComponent implements OnInit {
   message_id:string="0"
   textarea:string="";
   formData:any = new FormData();
+  index_files = new Array;
   totalsize:number = 0;
   pos:number = 0;
-  
-   
+
+
   dthema:boolean = true;
   dkomu:boolean = true;
-    
+
   constructor(private getmsg:MsggetService) {}
 
   clickInBox(){
@@ -90,7 +91,7 @@ export class MsglistComponent implements OnInit {
     this.color = true;
     this.color2 = false;
     this.color3 = false;
-    
+
   }
   clickOutBox(){
     this.amsg_id="0";
@@ -100,23 +101,23 @@ export class MsglistComponent implements OnInit {
     this.color = false;
     this.color2 = true;
     this.color3 = false;
-        
+
     if (this.q == 0) {
       const formData : FormData = new FormData();
       formData.append('param', "0004000100025400025400010002120211231 23:59:59.999");
       formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
-      this.getmsg.getMessages(formData).subscribe((data:any) => 
+      this.getmsg.getMessages(formData).subscribe((data:any) =>
         {
           this.msg2=data["MsgList"];
           this.msg_u = this.msg2;
           this.q = 1;
         });
     } else {this.msg_u = this.msg2;}
-        
-   
-    
+
+
+
   }
-  
+
   clickRow(row:any){
     this.amsg_id="0";
     this.amsg_list = row.name7;
@@ -126,15 +127,15 @@ export class MsglistComponent implements OnInit {
     this.card1active = {'z-index':'11'}
     this.writeactive = {'z-index':'9'}
     var l1 = (row.name7.length.toString().padStart(4, "0"))+row.name7;
-    var l2 = (this.my1.length.toString().padStart(4, "0"))+this.my1; 
-    var l3 = (this.my2.length.toString().padStart(4, "0"))+this.my2; 
-    var l4 = (row.name1.length.toString().padStart(4, "0"))+row.name1; 
-    var newparam = l1+l2+l3+l4; 
+    var l2 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
+    var l3 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
+    var l4 = (row.name1.length.toString().padStart(4, "0"))+row.name1;
+    var newparam = l1+l2+l3+l4;
     const formData : FormData = new FormData();
     formData.append('param', newparam);
     formData.append('proc', this.proc2);
     this.getmsg.getMessages(formData).subscribe((data:any) => {
-      this.read=data["MsgList"];     
+      this.read=data["MsgList"];
       this.srv=data["Service"];
       this.amsg_id = this.srv[0]?.name4;
     });
@@ -147,7 +148,7 @@ export class MsglistComponent implements OnInit {
       formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
       this.getmsg.getMessages(formData).subscribe((data:any) => {
         this.msg=data["MsgList"];
-        this.w = 1; 
+        this.w = 1;
       });
     }
     if (this.color2 == true) {
@@ -173,13 +174,13 @@ export class MsglistComponent implements OnInit {
     var l1=(this.amsg_id.length.toString().padStart(4,"0"))+this.amsg_id;
     var l2=(this.my2.length.toString().padStart(4,"0"))+this.my2;
     var l3=(this.writemsgId.length.toString().padStart(4,"0"))+this.writemsgId;
-    var newparam = l1+l2+l3; 
+    var newparam = l1+l2+l3;
 
     const formData : FormData=new FormData();
     formData.append('param',newparam);
     formData.append('proc',"EXEC MQP_M_MSG_GETPAR ?");
     this.getmsg.getMessages(formData).subscribe((data:any) => {
-    this.write=data["Service"]; 
+    this.write=data["Service"];
     if(this.write[0]?.name4=="11") {this.dthema = false;  this.dkomu = false;}
     if(this.write[0]?.name4=="10") {this.dthema = false;  this.dkomu = true;}
     if(this.write[0]?.name4=="01") {this.dthema = true;  this.dkomu = false;}
@@ -210,12 +211,12 @@ export class MsglistComponent implements OnInit {
     var l1=(adr.name1.length.toString().padStart(4,"0"))+adr.name1;
     var l2=(this.my2.length.toString().padStart(4,"0"))+this.my2;
     var l3=(this.writemsgId.length.toString().padStart(4,"0"))+this.writemsgId;
-    var newparam = l1+l2+l3; 
+    var newparam = l1+l2+l3;
     const formData : FormData=new FormData();
     formData.append('param',newparam);
     formData.append('proc',"EXEC MQP_M_MSG_GETPAR ?");
     this.getmsg.getMessages(formData).subscribe((data:any) => {
-    this.write=data["Service"]; 
+    this.write=data["Service"];
     if(this.write[0]?.name4=="11") {this.dthema = false;  this.dkomu = false;}
     if(this.write[0]?.name4=="10") {this.dthema = false;  this.dkomu = true;}
     if(this.write[0]?.name4=="01") {this.dthema = true;  this.dkomu = false;}
@@ -231,7 +232,7 @@ export class MsglistComponent implements OnInit {
     var l3="00010";
     var l4=(this.id_str_videl.length.toString().padStart(4,"0"))+this.id_str_videl;
     var l5=(this.id_str_jirfont.length.toString().padStart(4,"0"))+this.id_str_jirfont;
-    var newparam = l1+l2+l3+l4+l5; 
+    var newparam = l1+l2+l3+l4+l5;
     formData.append('param',newparam);
     formData.append('proc',"EXEC MQL_M_MSG_FORSEL_01 ?");
     this.getmsg.getMessages(formData).subscribe((data:any)=>this.theme=data["MsgList"]);
@@ -243,12 +244,12 @@ export class MsglistComponent implements OnInit {
     const formData : FormData = new FormData();
     var l1=(this.amsg_kod.length.toString().padStart(4,"0"))+this.amsg_kod;
     var l2=(this.pidsel1.length.toString().padStart(4,"0"))+this.pidsel1;
-    var newparam = l1+l2; 
+    var newparam = l1+l2;
     formData.append('param',newparam);
     formData.append('proc',"EXEC MQP_M_MSG_FORSEL_01_PAR ?");
     this.getmsg.getMessages(formData).subscribe((data:any)=>{
     this.forsel1=data["Service"];
-    var mask0=(this.forsel1[0]?.name2).substring(0,1); 
+    var mask0=(this.forsel1[0]?.name2).substring(0,1);
     var mask1=(this.forsel1[0]?.name2).substring(1,2);
     if (mask0 == "1") {this.dthema = false;} else {this.dthema = true;}
     if (mask1 == "1" || mask1 == "2") {this.dkomu = false;} else {this.dkomu = true;}
@@ -260,13 +261,13 @@ export class MsglistComponent implements OnInit {
       this.id_komu = "0";
       this.komitem = "";
     } else {
-      if (this.forsel1[0]?.name5 != "0") 
+      if (this.forsel1[0]?.name5 != "0")
       {
         this.id_komu=(this.forsel1[0]?.name5)
-        this.komitem=(this.forsel1[0]?.name6) 
-      } 
+        this.komitem=(this.forsel1[0]?.name6)
+      }
     }
-    
+
     });
   }
 
@@ -277,7 +278,7 @@ export class MsglistComponent implements OnInit {
     var l3=(this.id_theme.length.toString().padStart(4,"0"))+this.id_theme;
     var l4=(this.id_str_videl.length.toString().padStart(4,"0"))+this.id_str_videl;
     var l5=(this.id_str_jirfont.length.toString().padStart(4,"0"))+this.id_str_jirfont;
-    var newparam=l1+l2+l3+l4+l5; 
+    var newparam=l1+l2+l3+l4+l5;
     formData.append('param',newparam);
     formData.append('proc',"EXEC MQL_M_MSG_FORSEL_02 ?");
     this.getmsg.getMessages(formData).subscribe((data:any)=>this.komu=data["MsgList"]);
@@ -301,10 +302,10 @@ export class MsglistComponent implements OnInit {
         this.id_theme=(this.forsel2[0]?.name3);
         this.thmitem=(this.forsel2[0]?.name4);
       }
-      if (this.forsel2[0]?.name5 != "0") 
+      if (this.forsel2[0]?.name5 != "0")
       {
         this.id_komu=(this.forsel2[0]?.name5);
-        this.komitem=(this.forsel2[0]?.name6); 
+        this.komitem=(this.forsel2[0]?.name6);
       }
 
     });
@@ -312,16 +313,16 @@ export class MsglistComponent implements OnInit {
 
   Cancel(){
     this.writeactive = {'z-index':'9'};
-    this.card1active = {'z-index':'9'}; 
+    this.card1active = {'z-index':'9'};
   }
 
   Send(){
     this.writeactive = {'z-index':'9'};
-    this.card1active = {'z-index':'9'}; 
+    this.card1active = {'z-index':'9'};
     const formData : FormData = new FormData();
-    var l1 = (this.amsg_kod.length.toString().padStart(4, "0"))+this.amsg_kod; 
+    var l1 = (this.amsg_kod.length.toString().padStart(4, "0"))+this.amsg_kod;
     var l2 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
-    var l3 = (this.id_komu.length.toString().padStart(4, "0"))+this.id_komu; 
+    var l3 = (this.id_komu.length.toString().padStart(4, "0"))+this.id_komu;
     var l4 = (this.message_id.length.toString().padStart(4, "0"))+this.message_id;
     var l5 = (this.id_theme.length.toString().padStart(4, "0"))+this.id_theme;
     var l6 = (this.textarea.length.toString().padStart(4, "0"))+this.textarea;
@@ -331,53 +332,80 @@ export class MsglistComponent implements OnInit {
     this.getmsg.getMessages(formData).subscribe((data:any) =>{
        this.adresat=data["Service"];
       });
-        
+
 }
   AddFiles(event:any){
     const file:File = event.target.files[0];
-    this.formData.append(this.pos, file, file.name); 
-    //this.formData.append("last", file.lastModified.toString()); 
+    this.formData.append(this.pos, file, file.name);
+    this.index_files.push(this.pos);
+    //this.formData.append("last", file.lastModified.toString());
     let sizefiles = this.formData.get(this.pos);
-    //let mass = this.formData.getAll('');
-    //console.log(this.pos);
-    
-    //console.log(sizefiles.length);
-    this.totalsize = 0;
-    for (let ii=0; ii<this.pos; ii++){
-      let sizefile = this.formData.get(ii);
-      this.totalsize = this.totalsize + sizefile.size;
-      console.log(sizefiles);
-      console.log(sizefiles.size);
-    }
     this.pos++;
+    let mass = this.formData;
+    console.log("Выбранные файлы: ", event.target.files);
+    console.log(this.index_files);
+    //console.log(sizefiles.size);
+    //console.log(mass);
+
+    console.log("цикл this.pos = ", this.pos);
+    this.totalsize = 0;
+    for (let i in this.index_files){
+      console.log("i = ",i);
+      let sizefiles1 = this.formData.get(i);
+      this.totalsize = this.totalsize + sizefiles1.size;
+      //console.log(sizefiles1);
+      //console.log(sizefiles1.size);
+    }
+    console.log("конец цикла this.pos");
+    console.log(this.index_files);
   }
 
   DelF(i:number){
     console.log(i);
-    this.formData.delete(i);
+    this.index_files.splice(i,1);
+    console.log(this.index_files);
     //let sizefiles = this.formData.values();
     //console.log(sizefiles);
-    
+  }
+
+  Otpr(){
+    console.log("Переворачиваем");
+    let ii=0;
+    for (let i in this.index_files){
+      console.log(this.index_files[i]);
+      console.log(this.formData.get(this.index_files[i]));
+      this.formData.set(ii, this.formData.get(this.index_files[i]));
+      console.log(this.index_files[i], '=>' ,ii);
+      console.log(this.formData.get(ii));
+      ii++;
+    }
+    console.log("Новый список");
+    for (let i=0; i<ii; i++){
+      console.log("i = ",i);
+      let sizefiles1 = this.formData.get(i);
+      console.log(sizefiles1)
+    }
   }
 
   ngOnInit():void {
+    console.log(this.index_files);
     const formData : FormData = new FormData();
-    var l1 = (this.my1.length.toString().padStart(4, "0"))+this.my1; 
+    var l1 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
     var l2 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
     var newparam = l1+l2;
     formData.append('param', newparam);
     formData.append('proc', "EXEC MQL_M_PAR_LOAD ?");
-    this.getmsg.getMessages(formData).subscribe((data:any) => {
-      this.adresat=data["MsgList"];
-      this.amsg_kod = this.adresat[0]?.name3;
-    });
+    //this.getmsg.getMessages(formData).subscribe((data:any) => {
+     // this.adresat=data["MsgList"];
+     // this.amsg_kod = this.adresat[0]?.name3;
+    //});
       formData.append('param', "0004000000025400025400010002120210620 23:59:59.999");
       formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
-      this.getmsg.getMessages(formData).subscribe((data:any) =>{
-        this.msg=data["MsgList"];
-        this.msg_u = this.msg;
-        this.w = 1; 
-      });
+      //this.getmsg.getMessages(formData).subscribe((data:any) =>{
+      //  this.msg=data["MsgList"];
+      //  this.msg_u = this.msg;
+      //  this.w = 1;
+      //});
   }
 
 }

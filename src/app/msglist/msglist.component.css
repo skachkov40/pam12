@@ -1,230 +1,289 @@
 .sidenav {
-  background-color: white;
-  width: 100vw;
-  height: 89vh;
-  margin-top: 1px; 
+    background-color: white;
+    width: 100vw;
+    height: 89vh;
+    margin-top: 1px;
 }
+
 .navbuttons {
-  background-color: rgb(221, 234, 253);
-  max-width: 70px; 
-  text-align: center;
+    background-color: rgb(221, 234, 253);
+    max-width: 70px;
+    text-align: center;
 }
+
 .inbox {
-  margin-top: 15px;
-  background-color: #3f51b5;
+    margin-top: 15px;
+    background-color: #3f51b5;
 }
-.outbox,  .poluch, .addfiles{
-  margin-top: 15px;
-  background-color: #3f51b5;
+
+.outbox,
+.poluch,
+.addfiles {
+    margin-top: 15px;
+    background-color: #3f51b5;
 }
-.file-input{
-  display:none;
+
+.file-input {
+    display: none;
 }
-.write{
-  margin-top: 60px;
-  background-color: #3f51b5;
+
+.write {
+    margin-top: 60px;
+    background-color: #3f51b5;
 }
-.poluch:active, .addfiles:active{
-  background-color: #ff9e00;
+
+.poluch:active,
+.addfiles:active {
+    background-color: #ff9e00;
 }
-.inboxactive, .outboxactive, .writeactive {
-  background-color: #ff9e00;
+
+.inboxactive,
+.outboxactive,
+.writeactive {
+    background-color: #ff9e00;
 }
+
 .table-container {
-  position: absolute;
-  z-index: 10;
-  width: 99%;
-  height: 88vh;
-  overflow:auto;
-  margin-left: 2px;   
-  border-radius: 5px;
-  font-size: 25px;
+    position: absolute;
+    z-index: 10;
+    width: 99%;
+    height: 88vh;
+    overflow: auto;
+    margin-left: 2px;
+    border-radius: 5px;
+    font-size: 25px;
 }
+
 table {
-  width: 100%;
+    width: 100%;
 }
-table td{
-  font-size: 17px;
-  
+
+table td {
+    font-size: 17px;
 }
-table th{
-  font-size: 15px;
-  font-weight: bold;
-} 
-.row-table:hover{
-  background-color: rgb(240, 240, 240);
+
+table th {
+    font-size: 15px;
+    font-weight: bold;
 }
+
+.row-table:hover {
+    background-color: rgb(240, 240, 240);
+}
+
 .head-table {
-  height: 35px;
-  background-color: rgb(221, 234, 253);
-  
+    height: 35px;
+    background-color: rgb(221, 234, 253);
 }
-.row-table{
-  height: 30px;
+
+.row-table {
+    height: 30px;
 }
+
 .clickRowColor {
-  background-color: rgb(230, 230, 230);
-  font-size: 20px;
-} 
+    background-color: rgb(230, 230, 230);
+    font-size: 20px;
+}
+
 .list-card {
-  position: absolute;
-  z-index: 9;
-  padding: 0px;
-  width: 99%;
-  height: 88vh;
-  margin-left: 2px;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(221, 234, 253);
-}  
-.card-buttons { 
-  padding: 5px;
-  margin: 0; 
+    position: absolute;
+    z-index: 9;
+    padding: 0px;
+    width: 99%;
+    height: 88vh;
+    margin-left: 2px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(221, 234, 253);
 }
-.card-content{ 
-  height: 100%;
-  overflow-y: auto;
-  background-color: white;
-  padding-top: 10px;
-}  
+
+.card-buttons {
+    padding: 5px;
+    margin: 0;
+}
+
+.card-content {
+    height: 100%;
+    overflow-y: auto;
+    background-color: white;
+    padding-top: 10px;
+}
+
 .list-card li {
-  list-style-type: none;
+    list-style-type: none;
 }
+
 .list-card a {
-  padding-left: 10px;
-  font-size: 15px;
-  font-weight: bold;
+    padding-left: 10px;
+    font-size: 15px;
+    font-weight: bold;
 }
-.backltr{
-  height: 35px;
-  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
+
+.backltr {
+    height: 35px;
+    box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
 }
-.themebtn{
-  height: 35px;
-  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
+
+.themebtn {
+    height: 35px;
+    box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
 }
-.info{
-  padding-top: 5px;
-  padding-left: 5px;
-  height: 15px;
+
+.info {
+    padding-top: 5px;
+    padding-left: 5px;
+    height: 15px;
 }
-.answbtn{
-  height: 35px;
-  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
+
+.answbtn {
+    height: 35px;
+    box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
 }
-.filebtn{
-  height: 35px;
-  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
+
+.filebtn {
+    height: 35px;
+    box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
 }
-.msginfo{
-  font-size: 12px;
-  color: gray;
-  text-decoration: underline;
+
+.msginfo {
+    font-size: 12px;
+    color: gray;
+    text-decoration: underline;
 }
-.msgtext{ 
-  width: 95%;
-  font-size: 15px;
-  white-space: pre-wrap;  
+
+.msgtext {
+    width: 95%;
+    font-size: 15px;
+    white-space: pre-wrap;
 }
+
 .ltrcard {
-  position:absolute;
-  z-index: 11;
-  width: 99%;
-  padding: 0px;
-  height: 88vh;
-  padding-left: 2px;
-  padding-right: 2px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(221, 234, 253);
-  border-radius: 5px;
-}  
+    position: absolute;
+    z-index: 11;
+    width: 99%;
+    padding: 0px;
+    height: 88vh;
+    padding-left: 2px;
+    padding-right: 2px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(221, 234, 253);
+    border-radius: 5px;
+}
+
 .ltrcard a {
-  padding-left: 5px;
-} 
-.logo{
-  height: 27px;
-  color: whitesmoke;
-  background-color: #3f51b5;
-  text-align: center;
-  border-radius: 5px;
-  
+    padding-left: 5px;
 }
-.ltrbuttons{
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  padding: 3px;
-  background-color: rgb(221, 234, 253);
-   
+
+.logo {
+    height: 27px;
+    color: whitesmoke;
+    background-color: #3f51b5;
+    text-align: center;
+    border-radius: 5px;
 }
+
+.ltrbuttons {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding: 3px;
+    background-color: rgb(221, 234, 253);
+}
+
 .letterbtn button {
-  height: 35px;
-  width: 80px;
-  background-color: whitesmoke;
-  box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
+    height: 35px;
+    width: 80px;
+    background-color: whitesmoke;
+    box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
 }
-.ltrcontent{
-  width: 100%;
-  height: 99%;
-  margin-bottom: 0;
-  padding: 0;
-  background-color: white;
-  
-  
+
+.ltrcontent {
+    width: 100%;
+    height: 99%;
+    margin-bottom: 0;
+    padding: 0;
+    background-color: white;
 }
-.txtcontent_textarea{
-  width: 96%;
-  height:60%; 
-  border: 1px solid rgb(38, 201, 38);
-  resize: none;
-  
-  padding: 15px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  color: black;
-  outline:none;
-  background-color: white;
+
+.txtcontent_textarea {
+    width: 96%;
+    min-height: 50%;
+    display: grid;
+    border: 1px solid rgb(38, 201, 38);
+    resize: none;
+    padding: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: black;
+    outline: none;
+    background-color: white;
+    overflow: hidden;
 }
-.txtcontent_ul{
-  width: 96%;
-  list-style-type: none;
-  height: 20%; 
-  
-  border: 1px solid rgb(211, 36, 36);
-  margin-top: 0;
-  padding: 15px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  color: black;
-  background-color: white;
+
+.txtcontent_ul {
+    position: absolute;
+    left: 1px;
+    bottom: 35px;
+    width: 96%;
+    list-style-type: none;
+    max-height: 40%;
+    display: inline-block;
+    overflow: auto;
+    border: 1px solid rgb(211, 36, 36);
+    margin-top: 0;
+    padding: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: black;
+    background-color: white;
 }
-.del{
-  background-color: #c72626;
+
+.txtcontent_ul li {
+    background-color: rgb(255, 255, 255);
+    padding-bottom: 3px;
 }
-.del:active{
-  background-color: #ff9e00;
+
+.del {
+    width: 35px;
+    height: 35px;
+    font-size: 15px;
+    background-color: #c72626;
 }
-.sendltrbtn{
-  height: 45px;
-  padding: 5px;
-  background-color: rgb(193, 218, 255);
-  
+
+.del mat-icon {
+    position: absolute;
+    top: 6px;
+    left: 6px;
 }
-.writeltr{
-  height: 35px;
-  margin-right: 10px;
-  background-color: whitesmoke;
+
+.del:active {
+    background-color: #ff9e00;
 }
-.altr{
-  margin-right: 10px;
+
+.sendltrbtn {
+    height: 45px;
+    padding: 5px;
+    background-color: rgb(193, 218, 255);
 }
-.right{
-  position: absolute;
-  right: 0;
+
+.writeltr {
+    height: 35px;
+    margin-right: 10px;
+    background-color: whitesmoke;
 }
-.maxon{
-  color: red;
+
+.altr {
+    margin-right: 10px;
+}
+
+.right {
+    position: absolute;
+    right: 0;
+}
+
+.maxon {
+    color: red;
 }

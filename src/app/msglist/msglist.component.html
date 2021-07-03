@@ -1,135 +1,132 @@
-
 <!-- Навигационная панель -->
 <mat-drawer-container class="sidenav">
-  <mat-drawer class="navbuttons" mode="side" opened>
-    <button class="inbox" mat-mini-fab (click)="clickInBox()"
-      [ngClass]="{'inboxactive': color}" title = "Полученные сообщения">
+    <mat-drawer class="navbuttons" mode="side" opened>
+        <button class="inbox" mat-mini-fab (click)="clickInBox()" [ngClass]="{'inboxactive': color}" title="Полученные сообщения">
         <mat-icon>drafts</mat-icon>
     </button>
-    <button class="outbox" mat-mini-fab (click)="clickOutBox()"
-      [ngClass]="{'outboxactive': color2}" title = "Отправленные сообщения">
+        <button class="outbox" mat-mini-fab (click)="clickOutBox()" [ngClass]="{'outboxactive': color2}" title="Отправленные сообщения">
         <mat-icon>reply_all</mat-icon>
     </button>
-    <button class="write" mat-mini-fab (click)="Write()"
-      [ngClass]="{'writeactive': color3}" title = "Отправить сообщение">
+        <button class="write" mat-mini-fab (click)="Write()" [ngClass]="{'writeactive': color3}" title="Отправить сообщение">
         <mat-icon>create</mat-icon>
     </button>
-    <button class="poluch" mat-mini-fab (click)="GetAll()" title = "Получить сообщения">
+        <button class="poluch" mat-mini-fab (click)="GetAll()" title="Получить сообщения">
       <mat-icon>autorenew</mat-icon>
     </button>
-    <input class="file-input" type="file" 
-       (change)="AddFiles($event)" #fileUpload>
-    <button class="addfiles" mat-mini-fab (click)="fileUpload.click()" title = "Добавить файлы">
+        <input class="file-input" type="file" (change)="AddFiles($event)" #fileUpload>
+        <button class="addfiles" mat-mini-fab (click)="fileUpload.click()" title="Добавить файлы">
       <mat-icon>attach_file</mat-icon>
     </button>
-  </mat-drawer>
-  <mat-drawer-content >
-    <div *ngIf="showIn"> 
-      <div  class="table-container">
-        <table mat-table [dataSource]="msg_u">
-          <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> Влож. </th>
-            <td mat-cell *matCellDef="let element"style="color: red"> {{element?.name2}} </td>
-          </ng-container>
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> От </th>
-            <td mat-cell *matCellDef="let element"> {{element?.name4}} </td>
-          </ng-container>
-          <ng-container matColumnDef="weight">
-            <th mat-header-cell *matHeaderCellDef> Тема </th>
-            <td mat-cell *matCellDef="let element" > {{element?.name5}} </td>
-          </ng-container>
-          <ng-container matColumnDef="symbol">
-            <th mat-header-cell *matHeaderCellDef> Отправлено </th>
-            <td mat-cell *matCellDef="let element"> {{element?.name6}} </td>
-            <button mat-mini-fab color="primary" ><mat-icon>edit</mat-icon></button>
-          </ng-container>
-          <tr class="head-table" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr class="row-table" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="
+        <button class="poluch" mat-mini-fab (click)="Otpr()" title="Получить сообщения">
+      <mat-icon>ok</mat-icon>
+    </button>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div *ngIf="showIn">
+            <div class="table-container">
+                <table mat-table [dataSource]="msg_u">
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> Влож. </th>
+                        <td mat-cell *matCellDef="let element" style="color: red"> {{element?.name2}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> От </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.name4}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="weight">
+                        <th mat-header-cell *matHeaderCellDef> Тема </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.name5}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="symbol">
+                        <th mat-header-cell *matHeaderCellDef> Отправлено </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.name6}} </td>
+                        <button mat-mini-fab color="primary"><mat-icon>edit</mat-icon></button>
+                    </ng-container>
+                    <tr class="head-table" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr class="row-table" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="
           clickRow(row)" [ngClass]="{'clickRowColor': selectedRowIndex == row.name1}"></tr>
-        </table>
-      </div>
-    </div>
-    <mat-card [ngStyle]="card1active" *ngIf="showCard" class="list-card" >
-        <mat-card-actions class="card-buttons">
-          <button class="backltr" mat-button (click)="Cancel()">Назад</button>
-          <button class ="themebtn" mat-button>Тема:</button>
-          <a>{{srv[0]?.name2}}</a>
-          <button class ="answbtn" mat-button>Ответить</button>
-        </mat-card-actions>
-        <mat-card-content class="card-content">       
-          <ul>
-            <li *ngFor="let pos of read; let i=index">
-              <p class="msginfo">{{pos?.name3}}</p>
-              <p class="msgtext">{{pos?.name2}}</p>
-             </li>
-          </ul> 
-        </mat-card-content> 
-    </mat-card>
-    <mat-card [ngStyle]="writeactive" *ngIf="writemsg" class="ltrcard">
-         <div class="logo">
-      <h3>Подготовка и отправка {{letr}} сообщения</h3>
+                </table>
+            </div>
         </div>
-        <mat-card-actions class="ltrbuttons">
-          <div class="backbtn">
-            <button class="backltr" mat-button (click)="Cancel()">
+        <mat-card [ngStyle]="card1active" *ngIf="showCard" class="list-card">
+            <mat-card-actions class="card-buttons">
+                <button class="backltr" mat-button (click)="Cancel()">Назад</button>
+                <button class="themebtn" mat-button>Тема:</button>
+                <a>{{srv[0]?.name2}}</a>
+                <button class="answbtn" mat-button>Ответить</button>
+            </mat-card-actions>
+            <mat-card-content class="card-content">
+                <ul>
+                    <li *ngFor="let pos of read; let i=index">
+                        <p class="msginfo">{{pos?.name3}}</p>
+                        <p class="msgtext">{{pos?.name2}}</p>
+                    </li>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+        <mat-card [ngStyle]="writeactive" *ngIf="writemsg" class="ltrcard">
+            <div class="logo">
+                <h3>Подготовка и отправка {{letr}} сообщения</h3>
+            </div>
+            <mat-card-actions class="ltrbuttons">
+                <div class="backbtn">
+                    <button class="backltr" mat-button (click)="Cancel()">
               <mat-icon>keyboard_backspace</mat-icon>
             Назад</button>
-          </div>
-          <div class="letterbtn">
-        <button mat-button [matMenuTriggerFor]="clickmenu">Адресат</button>
-        <mat-menu #clickmenu="matMenu">
-          <button mat-menu-item *ngFor="let adr of adresat">
+                </div>
+                <div class="letterbtn">
+                    <button mat-button [matMenuTriggerFor]="clickmenu">Адресат</button>
+                    <mat-menu #clickmenu="matMenu">
+                        <button mat-menu-item *ngFor="let adr of adresat">
             <span (click)="AdresatClick(adr)">{{adr?.name2}}</span>
           </button>
-        </mat-menu>
-          <a>{{adritem}}</a>
-          </div>
-          <div class="letterbtn">
-          <button [disabled] = "dthema" class="thema" mat-button [matMenuTriggerFor]="clickthema" (click)="ThemeSrvClick()">Тема</button>
-            <mat-menu #clickthema="matMenu">
-              <button mat-menu-item *ngFor="let thm of theme">
+                    </mat-menu>
+                    <a>{{adritem}}</a>
+                </div>
+                <div class="letterbtn">
+                    <button [disabled]="dthema" class="thema" mat-button [matMenuTriggerFor]="clickthema" (click)="ThemeSrvClick()">Тема</button>
+                    <mat-menu #clickthema="matMenu">
+                        <button mat-menu-item *ngFor="let thm of theme">
                 <button class="dnbtn" mat-button (click)="ThemeClick(thm)">{{thm?.name2}}</button>
-              </button>
-           </mat-menu>
-             <a>{{thmitem}}</a>
-          </div>
-          <div class="letterbtn">
-          <button [disabled] = "dkomu" class="komu" mat-button [matMenuTriggerFor]="clickkomu" (click)="KomuSrvClick()">Кому</button>
-          <mat-menu #clickkomu="matMenu">
-            <button mat-menu-item *ngFor="let kom of komu">
+                        </button>
+                    </mat-menu>
+                    <a>{{thmitem}}</a>
+                </div>
+                <div class="letterbtn">
+                    <button [disabled]="dkomu" class="komu" mat-button [matMenuTriggerFor]="clickkomu" (click)="KomuSrvClick()">Кому</button>
+                    <mat-menu #clickkomu="matMenu">
+                        <button mat-menu-item *ngFor="let kom of komu">
               <span (click)="KomuClick(kom)">{{kom?.name2}}</span>
             </button>
-         </mat-menu>
-          <a>{{komitem}}</a>
-          
-          </div>
-          <div class="info">
-            <p>Размер сообщения от 4 до {{maxq}} символов. Текущий - {{textarea.length}} символов</p>  
-          </div>
-        </mat-card-actions>
-        <mat-card-content class="ltrcontent">
-             
-          <textarea class = "txtcontent_textarea" [(ngModel)] = "textarea"
-            [ngClass]="{'maxon': textarea.length>=maxq }">         
-          </textarea>
-          <ul class="txtcontent_ul">
-            <p>Размер загружаемых файлов не более {{(q/1000).toFixed(2)}} Кб. Текущий размер - {{(totalsize/1000).toFixed(2)}} Кб.</p>
-            <li *ngFor="let p of formData let i=index">
-              <a class="del" (click)="DelF(p)" title = "Удалить файл из списка">
-                <mat-icon>clear</mat-icon>
-              </a>
-              <a>{{i+1}}) {{formData.get(i).name}}-{{(formData.get(i).size/1000).toFixed(2)}} Кб.</a>
-             </li>
-          </ul> 
-        </mat-card-content> 
-        <div class="sendltrbtn">
-        <div class="right">
-          <a class="altr">Колличество сообщений - не более {{maxs}} раз в сутки. Текущий - {{thiss}}</a>
-          <button class="writeltr" mat-button (click)="Cancel()">Отмена</button>
-          <button class="writeltr"[disabled] = "!(maxq>textarea.length) || !(textarea.length>3)"  mat-button (click)="Send()">Отправить</button>
-        </div>
-        </div>
-    </mat-card>
-  </mat-drawer-content>
+                    </mat-menu>
+                    <a>{{komitem}}</a>
+
+                </div>
+                <div class="info">
+                    <p>Размер сообщения от 4 до {{maxq}} символов. Текущий - {{textarea.length}} символов</p>
+                </div>
+            </mat-card-actions>
+            <mat-card-content class="ltrcontent">
+
+                <textarea class="txtcontent_textarea" [(ngModel)]="textarea" [ngClass]="{'maxon': textarea.length>=maxq }">
+                </textarea>
+                <ul class="txtcontent_ul">
+                    <p>Размер загружаемых файлов не более {{(q/1024).toFixed(2)}} Кб. Текущий размер - {{(totalsize/1024).toFixed(2)}} Кб.</p>
+                    <li *ngFor="let p of index_files let i=index">
+                        <button class="del" mat-mini-fab (click)="DelF(i)" title="Удалить файл из списка">
+                            <mat-icon >clear</mat-icon>
+                        </button>
+                        <a>{{i+1}}) {{formData.get(p).name}}-{{(formData.get(p).size/1024).toFixed(2)}} Кб.</a>
+                    </li>
+                </ul>
+            </mat-card-content>
+            <div class="sendltrbtn">
+                <div class="right">
+                    <a class="altr">Колличество сообщений - не более {{maxs}} раз в сутки. Текущий - {{thiss}}</a>
+                    <button class="writeltr" mat-button (click)="Cancel()">Отмена</button>
+                    <button class="writeltr" [disabled]="!(maxq>textarea.length) || !(textarea.length>3)" mat-button (click)="Send()">Отправить</button>
+                </div>
+            </div>
+        </mat-card>
+    </mat-drawer-content>
 </mat-drawer-container>
