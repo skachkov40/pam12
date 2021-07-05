@@ -8,7 +8,7 @@ import { Theme } from '../classes/theme';
 import { Komu } from '../classes/komu';
 import { Forsel } from '../classes/forsel';
 import { Send } from '../classes/send';
-
+import { FileUploadService } from '../fileUpload.service';
 
 @Component({
   selector: 'app-msglist',
@@ -19,8 +19,8 @@ export class MsglistComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   showIn:boolean = true;
-  showCard:boolean = false;
-  writemsg:boolean = true;
+  showCard:boolean = true;
+  writemsg:boolean = false;
   color:boolean = true;
   color2:boolean = false;
   color3:boolean = false;
@@ -51,7 +51,7 @@ export class MsglistComponent implements OnInit {
   q:number = 0;
   w:number = 0;
   maxl:number = 0;
-  maxq:number = 7;
+  maxq:number = 10;
   maxs:string = "0";
   thiss:string = "0";
   card1active:any;
@@ -74,12 +74,19 @@ export class MsglistComponent implements OnInit {
   index_files = new Array;
   totalsize:number = 0;
   pos:number = 0;
+  pos2:number = 50;
+  pos3:number = 100;
+  otvet:any;
+  id_msg:any = "";
 
 
   dthema:boolean = true;
   dkomu:boolean = true;
 
-  constructor(private getmsg:MsggetService) {}
+  constructor(
+    private getmsg:MsggetService,
+    private fileUploadService:FileUploadService
+    ) {}
 
   clickInBox(){
     this.amsg_id="0";
@@ -164,7 +171,8 @@ export class MsglistComponent implements OnInit {
 
   Write(){
     this.textarea = "";
-
+    this.formData = new FormData;
+    this.index_files = new Array;
     this.writemsg = true;
     this.writeactive = {'z-index':'11'}
     this.card1active = {'z-index':'9'}
@@ -329,8 +337,16 @@ export class MsglistComponent implements OnInit {
     var newparam = l1+l2+l3+l4+l5+l6;
     formData.append('param', newparam);
     formData.append('proc', "EXEC MQS_M_MSG_SAVE ?");
-    this.getmsg.getMessages(formData).subscribe((data:any) =>{
-       this.adresat=data["Service"];
+    this.getmsg.getMessages(formData).subscribe((data?:any) =>{
+      this.adresat=data["Service"];
+      this.id_msg=(this.adresat[0]?.name2);
+      for (let i in this.index_files){
+        this.formData.set('data', this.formData.get(this.index_files[i]));
+        this.formData.set('last', this.formData.get(this.index_files[i]+50));
+        this.formData.append('idmsg', this.id_msg);
+        this.fileUploadService.postFile(this.formData).subscribe((resp?:any)=>this.otvet=resp);
+       }
+      
       });
 
 }
@@ -338,74 +354,74 @@ export class MsglistComponent implements OnInit {
     const file:File = event.target.files[0];
     this.formData.append(this.pos, file, file.name);
     this.index_files.push(this.pos);
-    //this.formData.append("last", file.lastModified.toString());
-    let sizefiles = this.formData.get(this.pos);
+    this.formData.append(this.pos2, file.lastModified.toString());
+    this.formData.append(this.pos3, this.id_msg);
     this.pos++;
-    let mass = this.formData;
-    console.log("Выбранные файлы: ", event.target.files);
-    console.log(this.index_files);
-    //console.log(sizefiles.size);
-    //console.log(mass);
-
-    console.log("цикл this.pos = ", this.pos);
+    this.pos2++;
+    this.pos3++;
+    //console.log(this.index_files);
+    //console.log("цикл this.pos = ", this.pos);
     this.totalsize = 0;
-    for (let i in this.index_files){
+    for (let i in this.index_files){ // считаем размер файлов
       console.log("i = ",i);
       let sizefiles1 = this.formData.get(i);
       this.totalsize = this.totalsize + sizefiles1.size;
-      //console.log(sizefiles1);
-      //console.log(sizefiles1.size);
-    }
-    console.log("конец цикла this.pos");
-    console.log(this.index_files);
+          }
+    //console.log("конец цикла this.pos");
+    //console.log(this.index_files);
   }
 
   DelF(i:number){
-    console.log(i);
+    //console.log(i);
     this.index_files.splice(i,1);
-    console.log(this.index_files);
+    //console.log(this.index_files);
     //let sizefiles = this.formData.values();
     //console.log(sizefiles);
   }
 
   Otpr(){
-    console.log("Переворачиваем");
-    let ii=0;
+    //console.log("Переворачиваем");
     for (let i in this.index_files){
-      console.log(this.index_files[i]);
-      console.log(this.formData.get(this.index_files[i]));
-      this.formData.set(ii, this.formData.get(this.index_files[i]));
-      console.log(this.index_files[i], '=>' ,ii);
-      console.log(this.formData.get(ii));
-      ii++;
+      //console.log(this.index_files[i]);
+      //console.log(this.formData.get(this.index_files[i]));
+      //console.log(this.formData.get(this.index_files[i]+50));
+      this.formData.set('data', this.formData.get(this.index_files[i]));
+      this.formData.set('last', this.formData.get(this.index_files[i]+50));
+      this.formData.set('idmsg', this.formData.get(this.index_files[i]+100));
+      //console.log(this.index_files[i], '=>' ,ii);
+      //console.log(this.formData.get('data'));
+      //console.log(this.formData.get('last'));
+      this.fileUploadService.postFile(this.formData).subscribe((resp?:any)=>this.otvet=resp);
     }
-    console.log("Новый список");
-    for (let i=0; i<ii; i++){
-      console.log("i = ",i);
-      let sizefiles1 = this.formData.get(i);
-      console.log(sizefiles1)
-    }
+    //console.log("Новый список");
+    //for (let i=0; i<ii; i++){
+      //console.log("i = ",i);
+      //console.log(this.formData2.get(i));
+      //console.log(this.formData2.get(i+50));
+   // }
+    //new Response(this.formData).text().then(console.log);
+    
   }
 
   ngOnInit():void {
-    console.log(this.index_files);
+    //console.log(this.index_files);
     const formData : FormData = new FormData();
     var l1 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
     var l2 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
     var newparam = l1+l2;
     formData.append('param', newparam);
     formData.append('proc', "EXEC MQL_M_PAR_LOAD ?");
-    //this.getmsg.getMessages(formData).subscribe((data:any) => {
-     // this.adresat=data["MsgList"];
-     // this.amsg_kod = this.adresat[0]?.name3;
-    //});
+    this.getmsg.getMessages(formData).subscribe((data:any) => {
+      this.adresat=data["MsgList"];
+      this.amsg_kod = this.adresat[0]?.name3;
+    });
       formData.append('param', "0004000000025400025400010002120210620 23:59:59.999");
       formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
-      //this.getmsg.getMessages(formData).subscribe((data:any) =>{
-      //  this.msg=data["MsgList"];
-      //  this.msg_u = this.msg;
-      //  this.w = 1;
-      //});
+      this.getmsg.getMessages(formData).subscribe((data:any) =>{
+        this.msg=data["MsgList"];
+        this.msg_u = this.msg;
+        this.w = 1;
+      });
   }
 
 }

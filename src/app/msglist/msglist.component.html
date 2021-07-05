@@ -17,9 +17,6 @@
         <button class="addfiles" mat-mini-fab (click)="fileUpload.click()" title="Добавить файлы">
       <mat-icon>attach_file</mat-icon>
     </button>
-        <button class="poluch" mat-mini-fab (click)="Otpr()" title="Получить сообщения">
-      <mat-icon>ok</mat-icon>
-    </button>
     </mat-drawer>
     <mat-drawer-content>
         <div *ngIf="showIn">
@@ -44,7 +41,7 @@
                     </ng-container>
                     <tr class="head-table" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                     <tr class="row-table" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="
-          clickRow(row)" [ngClass]="{'clickRowColor': selectedRowIndex == row.name1}"></tr>
+                      clickRow(row)" [ngClass]="{'clickRowColor': selectedRowIndex == row.name1}"></tr>
                 </table>
             </div>
         </div>
@@ -62,6 +59,18 @@
                         <p class="msgtext">{{pos?.name2}}</p>
                     </li>
                 </ul>
+                <div class="files">
+                  <div>
+                    <mat-icon>attach_file</mat-icon>
+                  </div>
+                  <div class="fileslist">
+                    <p>Прикрепленные файлы1</p>
+                    <p>Прикрепленные файлы2</p>
+
+                  </div>
+                  
+
+                </div>
             </mat-card-content>
         </mat-card>
         <mat-card [ngStyle]="writeactive" *ngIf="writemsg" class="ltrcard">
