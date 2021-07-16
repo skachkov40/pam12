@@ -150,20 +150,25 @@ export class MsglistComponent implements OnInit {
     });
   }
 
-  clickFile(id_blob:string, pkol:string, name:string){
+  clickFile(id_blob:string, pkol:string, name:string, last:string){
     const formData : FormData = new FormData();
     formData.append('id_blob', id_blob);
     formData.append('pkol', pkol);
     formData.append('name', name);
+    formData.append('last', last);
     this.fileLoadService.ReadFile(formData).subscribe((response: any) => {
       let dataType = response.type;
       let binaryData = [];
       binaryData.push(response);
       let downloadLink = document.createElement('a');
       downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+      
       downloadLink.setAttribute('download', name);
       document.body.appendChild(downloadLink);
       downloadLink.click();
+      //const fs = require('fs');
+      //fs.utimesSync(filename, time, time);
+      
     }
     )
     

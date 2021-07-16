@@ -68,7 +68,10 @@
                   </div>
                   <div class="fileslist">
                     <li *ngFor="let pos of read; let i=index">
-                        <p *ngIf="pos?.name7=='2'" class="fileinfo" (click)="clickFile(pos.name1, pos.name6, pos.name2)"> {{pos?.name2}} {{pos?.name4}} {{pos?.name5}}</p>
+                        <p *ngIf="pos?.name7=='2'" class="fileinfo" 
+                            (click)="clickFile(pos.name1, pos.name6, pos.name2, pos.name5)">
+                            {{pos?.name2}} ({{pos?.name4}}) || - изменён: ({{pos?.name5}})
+                        </p>
                     </li>
                     
                   </div>
