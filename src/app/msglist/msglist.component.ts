@@ -9,6 +9,7 @@ import { Komu } from '../classes/komu';
 import { Forsel } from '../classes/forsel';
 import { Send } from '../classes/send';
 import { FileUploadService } from '../fileUpload.service';
+import { FileLoadService } from '../fileLoad.service';
 
 @Component({
   selector: 'app-msglist',
@@ -19,7 +20,7 @@ export class MsglistComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   showIn:boolean = true;
-  showCard:boolean = true;
+  showCard:boolean = false;
   writemsg:boolean = false;
   color:boolean = true;
   color2:boolean = false;
@@ -27,7 +28,7 @@ export class MsglistComponent implements OnInit {
   writemsgId:string = "0"
   letr:string = "НОВОГО";
   paramout:string = "0004000100025400025400010002120211231 23:59:59.999";
-  proc2:string = "EXEC MQL_M_MSG_DATA ?";
+  proc2:string = "EXEC MQL_M_MSG_DATA_WWW ?";
   param2:string = "000400300002540002540003208";
   msg: MsgList[] = [];
   read: MsgRead[] = [];
@@ -85,7 +86,8 @@ export class MsglistComponent implements OnInit {
 
   constructor(
     private getmsg:MsggetService,
-    private fileUploadService:FileUploadService
+    private fileUploadService:FileUploadService,
+    private fileLoadService:FileLoadService
     ) {}
 
   clickInBox(){
@@ -144,8 +146,27 @@ export class MsglistComponent implements OnInit {
     this.getmsg.getMessages(formData).subscribe((data:any) => {
       this.read=data["MsgList"];
       this.srv=data["Service"];
-      this.amsg_id = this.srv[0]?.name4;
+      this.amsg_id = this.srv[0]?.name6;
     });
+  }
+
+  clickFile(id_blob:string, pkol:string, name:string){
+    const formData : FormData = new FormData();
+    formData.append('id_blob', id_blob);
+    formData.append('pkol', pkol);
+    formData.append('name', name);
+    this.fileLoadService.ReadFile(formData).subscribe((response: any) => {
+      let dataType = response.type;
+      let binaryData = [];
+      binaryData.push(response);
+      let downloadLink = document.createElement('a');
+      downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+      downloadLink.setAttribute('download', name);
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+    }
+    )
+    
   }
 
   GetAll(){
@@ -338,8 +359,8 @@ export class MsglistComponent implements OnInit {
     formData.append('param', newparam);
     formData.append('proc', "EXEC MQS_M_MSG_SAVE ?");
     this.getmsg.getMessages(formData).subscribe((data?:any) =>{
-      this.adresat=data["Service"];
-      this.id_msg=(this.adresat[0]?.name2);
+      this.send=data["Service"];
+      this.id_msg=(this.send[0]?.name2);
       for (let i in this.index_files){
         this.formData.set('data', this.formData.get(this.index_files[i]));
         this.formData.set('last', this.formData.get(this.index_files[i]+50));

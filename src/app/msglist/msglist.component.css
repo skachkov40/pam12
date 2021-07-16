@@ -87,7 +87,7 @@ table th {
 
 .list-card {
     position: absolute;
-    z-index: 11;
+    z-index: 9;
     padding: 0px;
     width: 99%;
     height: 88vh;
@@ -104,26 +104,52 @@ table th {
 }
 
 .card-content {
-    height: 80%;
+    
+    height: 93%;
+    
+    
+    padding-top: 10px;
+    
+}
+.lifiles{
     display: flex;
     overflow-y: auto;
-    background-color: white;
-    padding-top: 10px;
-    border: 1px solid rgb(65, 211, 36);
+    box-shadow: 0 0 10px rgb(163, 163, 163);
+    margin-left: 10px;
+    margin-right: 10px;
+    min-height: 72%;
+    max-height: 91%;
+    background-color: rgb(255, 255, 255);
+}
+.hr-shelf {
+    visibility: hidden;
+	margin: -40px auto 10px;
+	padding: 0;
+	height: 50px;
+	border: none;
+	border-bottom: 1px solid #1f1209;
+	box-shadow: 0 20px 20px -20px #333;
+	width: 98%;
 }
 .files{
-    position:absolute;
-    bottom: 0;
-    left: 0;
     overflow-y: auto;
-    width: 96%;
-    max-height: 20%;
-    padding: 15px;
-    border: 1px solid rgb(211, 36, 36);
     display: flex;
+    height: 20%;
+    box-shadow: 0 0 10px rgb(163, 163, 163);
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 15px;
+    background-color: rgb(255, 255, 255); 
 }
+
+.fileinfo:hover{
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .fileslist{
     padding-left: 15px;
+    
 }
 
 .list-card li {

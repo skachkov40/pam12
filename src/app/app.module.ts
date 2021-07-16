@@ -18,6 +18,7 @@ import { MsggetService } from './msgget.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FileUploadService } from './fileUpload.service';
+import { FileLoadService } from './fileLoad.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { FileUploadService } from './fileUpload.service';
   ],
   providers: [
     MsggetService,
-    FileUploadService 
+    FileUploadService,
+    FileLoadService 
   ],
   bootstrap: [AppComponent]
 })
