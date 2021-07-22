@@ -1,0 +1,73 @@
+.img { 
+    height: 100%;
+    background:  url("/assets/img/333.jpg") center no-repeat;  
+}
+.qqq{
+padding-top: 200px;
+}
+.container{
+    border: 1px double rgb(48, 121, 218);
+    border-radius: 7px;
+    width: 300px;
+    text-align: center;
+    margin: 0 auto;
+    
+    box-shadow: 0 0 20px rgb(104, 104, 104);
+    background: rgb(255, 253, 253);
+}
+.hcont{
+    border-radius: 7px 7px 0 0;
+    padding-top: 20px;
+    color: rgb(117, 117, 117);
+    font-size: 25px;
+    
+}
+.name{
+    width: 90%;
+    padding-top: 10%;
+    padding-bottom: 2%;
+}
+.pass{
+    width: 90%;
+    padding-top: 10%;
+    padding-bottom: 1%;
+}
+.button{
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+#btnOk{
+    box-shadow: 2px 2px 5px 2px silver;
+    width: 120px;
+    background: rgb(47, 190, 28);;
+    border: 1px double #ccc;
+    border-radius: 5px;
+    color: blanchedalmond;
+}
+#btnNo{
+    margin-right: 25px;
+    box-shadow: 2px 2px 5px 2px silver;
+    width: 120px;
+    background: rgb(201, 48, 48);;
+    border: 1px double #ccc;
+    border-radius: 5px;
+    color: blanchedalmond;
+}
+.reg{
+    
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.textarea {
+    text-align: center;
+    
+}
+#pole1{
+    
+    margin-top: 100px;
+    box-shadow: 2px 2px 5px 2px silver;
+    width: 300px;
+    height: 200px;
+    resize: none;
+}

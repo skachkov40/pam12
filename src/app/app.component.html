@@ -1,52 +1,22 @@
-    <div class = "menu-buttons">
-      <button mat-button [matMenuTriggerFor]="aboveMenu">Журнал</button>
-      <mat-menu #aboveMenu="matMenu" yPosition="above">
-        <button mat-menu-item>Запись 1</button>
-        <button mat-menu-item>Запись 2</button>
-      </mat-menu>
-      
-      <button mat-button [matMenuTriggerFor]="belowMenu">Профиль</button>
-      <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item>Запись 1</button>
-        <button mat-menu-item>Запись 2</button>
-        <button mat-menu-item>Запись 3</button>
-        <button mat-menu-item>Запись 4</button>
-        <button mat-menu-item>Запись 5</button>
-        <button mat-menu-item>Запись 6</button>
-      </mat-menu>
-      
-      <button mat-button [matMenuTriggerFor]="beforeMenu">Помошь</button>
-      <mat-menu #beforeMenu="matMenu" xPosition="before">
-        <button mat-menu-item>Запись 1</button>
-        <button mat-menu-item>Запись 2</button>
-      </mat-menu>
-      
-      <button mat-button [matMenuTriggerFor]="afterMenu">ПРОИЗВОДСТВО</button>
-      <mat-menu #afterMenu="matMenu" xPosition="after">
-        <button mat-menu-item>Запись 1</button>
-        <button mat-menu-item>Запись 2</button>
-      </mat-menu>
-    </div>
+<div class="head">
+  <button class="menu"  mat-mini-fab title="Меню">
+    <mat-icon>sort</mat-icon>
+  </button>
+  <button class = "intbutn" mat-raised-button routerLink="enter">Авторизация</button>
+</div>
+  
+<div class="body">
+  <mat-sidenav-container class="navpanel">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+  </mat-sidenav>
 
-<div class="toolbar-container">
-  <mat-toolbar class="toolbar">
-    
-  </mat-toolbar>
-
-  <div class="doln">
-    <!-- <a> Должность сотрудника</a> -->
-  </div>
-
-  <div class="menu-lk">
-      <button mat-raised-button (click)="clickMsg()">Сообщения</button>
-      <button mat-raised-button>Медицинские записи</button>
-      <a>Фамилия И.О. </a>
-      
-  </div>
+  <mat-sidenav-content>  
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
   
 </div>
 
-<div *ngIf="showDiv" class="body">
-  <app-msglist></app-msglist>
+<div class="footer">
+  <p>https://www.biozona.ru - 2021 г.</p>
 </div>
-

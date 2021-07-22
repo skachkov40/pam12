@@ -1,7 +1,11 @@
 .sidenav {
     background-color: white;
-    width: 100vw;
-    height: 89vh;
+    position: absolute;
+    top: 45px;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+
     margin-top: 1px;
 }
 

@@ -6,21 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
     title = 'Виртуальная клиника';
     showDiv:any = true;
+    opened:boolean = true;
+
 
     ngOnInit(){
 
     }
 
-    clickMsg(){
-
-      if (this.showDiv == false){
-        this.showDiv = true;
-      } else {
-        this.showDiv = false;
-      }
-      
-    }
-}
+  }
 

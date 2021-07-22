@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MsggetService } from '../msgget.service';
+import { MsggetService } from '../services/msgget.service';
 import { MsgList } from '../classes/msgList';
 import { MsgRead } from '../classes/msgRead';
 import { Adresat } from '../classes/adresat';
@@ -8,8 +8,11 @@ import { Theme } from '../classes/theme';
 import { Komu } from '../classes/komu';
 import { Forsel } from '../classes/forsel';
 import { Send } from '../classes/send';
-import { FileUploadService } from '../fileUpload.service';
-import { FileLoadService } from '../fileLoad.service';
+import { FileUploadService } from '../services/fileUpload.service';
+import { FileLoadService } from '../services/fileLoad.service';
+import { Autent } from '../classes/autent';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-msglist',
@@ -47,8 +50,8 @@ export class MsglistComponent implements OnInit {
   forsel2:Forsel[] = [];
   send:Send[] = [];
   selectedRowIndex:any;
-  my1:string = "54";
-  my2:string = "54";
+    my1:string =  "0";
+    my2:string =  "0"; 
   q:number = 0;
   w:number = 0;
   maxl:number = 0;
@@ -87,8 +90,14 @@ export class MsglistComponent implements OnInit {
   constructor(
     private getmsg:MsggetService,
     private fileUploadService:FileUploadService,
-    private fileLoadService:FileLoadService
-    ) {}
+    private fileLoadService:FileLoadService,
+    private activateRoute: ActivatedRoute,
+    private router: Router
+    ) {
+    this.my1 = activateRoute.snapshot.params['name4'];
+    this.my2 = activateRoute.snapshot.params['name4'];
+    console.log (this.my1)
+    }
 
   clickInBox(){
     this.amsg_id="0";
@@ -430,6 +439,7 @@ export class MsglistComponent implements OnInit {
   }
 
   ngOnInit():void {
+    if (this.my1 === "0") {this.router.navigate(['enter']);}
     //console.log(this.index_files);
     const formData : FormData = new FormData();
     var l1 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
@@ -447,8 +457,12 @@ export class MsglistComponent implements OnInit {
         this.msg=data["MsgList"];
         this.msg_u = this.msg;
         this.w = 1;
+        
       });
   }
-
+  ngOnDestroy() {
+    this.my1 = "0";
+    this.my2 = "0";
+  }
 }
 

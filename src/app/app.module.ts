@@ -14,17 +14,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MsglistComponent } from './msglist/msglist.component';
-import { MsggetService } from './msgget.service';
+import { MsggetService } from './services/msgget.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FileUploadService } from './fileUpload.service';
-import { FileLoadService } from './fileLoad.service';
+import { FileUploadService } from './services/fileUpload.service';
+import { FileLoadService } from './services/fileLoad.service';
+import { StartComponent } from './start/start.component';
+import { EnterComponent } from './enter/enter.component';
+import { AutService } from './services/aut.service';
 
 @NgModule({
-  declarations: [
+  declarations: [		
     AppComponent,
-    MsglistComponent
-  ],
+    MsglistComponent,
+    StartComponent,
+    EnterComponent
+   ],
   imports: [
     FormsModule,
     MatFormFieldModule,
@@ -43,9 +48,10 @@ import { FileLoadService } from './fileLoad.service';
     HttpClientModule   
   ],
   providers: [
+    AutService,
     MsggetService,
     FileUploadService,
-    FileLoadService 
+    FileLoadService
   ],
   bootstrap: [AppComponent]
 })
