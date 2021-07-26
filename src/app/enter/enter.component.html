@@ -8,13 +8,18 @@
   <div class="entername">
     <mat-form-field class="name" hintLabel="Максимум 8 символов" appearance="outline">
       <mat-label>Введите логин</mat-label>
-      <input matInput #input maxlength="8" placeholder=""[(ngModel)]="username">
+      <input matInput #input maxlength="8" placeholder=""[(ngModel)]="username"
+      autocomplete="off">
       <mat-hint align="end">{{input.value?.length || 0}}/8</mat-hint>
     </mat-form-field>
     
-    <mat-form-field class="pass" appearance="outline">
+    <mat-form-field class="pass" hintLabel="Максимум 8 символов" appearance="outline">
       <mat-label>Введите пароль</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'"[(ngModel)]="password" (keyup.esc)="clickNo()">
+      <!--<input matInput #input maxlength="8" placeholder=""[(ngModel)]="password"
+      (keyup.enter)="clickOk(username, password)">
+      <mat-hint align="end">{{input.value?.length || 0}}/8</mat-hint>-->
+      <input matInput [type]="hide ? 'password' : 'text'"[(ngModel)]="password"
+       (keyup.enter)="clickOk(username, password)" autocomplete="one-time-code">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
@@ -22,8 +27,8 @@
   </div>
 
   <div class="button">
-    <span><button id="btnNo" mat-raised-button routerLink="free">Отмена</button></span>
-    <span><button id="btnOk" mat-raised-button (keyup.enter)="clickOk(username, password)" (click)="clickOk(username, password)">OK</button></span>
+    <span><button id="btnNo" mat-raised-button (click)="clickNo()">Отмена</button></span>
+    <span><button id="btnOk" mat-raised-button (click)="clickOk(username, password)">OK</button></span>
     
   </div>
   <div class="reg">

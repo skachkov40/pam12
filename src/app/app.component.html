@@ -2,7 +2,12 @@
   <button class="menu"  mat-mini-fab title="Меню">
     <mat-icon>sort</mat-icon>
   </button>
-  <button class = "intbutn" mat-raised-button routerLink="enter">Авторизация</button>
+  <div class = "intbutn">
+    <a class="mainname">{{name}}</a>
+    <button class = "butn" mat-raised-button (click)="msgClick()">{{msgName}}</button>
+    <button class = "butn" mat-raised-button (click)="Log()">{{btnname}}</button>
+    
+  </div>
 </div>
   
 <div class="body">

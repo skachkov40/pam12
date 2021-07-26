@@ -3,7 +3,7 @@
     background:  url("/assets/img/333.jpg") center no-repeat;  
 }
 .qqq{
-padding-top: 200px;
+padding-top: 130px;
 }
 .container{
     border: 1px double rgb(48, 121, 218);
@@ -24,12 +24,12 @@ padding-top: 200px;
 }
 .name{
     width: 90%;
-    padding-top: 10%;
+    padding-top: 8%;
     padding-bottom: 2%;
 }
 .pass{
     width: 90%;
-    padding-top: 10%;
+    padding-top: 8%;
     padding-bottom: 1%;
 }
 .button{

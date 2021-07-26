@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AutService } from '../services/aut.service';
 import { Router } from '@angular/router';
 import { Autent } from '../classes/autent';
+import { DataService } from '../services/data.service';
 
 
 @Component({
@@ -19,7 +20,11 @@ export class EnterComponent implements OnInit {
   autent:Autent[] = [];
 
     
-  constructor(private aut:AutService, private router: Router) { }
+  constructor(
+    private aut:AutService,
+    private router:Router,
+    private data:DataService
+    ) { }
 
   clickOk(username:string, password:string){
 
@@ -28,19 +33,17 @@ export class EnterComponent implements OnInit {
       formData.append('p', password);
       this.aut.pass(formData).subscribe((data?:any) => {
         this.autent=data["Autent"];
-        //this.id = ?.[0]...
         if (this.autent[0]?.name1 == "1") {
-          console.log(this.autent[0]?.name4);
-          this.id = this.autent[0]?.name4;
-          this.router.navigate(['msg', this.id]);
+          this.data.sendData(this.autent[0]?.name1,this.autent[0]?.name6, this.autent[0]?.name2);
+          this.router.navigate(['main']);
         } else {
-        console.log('Отсутствует активация');
+        alert('Отсутствует активация');
         }
     });
   }
 
   clickNo () {
-    this.router.navigate(['/free', { id: this.id }]);
+    this.router.navigate(['free']);
   }
 
   ngOnInit(){

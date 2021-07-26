@@ -13,6 +13,7 @@ import { FileLoadService } from '../services/fileLoad.service';
 import { Autent } from '../classes/autent';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { Data } from '../classes/data';
 
 @Component({
   selector: 'app-msglist',
@@ -21,15 +22,20 @@ import { Router } from '@angular/router';
 })
 export class MsglistComponent implements OnInit {
 
+  params:any;
+  data:Data[]=[];
+  data1:any = "0";
+  data2:any = "0";
+
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   showIn:boolean = true;
   showCard:boolean = false;
-  writemsg:boolean = false;
+  writemsg:boolean = true;
   color:boolean = true;
   color2:boolean = false;
   color3:boolean = false;
   writemsgId:string = "0"
-  letr:string = "НОВОГО";
+  letr:string = "НОВОЕ";
   paramout:string = "0004000100025400025400010002120211231 23:59:59.999";
   proc2:string = "EXEC MQL_M_MSG_DATA_WWW ?";
   param2:string = "000400300002540002540003208";
@@ -82,6 +88,13 @@ export class MsglistComponent implements OnInit {
   pos3:number = 100;
   otvet:any;
   id_msg:any = "";
+  l1_0:string = "00040000";
+  l1_1:string = "00040001"
+  l3:string = "00010";
+  l2:string = "00010";
+  nowData:string = "20211231 23:59:59.999";
+
+
 
 
   dthema:boolean = true;
@@ -91,13 +104,9 @@ export class MsglistComponent implements OnInit {
     private getmsg:MsggetService,
     private fileUploadService:FileUploadService,
     private fileLoadService:FileLoadService,
-    private activateRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private router: Router
-    ) {
-    this.my1 = activateRoute.snapshot.params['name4'];
-    this.my2 = activateRoute.snapshot.params['name4'];
-    console.log (this.my1)
-    }
+    ) { }
 
   clickInBox(){
     this.amsg_id="0";
@@ -122,8 +131,11 @@ export class MsglistComponent implements OnInit {
 
     if (this.q == 0) {
       const formData : FormData = new FormData();
-      formData.append('param', "0004000100025400025400010002120211231 23:59:59.999");
-      formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
+      var l4 = (this.nowData.length.toString().padStart(4, "0"))+this.nowData;
+          var newparam = this.l1_1+this.l2+this.l3+l4;
+          formData.append('ss', this.data2);
+          formData.append('par', newparam);
+          formData.append('kp', "7700351");
       this.getmsg.getMessages(formData).subscribe((data:any) =>
         {
           this.msg2=data["MsgList"];
@@ -142,16 +154,15 @@ export class MsglistComponent implements OnInit {
     this.message_id = row.name1;
     this.selectedRowIndex=row.name1;
     this.showCard = true;
-    this.card1active = {'z-index':'11'}
-    this.writeactive = {'z-index':'9'}
-    var l1 = (row.name7.length.toString().padStart(4, "0"))+row.name7;
-    var l2 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
-    var l3 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
-    var l4 = (row.name1.length.toString().padStart(4, "0"))+row.name1;
-    var newparam = l1+l2+l3+l4;
+    this.card1active = {'z-index':'11'};
+    this.writeactive = {'z-index':'9'};
     const formData : FormData = new FormData();
-    formData.append('param', newparam);
-    formData.append('proc', this.proc2);
+    var l1 = (row.name7.length.toString().padStart(4, "0"))+row.name7;
+    var l3 = (row.name1.length.toString().padStart(4, "0"))+row.name1;
+    var newparam = l1+this.l2+l3;
+          formData.append('ss', this.data2);
+          formData.append('par', newparam);
+          formData.append('kp', "7700360");
     this.getmsg.getMessages(formData).subscribe((data:any) => {
       this.read=data["MsgList"];
       this.srv=data["Service"];
@@ -186,8 +197,11 @@ export class MsglistComponent implements OnInit {
   GetAll(){
     if (this.color == true) {
       const formData : FormData = new FormData();
-      formData.append('param', "0004000000025400025400010002120210620 23:59:59.999");
-      formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
+      var l4 = (this.nowData.length.toString().padStart(4, "0"))+this.nowData;
+          var newparam = this.l1_0+this.l2+this.l3+l4;
+          formData.append('ss', this.data2);
+          formData.append('par', newparam);
+          formData.append('kp', "7700351");
       this.getmsg.getMessages(formData).subscribe((data:any) => {
         this.msg=data["MsgList"];
         this.w = 1;
@@ -195,8 +209,11 @@ export class MsglistComponent implements OnInit {
     }
     if (this.color2 == true) {
       const formData : FormData = new FormData();
-      formData.append('param', "0004000100025400025400010002120211231 23:59:59.999");
-      formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
+      var l4 = (this.nowData.length.toString().padStart(4, "0"))+this.nowData;
+          var newparam = this.l1_1+this.l2+this.l3+l4;
+          formData.append('ss', this.data2);
+          formData.append('par', newparam);
+          formData.append('kp', "7700351");
       this.getmsg.getMessages(formData).subscribe((data:any) => {
         this.msg2=data["MsgList"];
         this.q = 1;
@@ -209,19 +226,18 @@ export class MsglistComponent implements OnInit {
     this.formData = new FormData;
     this.index_files = new Array;
     this.writemsg = true;
-    this.writeactive = {'z-index':'11'}
+    this.writeactive = {'z-index':'11'};
     this.card1active = {'z-index':'9'}
     this.color = false;
     this.color2 = false;
     this.color3 = true;
     var l1=(this.amsg_id.length.toString().padStart(4,"0"))+this.amsg_id;
-    var l2=(this.my2.length.toString().padStart(4,"0"))+this.my2;
-    var l3=(this.writemsgId.length.toString().padStart(4,"0"))+this.writemsgId;
-    var newparam = l1+l2+l3;
-
+    var l2=(this.writemsgId.length.toString().padStart(4,"0"))+this.writemsgId;
+    var newparam = l1+l2;
     const formData : FormData=new FormData();
-    formData.append('param',newparam);
-    formData.append('proc',"EXEC MQP_M_MSG_GETPAR ?");
+      formData.append('ss', this.data2);
+      formData.append('par', newparam);
+      formData.append('kp', "7700353");
     this.getmsg.getMessages(formData).subscribe((data:any) => {
     this.write=data["Service"];
     if(this.write[0]?.name4=="11") {this.dthema = false;  this.dkomu = false;}
@@ -252,12 +268,12 @@ export class MsglistComponent implements OnInit {
     this.adritem = adr.name2;
     this.amsg_kod = adr.name3;
     var l1=(adr.name1.length.toString().padStart(4,"0"))+adr.name1;
-    var l2=(this.my2.length.toString().padStart(4,"0"))+this.my2;
-    var l3=(this.writemsgId.length.toString().padStart(4,"0"))+this.writemsgId;
-    var newparam = l1+l2+l3;
+    var l2=(this.writemsgId.length.toString().padStart(4,"0"))+this.writemsgId;
+    var newparam = l1+l2;
     const formData : FormData=new FormData();
-    formData.append('param',newparam);
-    formData.append('proc',"EXEC MQP_M_MSG_GETPAR ?");
+    formData.append('ss', this.data2);
+      formData.append('par', newparam);
+      formData.append('kp', "7700353");
     this.getmsg.getMessages(formData).subscribe((data:any) => {
     this.write=data["Service"];
     if(this.write[0]?.name4=="11") {this.dthema = false;  this.dkomu = false;}
@@ -271,13 +287,12 @@ export class MsglistComponent implements OnInit {
   ThemeSrvClick(){
     const formData : FormData = new FormData();
     var l1=(this.amsg_kod.length.toString().padStart(4,"0"))+this.amsg_kod;
-    var l2=(this.my2.length.toString().padStart(4,"0"))+this.my2;
-    var l3="00010";
     var l4=(this.id_str_videl.length.toString().padStart(4,"0"))+this.id_str_videl;
     var l5=(this.id_str_jirfont.length.toString().padStart(4,"0"))+this.id_str_jirfont;
-    var newparam = l1+l2+l3+l4+l5;
-    formData.append('param',newparam);
-    formData.append('proc',"EXEC MQL_M_MSG_FORSEL_01 ?");
+    var newparam = l1+this.l3+l4+l5;
+    formData.append('ss', this.data2);
+      formData.append('par', newparam);
+      formData.append('kp', "7700356");
     this.getmsg.getMessages(formData).subscribe((data:any)=>this.theme=data["MsgList"]);
   }
 
@@ -288,8 +303,9 @@ export class MsglistComponent implements OnInit {
     var l1=(this.amsg_kod.length.toString().padStart(4,"0"))+this.amsg_kod;
     var l2=(this.pidsel1.length.toString().padStart(4,"0"))+this.pidsel1;
     var newparam = l1+l2;
-    formData.append('param',newparam);
-    formData.append('proc',"EXEC MQP_M_MSG_FORSEL_01_PAR ?");
+    formData.append('ss', this.data2);
+      formData.append('par', newparam);
+      formData.append('kp', "7700358");
     this.getmsg.getMessages(formData).subscribe((data:any)=>{
     this.forsel1=data["Service"];
     var mask0=(this.forsel1[0]?.name2).substring(0,1);
@@ -317,13 +333,13 @@ export class MsglistComponent implements OnInit {
   KomuSrvClick(){
     const formData:FormData=new FormData();
     var l1=(this.amsg_kod.length.toString().padStart(4,"0"))+this.amsg_kod;
-    var l2=(this.my2.length.toString().padStart(4,"0"))+this.my2;
     var l3=(this.id_theme.length.toString().padStart(4,"0"))+this.id_theme;
     var l4=(this.id_str_videl.length.toString().padStart(4,"0"))+this.id_str_videl;
     var l5=(this.id_str_jirfont.length.toString().padStart(4,"0"))+this.id_str_jirfont;
-    var newparam=l1+l2+l3+l4+l5;
-    formData.append('param',newparam);
-    formData.append('proc',"EXEC MQL_M_MSG_FORSEL_02 ?");
+    var newparam=l1+l3+l4+l5;
+    formData.append('ss', this.data2);
+      formData.append('par', newparam);
+      formData.append('kp', "7700357");
     this.getmsg.getMessages(formData).subscribe((data:any)=>this.komu=data["MsgList"]);
   }
 
@@ -333,8 +349,9 @@ export class MsglistComponent implements OnInit {
     var l1=(this.amsg_kod.length.toString().padStart(4,"0"))+this.amsg_kod;
     var l2=(this.pidsel2.length.toString().padStart(4,"0"))+this.pidsel2;
     var newparam=l1+l2;
-    formData.append('param',newparam);
-    formData.append('proc',"EXEC MQP_M_MSG_FORSEL_02_PAR ?");
+    formData.append('ss', this.data2);
+      formData.append('par', newparam);
+      formData.append('kp', "7700359");
     this.getmsg.getMessages(formData).subscribe((data:any)=>{
       this.forsel2=data["Service"];
       var mask0=(this.forsel2[0]?.name2).substring(0,1);
@@ -364,14 +381,14 @@ export class MsglistComponent implements OnInit {
     this.card1active = {'z-index':'9'};
     const formData : FormData = new FormData();
     var l1 = (this.amsg_kod.length.toString().padStart(4, "0"))+this.amsg_kod;
-    var l2 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
     var l3 = (this.id_komu.length.toString().padStart(4, "0"))+this.id_komu;
     var l4 = (this.message_id.length.toString().padStart(4, "0"))+this.message_id;
     var l5 = (this.id_theme.length.toString().padStart(4, "0"))+this.id_theme;
     var l6 = (this.textarea.length.toString().padStart(4, "0"))+this.textarea;
-    var newparam = l1+l2+l3+l4+l5+l6;
-    formData.append('param', newparam);
-    formData.append('proc', "EXEC MQS_M_MSG_SAVE ?");
+    var newparam = l1+l3+l4+l5+l6;
+    formData.append('ss', this.data2);
+      formData.append('par', newparam);
+      formData.append('kp', "7700354");
     this.getmsg.getMessages(formData).subscribe((data?:any) =>{
       this.send=data["Service"];
       this.id_msg=(this.send[0]?.name2);
@@ -439,30 +456,47 @@ export class MsglistComponent implements OnInit {
   }
 
   ngOnInit():void {
-    if (this.my1 === "0") {this.router.navigate(['enter']);}
-    //console.log(this.index_files);
-    const formData : FormData = new FormData();
-    var l1 = (this.my1.length.toString().padStart(4, "0"))+this.my1;
-    var l2 = (this.my2.length.toString().padStart(4, "0"))+this.my2;
-    var newparam = l1+l2;
-    formData.append('param', newparam);
-    formData.append('proc', "EXEC MQL_M_PAR_LOAD ?");
-    this.getmsg.getMessages(formData).subscribe((data:any) => {
-      this.adresat=data["MsgList"];
-      this.amsg_kod = this.adresat[0]?.name3;
-    });
-      formData.append('param', "0004000000025400025400010002120210620 23:59:59.999");
-      formData.append('proc', "EXEC MQL_M_MSG_LIST ?");
-      this.getmsg.getMessages(formData).subscribe((data:any) =>{
-        this.msg=data["MsgList"];
-        this.msg_u = this.msg;
-        this.w = 1;
+    this.route.queryParams.subscribe(params => {
+      this.params = params;
+      for (var key in this.params) {
+        this.data.push(this.params[key]);
+      }
+      this.data1 = this.data[0];
+      this.data2 = this.data[1];
+      if (this.data1 == "0" || this.data[0] == undefined) {
+        this.router.navigate(['enter']);
+        this.data1 = "0";
+        this.data2 = "0";
+      } else {
+          console.log(this.data1);
+          console.log(this.data2);
+          const formData : FormData = new FormData();
+          formData.append('ss', this.data2);
+          formData.append('kp', "7700350");
+          formData.append('par', this.l2);
+          this.getmsg.getMessages(formData).subscribe((data:any) => {
+            this.adresat=data["MsgList"];
+            this.amsg_kod = this.adresat[0]?.name3;
+          });
+          var l4 = (this.nowData.length.toString().padStart(4, "0"))+this.nowData;
+          var newparam = this.l1_0+this.l2+this.l3+l4;
+          formData.append('ss', this.data2);
+          formData.append('par', newparam);
+          formData.append('kp', "7700351");
+          this.getmsg.getMessages(formData).subscribe((data:any) =>{
+            this.msg=data["MsgList"];
+            this.msg_u = this.msg;
+            this.w = 1;
         
-      });
+          });
+      }
+    
+    });
+    
   }
   ngOnDestroy() {
-    this.my1 = "0";
-    this.my2 = "0";
+    this.data1 = "0";
+    this.data2 = "0";
   }
 }
 
