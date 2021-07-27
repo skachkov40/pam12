@@ -61,7 +61,7 @@ export class MsglistComponent implements OnInit {
   q:number = 0;
   w:number = 0;
   maxl:number = 0;
-  maxq:number = 10;
+  maxq:number = 100;
   maxs:string = "0";
   thiss:string = "0";
   card1active:any;

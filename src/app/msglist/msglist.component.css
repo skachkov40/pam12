@@ -10,16 +10,19 @@
 }
 .navbuttons {
     background-color: rgb(221, 234, 253);
-    max-width: 70px;
+    max-width: 71px;
     text-align: center;
+    
 }
+.navbuttons a, p {
+    font-size: 12px;
+} 
 .inbox {
     margin-top: 23px;
     background-color: #3f51b5;
 }
 .outbox,
-.poluch,
-.addfiles {
+.poluch {
     margin-top: 15px;
     background-color: #3f51b5;
 }
@@ -97,7 +100,6 @@ table th {
     flex-direction: column;
     background-color: rgb(221, 234, 253);
 }
-
 .card-buttons {
     padding-left: 8px;
     margin: 0;
@@ -196,28 +198,29 @@ table th {
 }
 .ltrcard {
     position: absolute;
-    z-index: 11;
-    left: 0;
-    right: 0;
+    z-index: 9;
+    left: 2px;
+    right: 1px;
     top: 0;
-    bottom: 0;
-    padding-left: 2px;
-    padding-right: 2px;
+    bottom: 1px;
     overflow: hidden;
-    
-    flex-direction: column;
+    display: flex;
+    flex-direction: column;    
     background-color: rgb(221, 234, 253);
     border-radius: 5px;
 }
-
-.ltrcard a {
-    padding-left: 5px;
+.addfiles {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    z-index: 10;
+    background-color: #3f51b5;
 }
 .logo {
     position: absolute;
     top: 0;
-    left: 1px;
-    right: 1px;
+    left: 0px;
+    right: 0px;
     height: 27px;
     color: whitesmoke;
     background-color: #3f51b5;
@@ -245,83 +248,90 @@ table th {
     width: 100%;
     margin-bottom: 0;
 }
-mat-menu .mat-menu-panel{
-    max-width: fit-content;
-}
 .ltrcontent {
-    width: 100%;
-    height: 99%;
-    margin-bottom: 0;
-    padding: 0;
+    position: absolute;
+    top: 190px;
+    left: 10px;
+    right: 10px;
+    bottom: 0px;
     background-color: white;
+    box-shadow: 0 0 10px rgb(163, 163, 163);
+    
 }
-
-.txtcontent_textarea {
-    width: 96%;
-    min-height: 50%;
-    display: grid;
-    border: 1px solid rgb(38, 201, 38);
-    resize: none;
+.textarea {
+    position: absolute;
+    width: -webkit-fill-available;
+    top: 0;
+    bottom: 200px;
+    overflow-y: scroll;
+    border: 0px solid rgb(38, 201, 38);
     padding: 15px;
+    resize: none;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     color: black;
     outline: none;
     background-color: white;
-    overflow: hidden;
+    white-space: pre-wrap;
 }
-
-.txtcontent_ul {
+.fileadd {
     position: absolute;
-    left: 1px;
-    bottom: 35px;
-    width: 96%;
-    list-style-type: none;
-    max-height: 40%;
-    display: inline-block;
-    overflow: auto;
-    border: 1px solid rgb(211, 36, 36);
-    margin-top: 0;
-    margin-left: 1px;
-    padding: 15px;
+    bottom: 45px;
+    left: 0;
+    right: 0;
+    max-width: 2000px;
+    height: 135px;   
+    overflow-x: auto;
+    overflow-y :unset;
+    padding-top: 3px;
+    padding-left: 15px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    color: black;
-    background-color: white;
+    font-size: 16px; 
+    display: flex;
+    border: 1px solid rgb(38, 201, 38);
+    line-height: 00px;    
 }
-
-.txtcontent_ul li {
-    background-color: rgb(255, 255, 255);
-    padding-bottom: 3px;
+.fileadd .mat-icon {
+    padding-right: 20px;
+    font-size: 48px;
 }
-
-.del {
-    width: 35px;
-    height: 35px;
-    font-size: 15px;
-    background-color: #c72626;
-}
-
+.example-card {
+    padding: 0;
+    margin-right: 15px;
+    text-align: center;
+    width: 100px;
+    height: 110px;
+    background-color: rgb(240, 240, 240);
+    line-height: 12px;  
+  }
+.example-card a, p {
+    font-size: 12px;
+    overflow-wrap: break-word;  
+}  
+  
 .del mat-icon {
     position: absolute;
     top: 6px;
     left: 6px;
 }
-
 .del:active {
     background-color: #ff9e00;
 }
 
 .sendltrbtn {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 13px;
     height: 45px;
-    padding: 5px;
-    background-color: rgb(193, 218, 255);
+    
 }
 
 .writeltr {
     height: 35px;
-    margin-right: 10px;
-    background-color: whitesmoke;
+    margin-right: 20px;
+    background-color: #3f51b5;
+    color: white;
 }
 
 .altr {

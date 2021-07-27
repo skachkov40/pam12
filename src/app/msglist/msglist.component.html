@@ -3,20 +3,17 @@
     <mat-drawer class="navbuttons" mode="side" opened>
         <button class="inbox" mat-mini-fab (click)="clickInBox()" [ngClass]="{'inboxactive': color}" title="Полученные сообщения">
         <mat-icon>drafts</mat-icon>
-    </button>
+        
+    </button><a>Получено</a>
         <button class="outbox" mat-mini-fab (click)="clickOutBox()" [ngClass]="{'outboxactive': color2}" title="Отправленные сообщения">
         <mat-icon>reply_all</mat-icon>
-    </button>
+    </button><a>Отправлено</a>
         <button class="write" mat-mini-fab (click)="Write()" [ngClass]="{'writeactive': color3}" title="Отправить сообщение">
-        <mat-icon>create</mat-icon>
-    </button>
+        <a> </a><mat-icon>create</mat-icon><a> </a>
+    </button><a>Новое сообщение</a>
         <button class="poluch" mat-mini-fab (click)="GetAll()" title="Получить сообщения">
       <mat-icon>autorenew</mat-icon>
-    </button>
-        <input class="file-input" type="file" (change)="AddFiles($event)" #fileUpload>
-        <button class="addfiles" mat-mini-fab (click)="fileUpload.click()" title="Добавить файлы">
-      <mat-icon>attach_file</mat-icon>
-    </button>
+    </button><a>Обновить</a>
     </mat-drawer>
     <mat-drawer-content>
         <div *ngIf="showIn">
@@ -78,6 +75,11 @@
             </mat-card-content>
         </mat-card>
         <mat-card [ngStyle]="writeactive" *ngIf="writemsg" class="ltrcard">
+            <input class="file-input" type="file" (change)="AddFiles($event)" #fileUpload>
+                <button class="addfiles" mat-mini-fab (click)="fileUpload.click()" title="Добавить файлы">
+                    <mat-icon>attach_file</mat-icon>
+                </button><p>Вложить файлы</p>
+                <a>Не более {{(q/1024).toFixed(2)}} Мб/{{(totalsize/1024).toFixed(2)}} Кб.</a>
             <div class="logo">
                 <h3>{{letr}} сообщение</h3>
             </div>
@@ -86,10 +88,10 @@
                     <button class="btn1" mat-button [matMenuTriggerFor]="clickmenu">Адресат</button>
                     <mat-menu #clickmenu="matMenu">
                         <p *ngFor="let adr of adresat">
-                            <button mat-button class="vibor" (click)="AdresatClick(adr)">{{adr?.name2}}</button>
+                            <button mat-button class="vibor" (click)="AdresatClick(adr)"> {{adr?.name2}}</button>
                         </p>
                     </mat-menu>
-                    <a>{{adritem}}</a>
+                    <a> {{ adritem}}</a>
                 </div>
                 <div class="letterbtn2">
                     <button [disabled]="dthema" class="thema" mat-button [matMenuTriggerFor]="clickthema" (click)="ThemeSrvClick()">Тема</button>
@@ -98,7 +100,7 @@
                             <button class="vibor" mat-button (click)="ThemeClick(thm)">{{thm?.name2}}</button>
                         </p>
                     </mat-menu>
-                    <a>{{thmitem}}</a>
+                    <a> {{ thmitem}}</a>
                 </div>
                 <div class="letterbtn3">
                     <button [disabled]="dkomu" class="komu" mat-button [matMenuTriggerFor]="clickkomu" (click)="KomuSrvClick()">Кому</button>
@@ -107,7 +109,7 @@
                             <button class="vibor" mat-button (click)="KomuClick(kom)">{{kom?.name2}}</button>
                         </p>
                     </mat-menu>
-                    <a>{{komitem}}</a>
+                    <a> {{ komitem}}</a>
 
                 </div>
                 <div class="info">
@@ -115,18 +117,27 @@
                 </div>
             </mat-card-actions>
             <mat-card-content class="ltrcontent">
-
-                <textarea class="txtcontent_textarea" [(ngModel)]="textarea" [ngClass]="{'maxon': textarea.length>=maxq }">
+                <textarea class="textarea"  [(ngModel)]="textarea" [ngClass]="{'maxon': textarea.length>=maxq }">
                 </textarea>
-                <ul class="txtcontent_ul">
-                    <p>Не более {{(q/1024).toFixed(2)}} Мб/{{(totalsize/1024).toFixed(2)}} Кб.</p>
-                    <li *ngFor="let p of index_files let i=index">
-                        <button class="del" mat-mini-fab (click)="DelF(i)" title="Удалить файл из списка">
+                <div class="fileadd">
+                    
+                    
+                    <div class="block" *ngFor="let p of index_files let i=index">
+                        <!--<button class="del" mat-mini-fab (click)="DelF(i)" title="Удалить файл из списка">
                             <mat-icon >clear</mat-icon>
                         </button>
-                        <a>{{i+1}}) {{formData.get(p).name}}-{{(formData.get(p).size/1024).toFixed(2)}} Кб.</a>
-                    </li>
-                </ul>
+                        <a>{{i+1}}) {{formData.get(p).name}}-{{(formData.get(p).size/1024).toFixed(2)}} Кб.</a>-->
+                    
+                        <span>
+                            <mat-card class="example-card" (click)="DelF(i)">
+                                <mat-icon>description</mat-icon><br>
+                                <a>{{formData.get(p).name}}</a><br>
+                                <!--<a></a><br>-->
+                                <a>{{(formData.get(p).size/1024).toFixed(2)}} Кб.</a>                    
+                            </mat-card>
+                        </span>
+                    </div>  
+                </div>
             </mat-card-content>
             <div class="sendltrbtn">
                 <div class="right">
