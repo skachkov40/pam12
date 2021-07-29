@@ -16,7 +16,29 @@
     </button><a>Обновить</a>
     </mat-drawer>
     <mat-drawer-content>
-        <div *ngIf="showIn">
+        <div [ngStyle]="listview" *ngIf="showIn" class="listRows">
+            <div *ngFor="let element of msg_u; let i=index">
+                <div class="rows"
+                (click)="clickRow(element)" [ngClass]="{'clickRowColor': selectedRowIndex == element.name1}">
+                    <a class="f" *ngIf="element?.name2=='ф'"><mat-icon>attach_file</mat-icon></a>
+                    <button class="ava" mat-mini-fab disabled>
+                        <mat-icon>perm_identity</mat-icon>
+                    </button>
+                    <div class="listblock2">
+                        <div class="from">{{element?.name4}}</div>
+                        <div class="to"><a>Тема: </a>{{element?.name5}}</div>
+                        <span class="time">{{element?.name6}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [ngStyle]="cardread" class="msgread">
+            <app-readmsg [read] = "read" [srv] = "srv"></app-readmsg>
+        </div>
+        <div [ngStyle]="cardwrite" class="msgwrite">
+            <app-writemsg></app-writemsg>
+        </div>
+        <!--<div *ngIf="list">
             <div class="table-container">
                 <table mat-table [dataSource]="msg_u">
                     <ng-container matColumnDef="position">
@@ -41,13 +63,12 @@
                       clickRow(row)" [ngClass]="{'clickRowColor': selectedRowIndex == row.name1}"></tr>
                 </table>
             </div>
-        </div>
-        <mat-card [ngStyle]="card1active" *ngIf="showCard" class="list-card">
+        </div>-->
+        <!--<mat-card [ngStyle]="card1active" *ngIf="showCard" class="list-card">
             <mat-card-actions class="card-buttons">
                 <button class="backltr" mat-mini-fab (click)="Cancel()" title="Назад">
                     <mat-icon>keyboard_backspace</mat-icon>
                   </button>
-                <!--<button class="themebtn" mat-button>Тема:</button>-->
                 <a>{{srv[0]?.name2}}</a>
                 <button class="answbtn" mat-button>Ответить</button>
             </mat-card-actions>
@@ -62,18 +83,23 @@
                     </ul>
                 </div>
                 
-                <div class="files">
-                  <div class="fileslist">
-                    <li *ngFor="let pos of read; let i=index">
-                        <p *ngIf="pos?.name7=='2'" class="fileinfo" 
-                            (click)="clickFile(pos.name1, pos.name6, pos.name2, pos.name5)">
-                            {{pos?.name2}} ({{pos?.name4}}) || - изменён: ({{pos?.name5}})
-                        </p>
-                    </li>
-                  </div>
+                <div class="fileadd">
+                    <div class="block" *ngFor="let pos of read; let i=index">
+                        
+                        <span>
+                            <p *ngIf="pos?.name7=='2'" class="fileinfo" 
+                                (click)="clickFile(pos.name1, pos.name6, pos.name2, pos.name5)">
+                                <mat-card class="example-card">
+                                    <mat-icon>description</mat-icon><br>
+                                    <a>{{pos?.name2}}</a><br>
+                                    <a>{{pos?.name4}}</a>                    
+                                </mat-card>
+                            </p>
+                        </span>
+                    </div>
                 </div>
             </mat-card-content>
-        </mat-card>
+        </mat-card>-->
         <mat-card [ngStyle]="writeactive" *ngIf="writemsg" class="ltrcard">
             <input class="file-input" type="file" (change)="AddFiles($event)" #fileUpload>
                 <button class="addfiles" mat-mini-fab (click)="fileUpload.click()" title="Добавить файлы">
@@ -119,9 +145,8 @@
             <mat-card-content class="ltrcontent">
                 <textarea class="textarea"  [(ngModel)]="textarea" [ngClass]="{'maxon': textarea.length>=maxq }">
                 </textarea>
+
                 <div class="fileadd">
-                    
-                    
                     <div class="block" *ngFor="let p of index_files let i=index">
                         <!--<button class="del" mat-mini-fab (click)="DelF(i)" title="Удалить файл из списка">
                             <mat-icon >clear</mat-icon>
@@ -138,11 +163,12 @@
                         </span>
                     </div>  
                 </div>
+
             </mat-card-content>
             <div class="sendltrbtn">
                 <div class="right">
-                    <!--<a class="altr">Колличество сообщений - не более {{maxs}} раз в сутки. Текущий - {{thiss}}</a>-->
-                    <button class="writeltr" mat-button (click)="Cancel()">Отмена</button>
+                    <!--<a class="altr">Колличество сообщений - не более {{maxs}} раз в сутки. Текущий - {{thiss}}</a>
+                    <button class="writeltr" mat-button (click)="Cancel()">Отмена</button>-->
                     <button class="writeltr" [disabled]="!(maxq>textarea.length) || !(textarea.length>3)" mat-button (click)="Send()">Отправить</button>
                 </div>
             </div>

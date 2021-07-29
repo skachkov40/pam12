@@ -1,0 +1,146 @@
+@media all and ( max-width: 1950px) {
+.list-card {
+    position: absolute;
+    z-index: 9;
+    left: 42%;
+    right: 0;
+    top:0;
+    bottom: 0;
+    margin-left: 2px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(221, 234, 253);
+}
+
+}
+
+@media all and (max-width: 820px) {
+    .list-card {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top:0;
+        bottom: 0;
+        margin-left: 2px;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(221, 234, 253);
+    }
+}
+
+.card-buttons {
+    padding-left: 8px;
+    margin: 0;
+    z-index: 10;
+}
+.card-content {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    
+}
+.lifiles{
+    position: absolute;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgb(163, 163, 163);
+    padding-top: 50px;
+    margin-left: 1px;
+    margin-right: 1px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(255, 255, 255);
+}
+.hr-shelf {
+    visibility: hidden;
+	margin: -40px auto 10px;
+	padding: 0;
+	height: 50px;
+	border: none;
+	border-bottom: 1px solid #1f1209;
+	box-shadow: 0 20px 20px -20px #333;
+	width: 98%;
+}
+.list-card li {
+    list-style-type: none;
+    margin-left: -20px;
+}
+.card-buttons a {
+    padding-left: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+.backltr {
+    height: 40px;
+    box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
+    background-color: #3f51b5
+}
+.themebtn {
+    height: 35px;
+    box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
+}
+.info {
+    padding-top: 5px;
+    padding-left: 5px;
+    height: 15px;
+}
+.answbtn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    height: 40px;
+    color: white;
+    box-shadow: 0px 0px 5px 1px rgb(204, 204, 204);
+    background-color: #3f51b5
+}
+.msginfo {
+    width: 95%;
+    font-size: 12px;
+    color: rgb(145, 145, 145);
+    text-decoration: underline;
+    white-space: pre-wrap;
+}
+.msgtext {
+    width: 95%;
+    font-size: 15px;
+    white-space: pre-wrap;
+}
+.fileadd {
+    position: absolute;
+    bottom: 45px;
+    left: 0;
+    right: 0;
+    height: 135px;   
+    overflow-x: auto;
+    overflow-y :unset;
+    padding-top: 3px;
+    padding-left: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px; 
+    display: flex;
+    border: 0px solid rgb(38, 201, 38);
+    line-height: 00px;    
+}
+.fileadd .mat-icon {
+    padding-right: 20px;
+    font-size: 48px;
+}
+.example-card {
+    padding: 0;
+    margin-right: 15px;
+    text-align: center;
+    width: 100px;
+    height: 110px;
+    background-color: rgb(240, 240, 240);
+    line-height: 12px;  
+  }
+.example-card a, p {
+    font-size: 12px;
+    font-style: normal;
+    overflow-wrap: break-word;  
+}    

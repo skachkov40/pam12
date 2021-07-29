@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { MsggetService } from '../services/msgget.service';
 import { MsgList } from '../classes/msgList';
 import { MsgRead } from '../classes/msgRead';
@@ -10,10 +10,10 @@ import { Forsel } from '../classes/forsel';
 import { Send } from '../classes/send';
 import { FileUploadService } from '../services/fileUpload.service';
 import { FileLoadService } from '../services/fileLoad.service';
-import { Autent } from '../classes/autent';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { Data } from '../classes/data';
+import { Title } from "@angular/platform-browser"
 
 @Component({
   selector: 'app-msglist',
@@ -26,19 +26,21 @@ export class MsglistComponent implements OnInit {
   data:Data[]=[];
   data1:any = "0";
   data2:any = "0";
+  paramsSubscribe:any;
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   showIn:boolean = true;
-  showCard:boolean = false;
-  writemsg:boolean = true;
+  list:boolean = false;
+  listview:any = {'z-index':'11'};
+  cardread:any = {'z-index':'9'};
+  cardwrite:any = {'z-index':'9'};
+
+  writemsg:boolean = false;
   color:boolean = true;
   color2:boolean = false;
   color3:boolean = false;
   writemsgId:string = "0"
   letr:string = "НОВОЕ";
-  paramout:string = "0004000100025400025400010002120211231 23:59:59.999";
-  proc2:string = "EXEC MQL_M_MSG_DATA_WWW ?";
-  param2:string = "000400300002540002540003208";
   msg: MsgList[] = [];
   read: MsgRead[] = [];
   srv: MsgRead[] = [];
@@ -56,8 +58,6 @@ export class MsglistComponent implements OnInit {
   forsel2:Forsel[] = [];
   send:Send[] = [];
   selectedRowIndex:any;
-    my1:string =  "0";
-    my2:string =  "0"; 
   q:number = 0;
   w:number = 0;
   maxl:number = 0;
@@ -94,16 +94,14 @@ export class MsglistComponent implements OnInit {
   l2:string = "00010";
   nowData:string = "20211231 23:59:59.999";
 
-
-
-
   dthema:boolean = true;
   dkomu:boolean = true;
 
   constructor(
+    private title: Title,
     private getmsg:MsggetService,
     private fileUploadService:FileUploadService,
-    private fileLoadService:FileLoadService,
+    
     private route: ActivatedRoute,
     private router: Router
     ) { }
@@ -113,8 +111,9 @@ export class MsglistComponent implements OnInit {
     this.selectedRowIndex = "0";
     this.message_id="0";
     this.msg_u = this.msg;
-    this.card1active = {'z-index':'9'}
-    this.writeactive = {'z-index':'9'}
+    this.listview = {'z-index':'11'};
+    this.cardread = {'z-index':'9'};
+    this.cardwrite = {'z-index':'9'};
     this.color = true;
     this.color2 = false;
     this.color3 = false;
@@ -122,8 +121,9 @@ export class MsglistComponent implements OnInit {
   }
   clickOutBox(){
     this.amsg_id="0";
-    this.card1active = {'z-index':'9'}
-    this.writeactive = {'z-index':'9'}
+    this.listview = {'z-index':'11'};
+    this.cardread = {'z-index':'9'};
+    this.cardwrite = {'z-index':'9'};
     this.selectedRowIndex = null;
     this.color = false;
     this.color2 = true;
@@ -153,8 +153,8 @@ export class MsglistComponent implements OnInit {
     this.amsg_list = row.name7;
     this.message_id = row.name1;
     this.selectedRowIndex=row.name1;
-    this.showCard = true;
-    this.card1active = {'z-index':'11'};
+    this.cardread = {'z-index':'11'};
+    this.listview = {'z-index':'9'};
     this.writeactive = {'z-index':'9'};
     const formData : FormData = new FormData();
     var l1 = (row.name7.length.toString().padStart(4, "0"))+row.name7;
@@ -170,29 +170,7 @@ export class MsglistComponent implements OnInit {
     });
   }
 
-  clickFile(id_blob:string, pkol:string, name:string, last:string){
-    const formData : FormData = new FormData();
-    formData.append('id_blob', id_blob);
-    formData.append('pkol', pkol);
-    formData.append('name', name);
-    formData.append('last', last);
-    this.fileLoadService.ReadFile(formData).subscribe((response: any) => {
-      let dataType = response.type;
-      let binaryData = [];
-      binaryData.push(response);
-      let downloadLink = document.createElement('a');
-      downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
-      
-      downloadLink.setAttribute('download', name);
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      //const fs = require('fs');
-      //fs.utimesSync(filename, time, time);
-      
-    }
-    )
-    
-  }
+  
 
   GetAll(){
     if (this.color == true) {
@@ -371,10 +349,7 @@ export class MsglistComponent implements OnInit {
     });
   }
 
-  Cancel(){
-    this.writeactive = {'z-index':'9'};
-    this.card1active = {'z-index':'9'};
-  }
+  
 
   Send(){
     this.writeactive = {'z-index':'9'};
@@ -456,7 +431,8 @@ export class MsglistComponent implements OnInit {
   }
 
   ngOnInit():void {
-    this.route.queryParams.subscribe(params => {
+    this.title.setTitle("Сервис сообщений");
+    this.paramsSubscribe = this.route.queryParams.subscribe(params => {
       this.params = params;
       for (var key in this.params) {
         this.data.push(this.params[key]);
@@ -494,9 +470,21 @@ export class MsglistComponent implements OnInit {
     });
     
   }
+
+  ngOnChanges() {
+    console.log("OnChanges!!!!!!!")
+  }
   ngOnDestroy() {
+    console.log("ОнДестрой!!!!!!!");
     this.data1 = "0";
     this.data2 = "0";
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          d1: "0",
+          d2: "0"
+      }};
+    this.paramsSubscribe.unsubscribe();
+    //this.router.navigate(['msg'], navigationExtras);
   }
 }
 

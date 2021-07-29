@@ -3,11 +3,16 @@
     <mat-icon>sort</mat-icon>
   </button>
   <div class = "intbutn">
+    <div (window:resize)="onResize($event)"></div>
+      
     <a class="mainname">{{name}}</a>
     <button class = "butn" mat-raised-button (click)="msgClick()">{{msgName}}</button>
     <button class = "butn" mat-raised-button (click)="Log()">{{btnname}}</button>
-    
   </div>
+  <!--<div class="size">
+      <a>{{width}} </a>
+      <a>{{height}}</a>
+  </div>-->
 </div>
   
 <div class="body">

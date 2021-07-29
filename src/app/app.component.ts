@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router, NavigationExtras } from '@angular/router';
 import { DataService } from './services/data.service';
 import { Data } from './classes/data';
+import { HostListener } from "@angular/core";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,9 @@ import { Data } from './classes/data';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+    width: any;
+    height: any;
 
     title = 'Виртуальная клиника';
     subscription: any;
@@ -25,7 +29,7 @@ export class AppComponent implements OnInit {
 
     constructor(
       private router: Router,
-      private dataS:DataService
+      private dataS: DataService
       ) {
         
        }
@@ -36,8 +40,16 @@ export class AppComponent implements OnInit {
             d1: this.data[0],
             d2: this.data[1]
         }
+      }
+      this.router.navigate(['msg'], navigationExtras);
     }
-    this.router.navigate(['msg'], navigationExtras);
+
+    onResize(event:any) {
+      event.target.innerWidth;
+      this.width = (window.screen.width) + "px";
+      this.height = (window.screen.height) + "px";
+          console.log(this.height);
+          console.log(this.width);
     }
 
     Log(){
@@ -56,6 +68,8 @@ export class AppComponent implements OnInit {
 
 
     ngOnInit(){
+      this.width = (window.screen.width) + "px";
+      this.height = (window.screen.height) + "px";
       this.subscription = this.dataS.getData().subscribe(message => {
         this.dann = message;
         //console.log(message);
@@ -68,7 +82,7 @@ export class AppComponent implements OnInit {
         if (this.id == "1") {
           this.btnname = "Выход";
           this.msgName = "Сообщения";
-        }          
+        }       
       }); 
     }
 
@@ -79,6 +93,8 @@ export class AppComponent implements OnInit {
       this.name = "";
       this.btnname = "Авторизация";
       this.msgName = "";
+      
+      
     }
 
   }

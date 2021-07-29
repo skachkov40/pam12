@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EnterComponent } from './enter/enter.component';
 import { StartComponent } from './start/start.component';
 import { MsglistComponent } from './msglist/msglist.component';
-import { AppComponent } from './app.component';
+
 
 
 const routes: Routes = [

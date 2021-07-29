@@ -22,13 +22,17 @@ import { FileLoadService } from './services/fileLoad.service';
 import { StartComponent } from './start/start.component';
 import { EnterComponent } from './enter/enter.component';
 import { AutService } from './services/aut.service';
+import { ReadmsgComponent } from './msglist/readmsg/readmsg.component';
+import { WritemsgComponent } from './msglist/writemsg/writemsg.component';
 
 @NgModule({
   declarations: [		
     AppComponent,
     MsglistComponent,
     StartComponent,
-    EnterComponent
+    EnterComponent,
+    ReadmsgComponent,
+    WritemsgComponent
    ],
   imports: [
     FormsModule,
