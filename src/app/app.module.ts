@@ -24,15 +24,19 @@ import { EnterComponent } from './enter/enter.component';
 import { AutService } from './services/aut.service';
 import { ReadmsgComponent } from './msglist/readmsg/readmsg.component';
 import { WritemsgComponent } from './msglist/writemsg/writemsg.component';
+import { SkladComponent } from './sklad/sklad.component';
+import { OtchetComponent } from './otchet/otchet.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [					
     AppComponent,
     MsglistComponent,
     StartComponent,
     EnterComponent,
     ReadmsgComponent,
-    WritemsgComponent
+    WritemsgComponent,
+    SkladComponent,
+    OtchetComponent
    ],
   imports: [
     FormsModule,

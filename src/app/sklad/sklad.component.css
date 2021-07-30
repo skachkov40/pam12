@@ -1,0 +1,50 @@
+.parent {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right: 0;
+    
+  }
+  .child {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 20%;
+    border: 1px double rgb(48, 121, 218);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgb(104, 104, 104);
+    background: rgb(255, 253, 253);
+    text-align: center;
+    
+    
+  }
+  .child2 {
+    position: absolute;
+    top: 23%;
+    left: 10px;
+    width: 33%;
+    bottom: 10px;
+    border: 1px double rgb(48, 121, 218);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgb(104, 104, 104);
+    background: rgb(255, 253, 253);
+    text-align: center;
+    
+    
+  }
+  .child3 {
+    position: absolute;
+    top: 23%;
+    right: 10px;
+    width: 60%;
+    bottom: 10px;
+    border: 1px double rgb(48, 121, 218);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgb(104, 104, 104);
+    background: rgb(255, 253, 253);
+    text-align: center;
+    
+    
+  }

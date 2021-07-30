@@ -19,10 +19,10 @@
   <mat-drawer-container (click)="btnMenuClose()" class="navpanel">
     <mat-drawer class="sidenav" mode="side" [(opened)]="opened">
       <button  class = "butn" mat-raised-button (click)="Log()">{{btnname}}</button>
-      <button  class = "butn" mat-raised-button routerLink = "free">Лента</button>
+      <button  class = "butn" mat-raised-button routerLink = "lenta">Лента</button>
       <button *ngIf="id =='1'" class = "butn" mat-raised-button (click)="msgClick()">Сообщения</button>
-      <button *ngIf="id =='1'" class = "butn" mat-raised-button >Отчеты</button>
-      <button *ngIf="id =='1'" class = "butn" mat-raised-button >Склад</button>
+      <button *ngIf="id =='1'" class = "butn" mat-raised-button routerLink = "otchet">Отчеты</button>
+      <button *ngIf="id =='1'" class = "butn" mat-raised-button routerLink = "sklad">Склад</button>
       <button *ngIf="id =='1'" class = "butn" mat-raised-button ></button>
       
     </mat-drawer>
