@@ -1,3 +1,74 @@
-<p>
-  writemsg works!
-</p>
+<mat-card class="ltrcard">
+    <input class="file-input" type="file" (change)="AddFiles($event)" #fileUpload>
+    <button class="addfiles" mat-mini-fab (click)="fileUpload.click()" title="Добавить файлы">
+          <mat-icon>attach_file</mat-icon>
+      </button>
+    <p>Вложить файлы</p>
+    <a>Не более {{(q/1024).toFixed(2)}} Мб/{{(totalsize/1024).toFixed(2)}} Кб.</a>
+    <div class="logo">
+        <h3>{{letr}} сообщение</h3>
+    </div>
+    <mat-card-actions class="ltrbuttons">
+        <div class="letterbtn">
+            <button class="btn1" mat-button [matMenuTriggerFor]="clickmenu">Адресат</button>
+            <mat-menu #clickmenu="matMenu">
+                <p *ngFor="let adr of adresat">
+                    <button mat-button class="vibor" (click)="AdresatClick(adr)"> {{adr?.name2}}</button>
+                </p>
+            </mat-menu>
+            <a> {{ adritem}}</a>
+        </div>
+        <div class="letterbtn2">
+            <button [disabled]="dthema" class="thema" mat-button [matMenuTriggerFor]="clickthema" (click)="ThemeSrvClick()">Тема</button>
+            <mat-menu #clickthema="matMenu">
+                <p *ngFor="let thm of theme">
+                    <button class="vibor" mat-button (click)="ThemeClick(thm)">{{thm?.name2}}</button>
+                </p>
+            </mat-menu>
+            <a> {{ thmitem}}</a>
+        </div>
+        <div class="letterbtn3">
+            <button [disabled]="dkomu" class="komu" mat-button [matMenuTriggerFor]="clickkomu" (click)="KomuSrvClick()">Кому</button>
+            <mat-menu #clickkomu="matMenu">
+                <p *ngFor="let kom of komu">
+                    <button class="vibor" mat-button (click)="KomuClick(kom)">{{kom?.name2}}</button>
+                </p>
+            </mat-menu>
+            <a> {{ komitem}}</a>
+
+        </div>
+        <div class="info">
+            <p>От 4 до {{maxq}} символов/{{textarea.length}}</p>
+        </div>
+    </mat-card-actions>
+    <mat-card-content class="ltrcontent">
+        <textarea class="textarea" [(ngModel)]="textarea" [ngClass]="{'maxon': textarea.length>=maxq }">
+      </textarea>
+
+        <div class="fileadd">
+            <div class="block" *ngFor="let p of index_files let i=index">
+                <!--<button class="del" mat-mini-fab (click)="DelF(i)" title="Удалить файл из списка">
+                  <mat-icon >clear</mat-icon>
+              </button>
+              <a>{{i+1}}) {{formData.get(p).name}}-{{(formData.get(p).size/1024).toFixed(2)}} Кб.</a>-->
+
+                <span>
+                  <mat-card class="example-card" (click)="DelF(i)">
+                      <mat-icon>description</mat-icon><br>
+                      <a>{{formData.get(p).name}}</a><br>
+                      <!--<a></a><br>-->
+                      <a>{{(formData.get(p).size/1024).toFixed(2)}} Кб.</a>
+                  </mat-card>
+              </span>
+            </div>
+        </div>
+
+    </mat-card-content>
+    <div class="sendltrbtn">
+        <div class="right">
+            <!--<a class="altr">Колличество сообщений - не более {{maxs}} раз в сутки. Текущий - {{thiss}}</a>
+          <button class="writeltr" mat-button (click)="Cancel()">Отмена</button>-->
+            <button class="writeltr" [disabled]="!(maxq>textarea.length) || !(textarea.length>3)" mat-button (click)="Send()">Отправить</button>
+        </div>
+    </div>
+</mat-card>
