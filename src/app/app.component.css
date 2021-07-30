@@ -3,7 +3,6 @@
     display: none;
 }
 .menu {
-    visibility: hidden;
     position: absolute;
     top: 15px;
     left: 16px;
@@ -51,6 +50,10 @@
     width: 100%;
     height: 100%;
 }
+.pole {
+    width: 100%;
+    height: 100%;
+}
 .navpanel{
     position: absolute;
     top: 45px;
@@ -58,6 +61,14 @@
     right: 0;
     bottom: 30px;
     border: 1px solid #555;
+}
+.sidenav {
+    width: 131px;
+    padding-top: 20px;
+}
+.sidenav .butn {
+    margin: 5px;
+    width: 120px;
 }
 
 /* ---------------- footer ---------------- */

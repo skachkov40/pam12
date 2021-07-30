@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MsggetService } from '../services/msgget.service';
 import { MsgList } from '../classes/msgList';
 import { MsgRead } from '../classes/msgRead';
@@ -9,11 +9,11 @@ import { Komu } from '../classes/komu';
 import { Forsel } from '../classes/forsel';
 import { Send } from '../classes/send';
 import { FileUploadService } from '../services/fileUpload.service';
-import { FileLoadService } from '../services/fileLoad.service';
 import { ActivatedRoute } from '@angular/router';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router} from '@angular/router';
 import { Data } from '../classes/data';
-import { Title } from "@angular/platform-browser"
+import { Title } from "@angular/platform-browser";
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-msglist',
@@ -21,6 +21,9 @@ import { Title } from "@angular/platform-browser"
   styleUrls: ['./msglist.component.css']
 })
 export class MsglistComponent implements OnInit {
+
+  subscription: any;
+  dann:any;  
 
   params:any;
   data:Data[]=[];
@@ -101,7 +104,7 @@ export class MsglistComponent implements OnInit {
     private title: Title,
     private getmsg:MsggetService,
     private fileUploadService:FileUploadService,
-    
+    private dataS: DataService,
     private route: ActivatedRoute,
     private router: Router
     ) { }
@@ -431,19 +434,13 @@ export class MsglistComponent implements OnInit {
   }
 
   ngOnInit():void {
-    this.title.setTitle("Сервис сообщений");
-    this.paramsSubscribe = this.route.queryParams.subscribe(params => {
-      this.params = params;
-      for (var key in this.params) {
-        this.data.push(this.params[key]);
-      }
-      this.data1 = this.data[0];
-      this.data2 = this.data[1];
-      if (this.data1 == "0" || this.data[0] == undefined) {
-        this.router.navigate(['enter']);
-        this.data1 = "0";
-        this.data2 = "0";
-      } else {
+    this.title.setTitle("Сообщения");
+        this.data2 = (sessionStorage.getItem('log'));
+        this.data1 = (sessionStorage.getItem('id')); 
+      if (this.data1 == "0" || this.data1 == undefined) {
+        console.log ("goto lenta");
+        this.router.navigate(['lenta']);
+        } else {
           console.log(this.data1);
           console.log(this.data2);
           const formData : FormData = new FormData();
@@ -462,29 +459,11 @@ export class MsglistComponent implements OnInit {
           this.getmsg.getMessages(formData).subscribe((data:any) =>{
             this.msg=data["MsgList"];
             this.msg_u = this.msg;
-            this.w = 1;
-        
+            this.w = 1; 
           });
-      }
-    
-    });
-    
+      }    
   }
 
-  ngOnChanges() {
-    console.log("OnChanges!!!!!!!")
-  }
-  ngOnDestroy() {
-    console.log("ОнДестрой!!!!!!!");
-    this.data1 = "0";
-    this.data2 = "0";
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-          d1: "0",
-          d2: "0"
-      }};
-    this.paramsSubscribe.unsubscribe();
-    //this.router.navigate(['msg'], navigationExtras);
-  }
+  
 }
 

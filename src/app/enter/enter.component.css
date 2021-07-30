@@ -3,7 +3,7 @@
     background:  url("/assets/img/333.jpg") center no-repeat;  
 }
 .qqq{
-padding-top: 130px;
+    padding-top: 130px;
 }
 .container{
     border: 1px double rgb(48, 121, 218);
@@ -48,10 +48,10 @@ padding-top: 130px;
     margin-right: 25px;
     box-shadow: 2px 2px 5px 2px silver;
     width: 120px;
-    background: rgb(201, 48, 48);;
-    border: 1px double #ccc;
+    background: #ccc;
+    
     border-radius: 5px;
-    color: blanchedalmond;
+    color: rgb(230, 230, 230)
 }
 .reg{
     

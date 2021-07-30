@@ -8,13 +8,11 @@ import { MsglistComponent } from './msglist/msglist.component';
 
 const routes: Routes = [
   
-  { path: 'free', component: StartComponent },
+  { path: '', component: StartComponent },
   { path: 'enter', component: EnterComponent },
-  { path: 'main', component: StartComponent },
   { path: 'msg', component: MsglistComponent},
-  { path: '', redirectTo: 'free', pathMatch: 'full' },
-  { path: '**', redirectTo: 'free', pathMatch: 'full' }
-  //{ path: 'logon/:text', component: LogonComponent },
+  //{ path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({
