@@ -2,9 +2,9 @@
 <mat-drawer-container class="sidenav">
     <mat-drawer class="navbuttons" mode="side" opened>
         <button class="inbox" mat-mini-fab (click)="clickInBox()" [ngClass]="{'inboxactive': color}" title="Полученные сообщения">
-        <mat-icon>drafts</mat-icon>
+        <mat-icon >drafts</mat-icon>
 
-    </button><a>Получено</a>
+    </button><a [ngStyle]="newmessage">Получено</a>
         <button class="outbox" mat-mini-fab (click)="clickOutBox()" [ngClass]="{'outboxactive': color2}" title="Отправленные сообщения">
         <mat-icon>reply_all</mat-icon>
     </button><a>Отправлено</a>
@@ -12,13 +12,13 @@
         <a> </a><mat-icon>create</mat-icon><a> </a>
     </button><a>Новое сообщение</a>
         <button class="poluch" mat-mini-fab (click)="GetAll()" title="Получить сообщения">
-      <mat-icon>autorenew</mat-icon>
+      <mat-icon matBadge={{ev2}} matBadgeColor="warn" matBadgeOverlap="false">autorenew</mat-icon>
     </button><a>Обновить</a>
     </mat-drawer>
     <mat-drawer-content>
         <div [ngStyle]="listview" *ngIf="showIn" class="listRows">
             <div *ngFor="let element of msg_u; let i=index">
-                <div class="rows" (click)="clickRow(element)" [ngClass]="{'clickRowColor': selectedRowIndex == element.name1}">
+                <div class="rows" (click)="clickRow(element, i)" [ngClass]="{'clickRowColor': selectedRowIndex == element.name1}">
                     <a class="f" *ngIf="element?.name2=='ф'">
                         <mat-icon>attach_file</mat-icon>
                     </a>
@@ -26,7 +26,8 @@
                         <mat-icon>perm_identity</mat-icon>
                     </button>
                     <div class="listblock2">
-                        <div class="from">{{element?.name4}}</div>
+                        <div *ngIf="element.name3=='1'" class="fromnew">{{element?.name4}}</div>
+                        <div *ngIf="element.name3=='0'" class="from">{{element?.name4}}</div>
                         <div class="to"><a>Тема: </a>{{element?.name5}}</div>
                         <span class="time">{{element?.name6}}</span>
                     </div>
@@ -34,10 +35,12 @@
             </div>
         </div>
         <div [ngStyle]="cardread" class="msgread">
-            <app-readmsg [read]="read" [srv]="srv"></app-readmsg>
+            <app-readmsg [read]="read" [srv]="srv" (onChanged)="onChanged($event)"></app-readmsg>
         </div>
-        <div [ngStyle]="cardwrite" class="msgwrite">
-            <app-writemsg></app-writemsg>
+        <div [ngStyle]="cardwrite" *ngIf="write" class="msgwrite">
+            <app-writemsg [message_id]="message_id" [amsg_id]="amsg_id" [letr]="letr" [writemsgId]="writemsgId" [adresat]="adresat"
+            (onChanged)="onBackfromWrite($event)"></app-writemsg>
         </div>
     </mat-drawer-content>
 </mat-drawer-container>
+

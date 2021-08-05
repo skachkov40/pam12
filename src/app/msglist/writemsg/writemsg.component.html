@@ -10,7 +10,7 @@
     </div>
     <mat-card-actions class="ltrbuttons">
         <div class="letterbtn">
-            <button class="btn1" mat-button [matMenuTriggerFor]="clickmenu">Адресат</button>
+            <button [disabled]="message_id>'0'" class="btn1" mat-button [matMenuTriggerFor]="clickmenu">Адресат</button>
             <mat-menu #clickmenu="matMenu">
                 <p *ngFor="let adr of adresat">
                     <button mat-button class="vibor" (click)="AdresatClick(adr)"> {{adr?.name2}}</button>
@@ -68,7 +68,7 @@
         <div class="right">
             <!--<a class="altr">Колличество сообщений - не более {{maxs}} раз в сутки. Текущий - {{thiss}}</a>
           <button class="writeltr" mat-button (click)="Cancel()">Отмена</button>-->
-            <button class="writeltr" [disabled]="!(maxq>textarea.length) || !(textarea.length>3)" mat-button (click)="Send()">Отправить</button>
+            <button class="writeltr" [disabled]="!(maxq>textarea.length) || !(textarea.length>3)" mat-button (click)="Send(true)">Отправить</button>
         </div>
     </div>
 </mat-card>

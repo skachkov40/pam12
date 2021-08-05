@@ -1,7 +1,7 @@
 @media all and ( max-width: 1950px) {
     .ltrcard {
         position: absolute;
-        left: 42%;
+        left: 0;
         right: 1px;
         top: 0;
         bottom: 1px;

@@ -4,7 +4,7 @@
           <mat-icon>keyboard_backspace</mat-icon>
         </button>
       <a>{{srv[0]?.name2}}</a>
-      <button class="answbtn" mat-button>Ответить</button>
+      <button class="answbtn" mat-button (click)="Answer(srv[0]?.name2)">Ответить</button>
   </mat-card-actions>
   <mat-card-content class="card-content">
       <hr class="hr-shelf">

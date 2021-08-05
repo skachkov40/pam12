@@ -2,14 +2,7 @@
 .menu-buttons{
     display: none;
 }
-.menu {
-    position: absolute;
-    top: 15px;
-    left: 16px;
-    background-color: azure;
-    color: brown;
-    z-index: 100;
-}
+
 .head{
     position: absolute;
     top: 0;
@@ -19,15 +12,45 @@
     background-color: #3f51b5;
     box-shadow: 0 20px 20px -20px #000; 
 }
+
+@media all and ( max-width: 1950px) {
+    .menu {
+        display: none;
+    }
+    .butnup {
+        margin-right: 15px;
+        height: 35px;
+        z-index: 200;
+    }
+}
+
+@media all and (max-width: 820px) {
+    .menu {
+        display:inline;
+        visibility: visible;
+        position: absolute;
+        top: 15px;
+        left: 16px;
+        background-color: azure;
+        color: brown;
+        z-index: 200;
+    }
+    .butnup {
+        display: none;
+        margin-right: 10px;
+        height: 35px;
+    }
+}
 .intbutn{
     position: absolute;
-    top: 5px;
+    top: 7px;
     right: 0px;
     height: 35px;
 }
 .intbutn .butn {
     margin-right: 10px;
 }
+
 .mainname {
     font-size: 15px;
     color: azure;
@@ -63,7 +86,7 @@
     border: 1px solid #555;
 }
 .sidenav {
-    width: 131px;
+    width: 135px;
     padding-top: 20px;
 }
 .sidenav .butn {

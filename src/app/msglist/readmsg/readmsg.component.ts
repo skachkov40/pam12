@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { MsgRead } from '../../classes/msgRead';
 import { FileLoadService } from '../../services/fileLoad.service';
 
@@ -11,6 +11,7 @@ export class ReadmsgComponent implements OnInit {
 
   @Input() read!:MsgRead[];
   @Input() srv!:MsgRead[];
+  @Output() onChanged = new EventEmitter();
 
   showCard:boolean = true;
   readmsg:any;
@@ -42,9 +43,13 @@ export class ReadmsgComponent implements OnInit {
     });
   }
 
+  Answer(inc:any){
+    this.onChanged.emit(inc);
+
+  }
+
   Cancel(){
-    //this.writeactive = {'z-index':'9'};
-    //this.readmsg = {'z-index':'9'};
+    
   }
 
 

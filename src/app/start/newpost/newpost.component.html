@@ -1,0 +1,20 @@
+
+<div class="writeblock">  
+  <mat-card class="newcard">
+    <mat-card-header>
+      <div mat-card-avatar class="headimg"></div>
+      <mat-card-title>Обьявления</mat-card-title>
+      <mat-card-subtitle>{{name}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="content">
+      <input class="file-input" type="file" accept="image/*" (change)="clickFoto($event)" #fileUpload>
+      <img class="prev" (click)="fileUpload.click()" [src]="adress" alt="nofoto">
+      <textarea class="text" placeholder="Текст сообщения..." [(ngModel)]="text">
+      </textarea>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="lentabtn" (click)="clickNo(true)" mat-raised-button>Отмена</button>
+      <button class="lentabtn" mat-raised-button>Отправить</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

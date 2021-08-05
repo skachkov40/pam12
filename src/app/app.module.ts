@@ -26,12 +26,17 @@ import { ReadmsgComponent } from './msglist/readmsg/readmsg.component';
 import { WritemsgComponent } from './msglist/writemsg/writemsg.component';
 import { SkladComponent } from './sklad/sklad.component';
 import { OtchetComponent } from './otchet/otchet.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { DataService } from './services/data.service';
+import { NewpostComponent } from './start/newpost/newpost.component';
+import { CompressorService } from './services/compressor.service';
 
 @NgModule({
   declarations: [					
     AppComponent,
     MsglistComponent,
     StartComponent,
+    NewpostComponent,
     EnterComponent,
     ReadmsgComponent,
     WritemsgComponent,
@@ -53,13 +58,16 @@ import { OtchetComponent } from './otchet/otchet.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatBadgeModule,
     HttpClientModule   
   ],
   providers: [
     AutService,
     MsggetService,
     FileUploadService,
-    FileLoadService
+    FileLoadService,
+    DataService,
+    CompressorService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,15 @@
 <div class="img">
-  <div>
-    <div class="blocks">
+
+  <div *ngIf="newpost" [ngStyle]= "newstyle">
+    <app-newpost (onChanged)="onChanged($event)"></app-newpost>
+  </div>
+    
+  <div *ngIf="allposts" class="blocks">
+      
+      <button *ngIf="id=='1'" class="write" mat-mini-fab (click)="Write()" title="Новое сообщение">
+        <mat-icon>add</mat-icon>
+      </button>
+
       <mat-card class="card">
         <mat-card-header>
           <div mat-card-avatar class="headimg"></div>
@@ -14,7 +23,7 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>Посмотреть</button>
+          <button class="lentabtn" mat-raised-button>Посмотреть</button>
         </mat-card-actions>
       </mat-card>
       <!--*****************************-->
@@ -31,7 +40,7 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>Прочитано</button>
+          <button class="lentabtn" mat-raised-button>Прочитано</button>
         </mat-card-actions>
       </mat-card>
       <!--*****************************-->
@@ -48,7 +57,7 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>Прочитано</button>
+          <button class="lentabtn" mat-raised-button>Прочитано</button>
         </mat-card-actions>
       </mat-card>
             
@@ -56,6 +65,7 @@
               <!--<a href = "http://fond.biozona.ru"><img class="fond" src="assets/img/222.jpg"  alt="fond.biozona.ru"></a>-->
           
       
-  </div>
+  
   
   </div>
+</div>

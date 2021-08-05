@@ -27,6 +27,8 @@ export class AppComponent implements OnInit {
     name:any="";
     key:any="";
     dann:any;
+    ev1:any = "";
+    ev2:any = "";
 
     constructor(
       private router: Router,
@@ -54,6 +56,7 @@ export class AppComponent implements OnInit {
         this.name = "";
         this.btnname = "Авторизация";
         this.msgName = "";
+        this.data = [];
         sessionStorage.clear();
         this.dataS.clearData();
         this.subscription.unsubscribe();
@@ -83,20 +86,25 @@ export class AppComponent implements OnInit {
       //this.width = (window.screen.width) + "px";
       //this.height = (window.screen.height) + "px";
       this.subscription = this.dataS.getData().subscribe(message => {
-        this.dann = message;
-        console.log(message);
-        for (var key in this.dann) {
-          this.data.push(this.dann[key]);
-          this.name = (this.data[2]);
-          this.log = (this.data[1]);
-          this.id = (this.data[0]);}
+        if (message) {this.data.push(message);
+        console.log(this.data);
+        this.ev2 = (this.data[0].name5);
+        this.ev1 = (this.data[0].name4);
+        this.name = (this.data[0].name3);
+        this.log = (this.data[0].name2);
+        this.id = (this.data[0].name1);
+        console.log("ev2 = "+this.ev2);
+        console.log("name = "+this.name);
+        this.data = [];
           if (this.id == "1") this.btnname = "Выход";        
-      }); 
+      }}); 
         
     }
 
     ngOnDestroy(): void {
       sessionStorage.clear();
+      //this.subscription.next(true);
+      this.subscription.unsubscribe();
       //this.dataS.clearData();
       //this.subscription.unsubscribe();
       //this.id="0";

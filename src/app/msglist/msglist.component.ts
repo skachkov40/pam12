@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MsggetService } from '../services/msgget.service';
 import { MsgList } from '../classes/msgList';
 import { MsgRead } from '../classes/msgRead';
@@ -6,6 +6,7 @@ import { Adresat } from '../classes/adresat';
 import { Router} from '@angular/router';
 import { Data } from '../classes/data';
 import { Title } from "@angular/platform-browser";
+import { DataService } from '../services/data.service';
 
 
 @Component({
@@ -17,12 +18,20 @@ export class MsglistComponent implements OnInit {
 
   dann:any;
 
+  interv:any;
+
   data:Data[]=[];
   data1:any = "0";
   data2:any = "0";
+  data3:any = "";
+  newmessage:any = {'font-weight': 'normal'};
+  ev1:any = "";
+  ev2:any = "";
+  new!:string;
 
   showIn:boolean = true;
   list:boolean = false;
+  write:boolean = false;
   listview:any = {'z-index':'11'};
   cardread:any = {'z-index':'8'};
   cardwrite:any = {'z-index':'9'};
@@ -50,6 +59,8 @@ export class MsglistComponent implements OnInit {
   amsg_id:string="0";
   message_id:string="0"
   amsg_list:string="0000";
+  letr:string = "НОВОЕ";
+  writemsgId:string = "0";
 
   l1_0:string = "00040000";
   l1_1:string = "00040001"
@@ -62,7 +73,8 @@ export class MsglistComponent implements OnInit {
   constructor(
     private title: Title,
     private getmsg:MsggetService,
-    private router: Router
+    private router: Router,
+    private dataS:DataService,
     ) { }
 
   clickInBox(){
@@ -70,9 +82,10 @@ export class MsglistComponent implements OnInit {
     this.selectedRowIndex = "0";
     this.message_id="0";
     this.msg_u = this.msg;
-    this.listview = {'z-index':'11'};
-    this.cardread = {'z-index':'9'};
-    this.cardwrite = {'z-index':'8'};
+    this.listview = {'z-index':'100'};
+    this.cardread = {'z-index':'50'};
+    this.cardwrite = {'z-index':'1'};
+    this.write = false;
     this.color = true;
     this.color2 = false;
     this.color3 = false;
@@ -80,10 +93,11 @@ export class MsglistComponent implements OnInit {
   }
   clickOutBox(){
     this.amsg_id="0";
-    this.listview = {'z-index':'11'};
-    this.cardread = {'z-index':'9'};
-    this.cardwrite = {'z-index':'8'};
+    this.listview = {'z-index':'100'};
+    this.cardread = {'z-index':'50'};
+    this.cardwrite = {'z-index':'1'};
     this.selectedRowIndex = null;
+    this.write = false;
     this.color = false;
     this.color2 = true;
     this.color3 = false;
@@ -107,14 +121,18 @@ export class MsglistComponent implements OnInit {
 
   }
 
-  clickRow(row:any){
+  clickRow(row:any, i:any){
+    this.newmessage = ""
+    //console.log(i);
+    this.write = false;
     this.amsg_id="0";
     this.amsg_list = row.name7;
     this.message_id = row.name1;
     this.selectedRowIndex=row.name1;
-    this.cardread = {'z-index':'11'};
-    this.listview = {'z-index':'9'};
-    this.cardwrite = {'z-index':'8'};
+    this.msg_u[i].name3 = "0";
+    this.cardread = {'z-index':'100'};
+    this.listview = {'z-index':'50'};
+    this.cardwrite = {'z-index':'1'};
     const formData : FormData = new FormData();
     var l1 = (row.name7.length.toString().padStart(4, "0"))+row.name7;
     var l3 = (row.name1.length.toString().padStart(4, "0"))+row.name1;
@@ -126,12 +144,17 @@ export class MsglistComponent implements OnInit {
       this.read=data["MsgList"];
       this.srv=data["Service"];
       this.amsg_id = this.srv[0]?.name6;
+      this.new = this.srv[0]?.name3;
+      //this.new = "1234567";
+      //console.log(this.new);
+      let new2 = this.new.substring(1, 2);
+      //console.log(new2);
+      if (new2 == "1") {this.newmessage = {'font-weight': 'bold'}} else {this.newmessage = {'font-weight': 'normal'}};
     });
   }
 
   GetAll(){
-    if (this.color == true) {
-      const formData : FormData = new FormData();
+        const formData : FormData = new FormData();
       var l4 = (this.nowData.length.toString().padStart(4, "0"))+this.nowData;
           var newparam = this.l1_0+this.l2+this.l3+l4;
           formData.append('ss', this.data2);
@@ -140,40 +163,35 @@ export class MsglistComponent implements OnInit {
       this.getmsg.getMessages(formData).subscribe((data:any) => {
         this.msg=data["MsgList"];
         this.w = 1;
+        this.q = 0;
+        this.clickInBox();
+        
       });
-    }
-    if (this.color2 == true) {
-      const formData : FormData = new FormData();
-      var l4 = (this.nowData.length.toString().padStart(4, "0"))+this.nowData;
-          var newparam = this.l1_1+this.l2+this.l3+l4;
-          formData.append('ss', this.data2);
-          formData.append('par', newparam);
-          formData.append('kp', "7700351");
-      this.getmsg.getMessages(formData).subscribe((data:any) => {
-        this.msg2=data["MsgList"];
-        this.q = 1;
-      });
-      }
+      
   }
 
   Write(){
-    this.cardwrite = {'z-index':'11'};
-    this.cardread = {'z-index':'9'}
+    this.write = true;
+    this.cardwrite = {'z-index':'100'};
+    this.cardread = {'z-index':'1'};
+    this.listview = {'z-index':'50'};
+    
     this.color = false;
     this.color2 = false;
     this.color3 = true;
   }
 
   ngOnInit() {
+    this.listview = {'z-index':'100'};
+    this.cardread = {'z-index':'50'};
+    this.cardwrite = {'z-index':'1'};
     this.title.setTitle("Сообщения");
         this.data2 = (sessionStorage.getItem('log'));
         this.data1 = (sessionStorage.getItem('id'));
+        this.data3 = (sessionStorage.getItem('name'));
       if (this.data1 == "0" || this.data1 == undefined) {
-        console.log ("goto lenta");
         this.router.navigate(['lenta']);
         } else {
-          console.log(this.data1);
-          console.log(this.data2);
           const formData : FormData = new FormData();
           formData.append('ss', this.data2);
           formData.append('kp', "7700350");
@@ -189,10 +207,44 @@ export class MsglistComponent implements OnInit {
           formData.append('kp', "7700351");
           this.getmsg.getMessages(formData).subscribe((data:any) =>{
             this.msg=data["MsgList"];
+            this.srv2=data["Service"];
+            if (this.srv2[0].name3 == "0100") {this.newmessage = {'font-weight': 'bold'}} else {this.newmessage = {'font-weight': 'normal'}};
+            this.dataS.sendData(this.data1, this.data2, this.data3, this.ev1, this.ev2);
             this.msg_u = this.msg;
             this.w = 1;
           });
+        
       }
+      
+  
+  }
+
+  onBackfromWrite(inc:any): void{
+    this.write = false;
+    this.cardwrite = {'z-index':'1'};
+    this.cardread = {'z-index':'50'};
+    this.listview = {'z-index':'100'};
+    
+    this.color = true;
+    this.color2 = false;
+    this.color3 = false;
+    
+    
+    
+  }
+
+  onChanged(inc:any): void{
+    this.write = true;
+    this.cardwrite = {'z-index':'100'};
+    this.cardread = {'z-index':'1'};
+    this.listview = {'z-index':'50'};
+    
+    this.color = false;
+    this.color2 = false;
+    this.color3 = true;
+    this.letr = "ОТВЕТНОЕ"
+    
+    
   }
 
 }

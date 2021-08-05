@@ -11,10 +11,15 @@
     overflow: hidden;
     overflow-y: auto;
 }
-
-.card {
+.write {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: 10px;
+}
+    .card {
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 15px;
     margin-bottom: 10px;
     min-width: 280px;
     width: 50%;
@@ -37,5 +42,7 @@
 .card:hover {
     box-shadow: 0 0 35px;
 }
-
+.lentabtn {
+    left: calc(100% - 120px);
+}
 

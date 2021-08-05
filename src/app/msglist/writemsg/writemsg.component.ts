@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { MsggetService } from '../../services/msgget.service';
 import { FileUploadService } from '../../services/fileUpload.service';
 import { Adresat } from '../../classes/adresat';
@@ -16,10 +16,14 @@ import { Send } from '../../classes/send';
 export class WritemsgComponent implements OnInit {
 
   @Input() message_id!:string;
+  @Input() amsg_id!:string;
+  @Input() adresat!:Adresat[];
+  @Input() letr!:string;
+  @Input() writemsgId!:string;
+  @Output() onChanged = new EventEmitter();
 
   data2:any = "0";
 
-  adresat:Adresat[] = [];
   write:Write[] = [];
   theme:Theme[] = [];
   komu:Komu[] = [];
@@ -33,15 +37,14 @@ export class WritemsgComponent implements OnInit {
   maxq:number = 100;
   maxs:string = "0";
   thiss:string = "0";
-  writemsgId:string = "0"
-  letr:string = "НОВОЕ";
+  
+  
 
   adritem:string="Укажите Адресат";
   thmitem:string="";
   komitem:string="";
-  amsg_id:string="0";
 
-     amsg_kod:string="000";
+  amsg_kod:string="000";
   pidsel1:string="0";
   pidsel2:string="0";
   id_theme:string="0";
@@ -72,6 +75,11 @@ export class WritemsgComponent implements OnInit {
     private getmsg:MsggetService,
     private fileUploadService:FileUploadService,
   ) { }
+
+  Answer(inc:any){
+    
+
+  }
 
   AdresatClick(adr:any){
     this.writemsgId="0";
@@ -182,7 +190,7 @@ export class WritemsgComponent implements OnInit {
     });
   }
 
-  Send(){
+  Send(inc:any){
     const formData : FormData = new FormData();
     var l1 = (this.amsg_kod.length.toString().padStart(4, "0"))+this.amsg_kod;
     var l3 = (this.id_komu.length.toString().padStart(4, "0"))+this.id_komu;
@@ -202,7 +210,8 @@ export class WritemsgComponent implements OnInit {
         this.formData.append('idmsg', this.id_msg);
         this.fileUploadService.postFile(this.formData).subscribe((resp?:any)=>this.otvet=resp);
        }
-
+       this.textarea = "";
+       this.onChanged.emit(inc);
       });
 
   }
@@ -261,13 +270,15 @@ export class WritemsgComponent implements OnInit {
   }
 
   ngOnInit(){
+    //console.log(this.message_id);
+    //console.log(this.amsg_id);
     this.data2 = (sessionStorage.getItem('log'));
     this.textarea = "";
     this.formData = new FormData;
     this.index_files = new Array;
 
     var l1=(this.amsg_id.length.toString().padStart(4,"0"))+this.amsg_id;
-    var l2=(this.writemsgId.length.toString().padStart(4,"0"))+this.writemsgId;
+    var l2=(this.message_id.length.toString().padStart(4,"0"))+this.message_id;
     var newparam = l1+l2;
     const formData : FormData=new FormData();
       formData.append('ss', this.data2);
@@ -297,6 +308,11 @@ export class WritemsgComponent implements OnInit {
   });
   }
 
+  ngOnDestroy (){
+    if (this.textarea.length > 0){
+    window.confirm('Несохраненные данные!');
+    }
+  }
 
 }
 
