@@ -16,9 +16,27 @@
     </button><a>Обновить</a>
     </mat-drawer>
     <mat-drawer-content>
-        <div [ngStyle]="listview" *ngIf="showIn" class="listRows">
+        <div [ngStyle]="listviewIn" *ngIf="showIn" class="listRows">
+            <div *ngFor="let element of msg; let i=index">
+                <div class="rows" (click)="clickRow(element, i)" [ngClass]="{'clickRowColorIn': selectedRowIndexIn == element}">
+                    <a class="f" *ngIf="element?.name2=='ф'">
+                        <mat-icon>attach_file</mat-icon>
+                    </a>
+                    <button class="ava" mat-mini-fab disabled>
+                        <mat-icon>perm_identity</mat-icon>
+                    </button>
+                    <div class="listblock2">
+                        <div *ngIf="element.name3=='1'" class="fromnew">{{element?.name4}}</div>
+                        <div *ngIf="element.name3=='0'" class="from">{{element?.name4}}</div>
+                        <div class="to"><a>Тема: </a>{{element?.name5}}</div>
+                        <span class="time">{{element?.name6}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [ngStyle]="listviewOut" *ngIf="showOut" class="listRows">
             <div *ngFor="let element of msg_u; let i=index">
-                <div class="rows" (click)="clickRow(element, i)" [ngClass]="{'clickRowColor': selectedRowIndex == element.name1}">
+                <div class="rows" (click)="clickRow(element, i)" [ngClass]="{'clickRowColorOut': selectedRowIndexOut == element}">
                     <a class="f" *ngIf="element?.name2=='ф'">
                         <mat-icon>attach_file</mat-icon>
                     </a>
@@ -35,7 +53,7 @@
             </div>
         </div>
         <div [ngStyle]="cardread" class="msgread">
-            <app-readmsg [read]="read" [srv]="srv" (onChanged)="onChanged($event)"></app-readmsg>
+            <app-readmsg [read_u]="read_u" [srv_u]="srv_u" (onChanged)="onChanged($event)"></app-readmsg>
         </div>
         <div [ngStyle]="cardwrite" *ngIf="write" class="msgwrite">
             <app-writemsg [message_id]="message_id" [amsg_id]="amsg_id" [letr]="letr" [writemsgId]="writemsgId" [adresat]="adresat"

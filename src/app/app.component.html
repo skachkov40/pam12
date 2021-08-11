@@ -13,12 +13,13 @@
     matBadge={{ev2}} matBadgePosition = "below" matBadgeSize = "small"  
     matBadgeColor="accent" (click)="msgClick()">Сообщения
   </button>
-
   <button *ngIf="id =='1'" class = "butnup" mat-raised-button routerLink = "otchet">Отчеты</button>
       <button *ngIf="id =='1'" class = "butnup" mat-raised-button routerLink = "sklad">Склад</button>
     <a class="mainname">{{name}}</a>
     <!--<button class = "butn" mat-raised-button (click)="msgClick()">{{msgName}}</button>-->
-    <button class = "butn" mat-raised-button (click)="Log()">{{btnname}}</button>
+    <div class = "butn" mat-mini-fab (click)="Log()" title={{btnname}}>
+      <mat-icon>person_outline</mat-icon>
+    </div>
     
   </div>
   <!--<div class="size">
@@ -46,26 +47,12 @@
     </mat-drawer>
 
   <mat-drawer-content >
-    <!--<div *ngIf="ent" class="pole">
-      <app-enter></app-enter>
-    </div>  
-    <div *ngIf="strt" class="pole">
-      <app-start></app-start>
-    </div>
-    
-    
-    
-    <div *ngIf="msg" class="msg">
-      <app-msglist></app-msglist>
-    </div>  
-    
-    -->
-    <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
   
 </div>
 
 <div class="footer">
-  <p>https://www.biozona.ru - 2021 г.</p>
+  <p>https://biozona.ru - 2021 г.</p>
 </div>

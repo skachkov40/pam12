@@ -9,8 +9,8 @@ import { FileLoadService } from '../../services/fileLoad.service';
 })
 export class ReadmsgComponent implements OnInit {
 
-  @Input() read!:MsgRead[];
-  @Input() srv!:MsgRead[];
+  @Input() read_u!:MsgRead[];
+  @Input() srv_u!:MsgRead[];
   @Output() onChanged = new EventEmitter();
 
   showCard:boolean = true;
@@ -18,10 +18,10 @@ export class ReadmsgComponent implements OnInit {
 
   constructor(
     private fileLoadService:FileLoadService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    
+    //
   }
 
   clickFile(id_blob:string, pkol:string, name:string, last:string){

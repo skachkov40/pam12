@@ -29,7 +29,7 @@ import { OtchetComponent } from './otchet/otchet.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { DataService } from './services/data.service';
 import { NewpostComponent } from './start/newpost/newpost.component';
-import { CompressorService } from './services/compressor.service';
+
 
 @NgModule({
   declarations: [					
@@ -67,7 +67,7 @@ import { CompressorService } from './services/compressor.service';
     FileUploadService,
     FileLoadService,
     DataService,
-    CompressorService
+    
   ],
   bootstrap: [AppComponent]
 })

@@ -140,9 +140,7 @@ p {
         font-size: 15px;
         color: rgb(161, 161, 161);
     }
-    .clickRowColor {
-        background-color: rgb(230, 230, 230);
-    }
+    
     .msgread{
         position: absolute;
         top:0;
@@ -249,9 +247,6 @@ p {
         font-size: 10px;
         color: rgb(161, 161, 161);
     }
-    .clickRowColor {
-        background-color: rgb(230, 230, 230);
-    }
     .msgread{
         position: absolute;
         top:0;
@@ -269,3 +264,9 @@ p {
 
 }
 
+.clickRowColorIn {
+    background-color: rgb(230, 230, 230);
+}
+.clickRowColorOut {
+    background-color: rgb(230, 230, 230);
+}

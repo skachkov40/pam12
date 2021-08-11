@@ -6,11 +6,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MsggetService {
 
+  path:any = "http://10.1.0.128/get.php"
+//path = "/aut.php"
+
   constructor(private http:HttpClient) {}
 
 
 getMessages (formData: FormData){
-  return this.http.post('http://10.1.0.128/get.php', formData)
+  return this.http.post(this.path, formData)
 
   
   

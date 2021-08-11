@@ -3,14 +3,14 @@
       <button class="backltr" mat-mini-fab (click)="Cancel()" title="Назад">
           <mat-icon>keyboard_backspace</mat-icon>
         </button>
-      <a>{{srv[0]?.name2}}</a>
-      <button class="answbtn" mat-button (click)="Answer(srv[0]?.name2)">Ответить</button>
+      <a>{{srv_u[0]?.name2}}</a>
+      <button class="answbtn" mat-button (click)="Answer(srv_u[0]?.name2)">Ответить</button>
   </mat-card-actions>
   <mat-card-content class="card-content">
       <hr class="hr-shelf">
       <div class="lifiles">
           <ul>
-              <li *ngFor="let pos of read; let i=index">
+              <li *ngFor="let pos of read_u; let i=index">
                   <p *ngIf="pos?.name7=='1'" class="msginfo">{{pos?.name3}}</p>
                   <p *ngIf="pos?.name7=='1'" class="msgtext">{{pos?.name2}}</p>
               </li>
@@ -18,7 +18,7 @@
       </div>
       
       <div class="fileadd">
-          <div class="block" *ngFor="let pos of read; let i=index">
+          <div class="block" *ngFor="let pos of read_u; let i=index">
               
               <span>
                   <p *ngIf="pos?.name7=='2'" class="fileinfo" 

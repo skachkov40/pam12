@@ -78,21 +78,7 @@ export class EnterComponent implements OnInit {
           this.log = this.autent[0]?.name6;
           this.name = this.autent[0]?.name2;
         });
-          this.interv = setInterval (()=> {
-            var l4 = (this.nowData.length.toString().padStart(4, "0"))+this.nowData;
-            var newparam = this.l3+"0001-";
-            const formData : FormData = new FormData();
-            formData.append('ss', this.autent[0]?.name6);
-            formData.append('par', newparam);
-            formData.append('kp', "7700791");
-            this.getmsg.getMessages(formData).subscribe((data:any) =>{
-              this.srv2=data["Service"];
-              if (this.srv2[0].name1 == "1") {this.ev2 = "!"} else {this.ev2 = ""};
-              console.log("Цикл : "+this.srv2[0].name1+ " ev2 = "+this.ev2);
-              sessionStorage.setItem ('ev2', this.ev2);
-              this.data.sendData(this.autent[0]?.name1,this.autent[0]?.name6, this.autent[0]?.name2, this.ev1, this.ev2);
-            });
-          }, 10000);
+          this.timer();
           this.router.navigate(['lenta']);
         } else {
           this.username = "";
@@ -110,6 +96,24 @@ export class EnterComponent implements OnInit {
       this.meta.updateTag({name: "description", content: "Рабочий портал компании. Авторизация"});
       this.meta.updateTag({name: "image", content: "./assets/img/pam_gaz.jpg"});
       this.meta.updateTag({name: "site", content: "https://biozona.ru"});
+    }
+  
+    timer () {
+      this.interv = setInterval (()=> {
+        var l4 = (this.nowData.length.toString().padStart(4, "0"))+this.nowData;
+        var newparam = this.l3+"0001-";
+        const formData : FormData = new FormData();
+        formData.append('ss', this.autent[0]?.name6);
+        formData.append('par', newparam);
+        formData.append('kp', "7700791");
+        this.getmsg.getMessages(formData).subscribe((data:any) =>{
+          this.srv2=data["Service"];
+          if (this.srv2[0].name1 == "1") {this.ev2 = "!"} else {this.ev2 = ""};
+          console.log("Цикл : "+this.srv2[0].name1+ " ev2 = "+this.ev2);
+          sessionStorage.setItem ('ev2', this.ev2);
+          this.data.sendData(this.autent[0]?.name1,this.autent[0]?.name6, this.autent[0]?.name2, this.ev1, this.ev2);
+        });
+      }, 10000);
     }
   
 }
